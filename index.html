@@ -1,0 +1,140 @@
+ 
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>10ngbrand</title>
+        
+        <style>
+
+            .wrapper{
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                grid-gap: 1em;
+                justify-items: center;
+                
+            }
+        
+            .wrapper > div{
+                background-color: #eee;
+                padding: 1em;
+            }
+            .wrapper > div:nth-child(odd){
+                background-color: #ddd;
+            }
+
+            .Sidhuvud{
+                grid-column: 1/3;
+                display: grid;
+                grid-template-columns: 1fr 4fr 1fr;
+                justify-items: center;
+            }
+            
+            table {
+                /* min-width: 10cm;
+                max-width: 20cm;
+                margin-top: 5px;
+                margin-bottom: 5px;*/
+                }
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+            th, td {
+                padding: 5px;
+                text-align: left;
+                }
+            table#t01 tr:nth-child(even) {
+                background-color: #eee;
+                }
+            table#t01 tr:nth-child(odd) {
+                background-color: #fff;
+                }
+            table#t01 th {
+                background-color: black;
+                color: white;
+                }
+            
+            page[size="A4"] {
+                width: 21cm;
+                height: 29.7cm;
+                display: block;
+                margin: 0 auto;
+                margin-bottom: 0.5cm;
+                box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+                padding: 0.3cm;
+                }
+            @media print {
+                body, page[size="A4"] {
+                    margin: 0;
+                    box-shadow: none;
+                    margin-bottom: 0;
+                    page-break-inside: avoid;
+                    }
+                }
+        
+        </style>
+    </head>
+    <body>
+    
+        <page size="A4">
+            <div class="wrapper">
+                <div class="Sidhuvud">
+                    <div>
+                        Lorem, ipsum dolor.
+                    </div>
+                    <div>
+                            Lorem, ipsum dolor.
+                    </div>
+                    <div>
+                        Lorem, ipsum dolor.
+                    </div>
+                </div>
+                <div>
+                    <h3>Ägoslagsfördelning</h3>
+                    <table id="t01">
+                        <tr>
+                            <th>Ägoslag</th>
+                            <th>Areal</th>
+                            <th>Volym</th>
+                        </tr>
+                        <tr>
+                            <td>Skogsmark</td>
+                            <td>48</td>
+                            <td>773</td>
+                        </tr>
+                        <tr>
+                            <td>Åker</td>
+                            <td>7</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Vatten</td>
+                            <td>17</td>
+                            <td>0</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla et voluptatibus esse atque officiis quae, quas omnis ullam ducimus itaque voluptates reprehenderit dignissimos quos cum eum quia excepturi cumque quibusdam.
+                </div>
+                <div>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla et voluptatibus esse atque officiis quae, quas omnis ullam ducimus itaque voluptates reprehenderit dignissimos quos cum eum quia excepturi cumque quibusdam.
+                </div>
+                <div>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos tempora est reprehenderit eius exercitationem soluta quisquam itaque quasi consequatur.
+                </div>
+            </div>
+        </page>
+        <page size="A4">
+            <div class="wrapper">
+                <div>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus quasi unde asperiores modi nulla mollitia!</p>
+                </div>
+                <div>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores reiciendis dicta ipsa id possimus perferendis at minima amet ab voluptas. Incidunt molestias soluta voluptas obcaecati repellat sit molestiae labore, repellendus vitae odio magni. Dicta, mollitia quo eos sint nesciunt necessitatibus amet neque eveniet quas!
+                </div>
+            </div>
+        </page>
+    </body>
+</html>
