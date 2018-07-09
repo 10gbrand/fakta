@@ -28,36 +28,52 @@
     </head>
 
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron">
+                    <div>
+                        <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                    </div>
+                    <div>
+                        <h1 align="center">Planeringsunderlag försäljning</h1>
+                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
+                    </div>
+                </div>
+                <div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">
             <div class="col">
-                <table class="report-container table-bordered table-striped" id="avdTabell">
+                <table class="report-container table-striped" id="avdTabell">
                     <thead class="report-header">
                         <tr>
                             <div class="report-header-cell">
                                 <div class="header-info">
                                     <tr>
                                         <th colspan="16">
-                                            <div>
+                                            <div class="jumbotron">
                                                 <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
-                                            </div>
-                                            <div>
                                                 <h1 align="center">Planeringsunderlag försäljning</h1>
                                                 <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
                                             </div>
-                                            
                                         </th>
                                     </tr>
-                                    <tr>
-                                        <th colspan="2" style="text-align:center";>Avd</th>
-                                        <th colspan="2" style="text-align:center";></th>
-                                        <th colspan="2" style="text-align:center";>Areal, ha</th>
-                                        <th colspan="4" style="text-align:center";></th>
-                                        <th colspan="5" style="text-align:center";>m3sk/ha</th>
-                                        <th></th>
+                                    
+                                    <tr class="table table-bordered">
+                                        <th colspan="2">Avd</th>
+                                        <th colspan="2"></th>
+                                        <th colspan="2">Areal, ha</th>
+                                        <th colspan="4">m3sk/ha</th>
+                                        <!--<th colspan="6"></th>-->
                                     </tr>
-                                    <tr>
+                                    
+                                    <tr class="table table-bordered">
                                         <th>Nr</th>
                                         <th>Beteckning</th>
                                         <th>Ägoslag</th>
@@ -68,12 +84,12 @@
                                         <th>SI</th>
                                         <th>TGBÖ</th>
                                         <th>Volym/ Avd</th>
-                                        <th>Tot</th>
+                                        <!--<th>Tot</th>
                                         <th>Tall</th>
                                         <th>Gran</th>
                                         <th>Björk</th>
                                         <th>Övrigt</th>
-                                        <th>Hkl</th>
+                                        <th>Hkl</th>-->
                                     </tr>
                                 </div>
                             </div>
@@ -110,26 +126,42 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <table class="report-container table-bordered table-striped" id="tradTabell">
+                <table class="report-container table-striped" id="tradTabell">
                     <thead class="report-header">
                         <tr>
                             <div class="report-header-cell">
                                 <div class="header-info">
-                                    <th>Nr</th>
-                                    <th>Skikt</th>
-                                    <th>Trädslag</th>
-                                    <th>Målklass</th>
-                                    <th>Netto</th>
-                                    <th>Avdrag</th>
-                                    <th>Ålder</th>
-                                    <th>SI</th>
-                                    <th>TGBÖ</th>
-                                    <th>Volym/ Avd</th>
-                                    <th>Tot</th>
-                                    <th>Tall</th>
-                                    <th>Gran</th>
-                                    <th>Björk</th>
-                                    <th>Övrigt</th>
+                                    <tr>
+                                        <th colspan="14">
+                                            <div class="jumbotron">
+                                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                                                <h1 align="center">Planeringsunderlag försäljning</h1>
+                                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
+                                            </div>                                           
+                                        </th>
+                                    </tr>
+                                    <tr class="table table-bordered">
+                                        <th>Avd</th>
+                                        <th colspan="3">Trädskikt</th>
+                                        <th colspan="2">m3sk per</th>
+                                        <th colspan="9"></th>
+                                    </tr>
+                                    <tr class="table table-bordered">
+                                        <th>Nr</th>
+                                        <th>Typ</th>
+                                        <th>Trsl</th>
+                                        <th>Ålder</th>
+                                        <th>Ha</th>
+                                        <th>Avd</th>
+                                        <th>Gy</th>
+                                        <th>DGv</th>
+                                        <th>HGv</th>
+                                        <th>St/Ha</th>
+                                        <th>Andel</th>
+                                        <th>Ha</th>
+                                        <th>Målklass</th>
+                                        <th>Hkl</th>
+                                    </tr>
                                 </div>
                             </div>
                         </tr>
@@ -162,1084 +194,7 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <table class="report-container table-bordered table-striped">
-                    <thead class="report-header">
-                        <tr>
-                            <div class="report-header-cell">
-                                <div class="header-info">
-                                    <th>Nr</th>
-                                    <th>Skikt</th>
-                                    <th>Trädslag</th>
-                                    <th>Målklass</th>
-                                    <th>Netto</th>
-                                    <th>Avdrag</th>
-                                    <th>Ålder</th>
-                                    <th>SI</th>
-                                    <th>TGBÖ</th>
-                                    <th>Volym/ Avd</th>
-                                    <th>Tot</th>
-                                    <th>Tall</th>
-                                    <th>Gran</th>
-                                    <th>Björk</th>
-                                    <th>Övrigt</th>
-                                </div>
-                            </div>
-                        </tr>
-                    </thead>
-                    <tfoot class="report-footer">
-                        <tr>
-                            <div class="report-footer-cell">
-                                <div class="footer-info">
-                                    <td colspan="16">
-                                        <p>
-                                            En beskrivning av något annat
-                                            Voluptate cumque ab sit veritatis repellat fugiat tempore error esse, inventore soluta autem, delectus repudiandae? Temporibus magnam possimus voluptatem in, blanditiis quis!
-                                        </p>
-                                    </td>
-                                </div>
-                            </div>
-                        </tr>
-                    </tfoot>
-                    <tbody class="report-content">
-                        <tr>
-                            <td class="report-content-cell">
-                                <div class="main">
-                                            <tr>
-                                            <td>137</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>127</td>
-                                            <td>140</td>
-                                            <td>2716</td>
-                                            <td>17.1</td>
-                                            <td>29.1</td>
-                                            <td>18.9</td>
-                                            <td>300</td>
-                                            <td>18.9</td>
-                                            <td>72.2</td>
-                                            <td>19.4</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>137</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>127</td>
-                                            <td>13.2</td>
-                                            <td>256.1</td>
-                                            <td>2.3</td>
-                                            <td>14.9</td>
-                                            <td>13.6</td>
-                                            <td>82</td>
-                                            <td>13.6</td>
-                                            <td>6.8</td>
-                                            <td>19.4</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>137</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>127</td>
-                                            <td>40.8</td>
-                                            <td>791.5</td>
-                                            <td>5.7</td>
-                                            <td>24.6</td>
-                                            <td>17.3</td>
-                                            <td>98</td>
-                                            <td>17.3</td>
-                                            <td>21</td>
-                                            <td>19.4</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>139</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>153</td>
-                                            <td>4.4</td>
-                                            <td>0</td>
-                                            <td>0.6</td>
-                                            <td>19.6</td>
-                                            <td>13.5</td>
-                                            <td>39</td>
-                                            <td>13.5</td>
-                                            <td>2.6</td>
-                                            <td>0</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>139</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>153</td>
-                                            <td>129</td>
-                                            <td>0</td>
-                                            <td>16.8</td>
-                                            <td>30.8</td>
-                                            <td>14.3</td>
-                                            <td>489</td>
-                                            <td>14.3</td>
-                                            <td>78.4</td>
-                                            <td>0</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>139</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>153</td>
-                                            <td>31.1</td>
-                                            <td>0</td>
-                                            <td>4.2</td>
-                                            <td>27</td>
-                                            <td>14.5</td>
-                                            <td>86</td>
-                                            <td>14.5</td>
-                                            <td>18.9</td>
-                                            <td>0</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>140</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>139</td>
-                                            <td>11</td>
-                                            <td>147.4</td>
-                                            <td>1.6</td>
-                                            <td>24.5</td>
-                                            <td>15.3</td>
-                                            <td>33</td>
-                                            <td>15.3</td>
-                                            <td>4.3</td>
-                                            <td>13.4</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>140</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>139</td>
-                                            <td>1.4</td>
-                                            <td>18.8</td>
-                                            <td>0.3</td>
-                                            <td>16.9</td>
-                                            <td>8.1</td>
-                                            <td>17</td>
-                                            <td>8.1</td>
-                                            <td>0.5</td>
-                                            <td>13.4</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>140</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>139</td>
-                                            <td>246.4</td>
-                                            <td>3301.8</td>
-                                            <td>31.2</td>
-                                            <td>28.4</td>
-                                            <td>16.6</td>
-                                            <td>817</td>
-                                            <td>16.6</td>
-                                            <td>95.2</td>
-                                            <td>13.4</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>141</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>114</td>
-                                            <td>44.5</td>
-                                            <td>703.1</td>
-                                            <td>5.1</td>
-                                            <td>26.8</td>
-                                            <td>17.1</td>
-                                            <td>68</td>
-                                            <td>17.1</td>
-                                            <td>31.5</td>
-                                            <td>15.8</td>
-                                            <td>PG</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>141</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>114</td>
-                                            <td>18.4</td>
-                                            <td>290.7</td>
-                                            <td>3.3</td>
-                                            <td>19</td>
-                                            <td>12.3</td>
-                                            <td>153</td>
-                                            <td>12.3</td>
-                                            <td>13</td>
-                                            <td>15.8</td>
-                                            <td>PG</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>141</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>114</td>
-                                            <td>78.6</td>
-                                            <td>1241.9</td>
-                                            <td>11.3</td>
-                                            <td>21.8</td>
-                                            <td>14.4</td>
-                                            <td>426</td>
-                                            <td>14.4</td>
-                                            <td>55.5</td>
-                                            <td>15.8</td>
-                                            <td>PG</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>142</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>25</td>
-                                            <td>5.9</td>
-                                            <td>15.3</td>
-                                            <td>2.1</td>
-                                            <td>8.9</td>
-                                            <td>5.6</td>
-                                            <td>388</td>
-                                            <td>5.6</td>
-                                            <td>9.5</td>
-                                            <td>2.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>142</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>25</td>
-                                            <td>52.4</td>
-                                            <td>136.2</td>
-                                            <td>12</td>
-                                            <td>11</td>
-                                            <td>9.6</td>
-                                            <td>1261</td>
-                                            <td>9.6</td>
-                                            <td>84.2</td>
-                                            <td>2.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>142</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>25</td>
-                                            <td>3.9</td>
-                                            <td>10.1</td>
-                                            <td>1.1</td>
-                                            <td>9</td>
-                                            <td>8.5</td>
-                                            <td>194</td>
-                                            <td>8.5</td>
-                                            <td>6.3</td>
-                                            <td>2.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>143</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>122</td>
-                                            <td>260</td>
-                                            <td>4368</td>
-                                            <td>29</td>
-                                            <td>28.5</td>
-                                            <td>19.2</td>
-                                            <td>537</td>
-                                            <td>19.2</td>
-                                            <td>95.3</td>
-                                            <td>16.8</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>143</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>122</td>
-                                            <td>9</td>
-                                            <td>151.2</td>
-                                            <td>1.1</td>
-                                            <td>24.7</td>
-                                            <td>18.2</td>
-                                            <td>29</td>
-                                            <td>18.2</td>
-                                            <td>3.3</td>
-                                            <td>16.8</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>143</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>122</td>
-                                            <td>3.8</td>
-                                            <td>63.8</td>
-                                            <td>0.5</td>
-                                            <td>23.2</td>
-                                            <td>17.4</td>
-                                            <td>16</td>
-                                            <td>17.4</td>
-                                            <td>1.4</td>
-                                            <td>16.8</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>150</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>122</td>
-                                            <td>93.7</td>
-                                            <td>0</td>
-                                            <td>12.4</td>
-                                            <td>29.8</td>
-                                            <td>15.7</td>
-                                            <td>300</td>
-                                            <td>15.7</td>
-                                            <td>52.8</td>
-                                            <td>0</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>150</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>122</td>
-                                            <td>83.6</td>
-                                            <td>0</td>
-                                            <td>13.7</td>
-                                            <td>19.7</td>
-                                            <td>12.8</td>
-                                            <td>69</td>
-                                            <td>12.8</td>
-                                            <td>47.2</td>
-                                            <td>0</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>151</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>24</td>
-                                            <td>5</td>
-                                            <td>140.5</td>
-                                            <td>1.2</td>
-                                            <td>7.9</td>
-                                            <td>8.3</td>
-                                            <td>300</td>
-                                            <td>8.3</td>
-                                            <td>12.3</td>
-                                            <td>28.1</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>151</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>24</td>
-                                            <td>31.7</td>
-                                            <td>890.8</td>
-                                            <td>6.7</td>
-                                            <td>7.9</td>
-                                            <td>8.3</td>
-                                            <td>1700</td>
-                                            <td>8.3</td>
-                                            <td>78.6</td>
-                                            <td>28.1</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>151</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>24</td>
-                                            <td>3.7</td>
-                                            <td>104</td>
-                                            <td>0.8</td>
-                                            <td>7.8</td>
-                                            <td>8.4</td>
-                                            <td>200</td>
-                                            <td>8.4</td>
-                                            <td>9.1</td>
-                                            <td>28.1</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>152</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>122</td>
-                                            <td>149.4</td>
-                                            <td>717.1</td>
-                                            <td>12.4</td>
-                                            <td>27.1</td>
-                                            <td>16.7</td>
-                                            <td>255</td>
-                                            <td>16.7</td>
-                                            <td>86.7</td>
-                                            <td>4.8</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>152</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>122</td>
-                                            <td>15.7</td>
-                                            <td>75.4</td>
-                                            <td>1.6</td>
-                                            <td>20</td>
-                                            <td>13.8</td>
-                                            <td>56</td>
-                                            <td>13.8</td>
-                                            <td>9.1</td>
-                                            <td>4.8</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>152</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>122</td>
-                                            <td>7.2</td>
-                                            <td>34.6</td>
-                                            <td>0.9</td>
-                                            <td>15.9</td>
-                                            <td>12.1</td>
-                                            <td>51</td>
-                                            <td>12.1</td>
-                                            <td>4.2</td>
-                                            <td>4.8</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>155</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>122</td>
-                                            <td>6.7</td>
-                                            <td>6.7</td>
-                                            <td>0.9</td>
-                                            <td>15.8</td>
-                                            <td>11.2</td>
-                                            <td>36</td>
-                                            <td>11.2</td>
-                                            <td>9.1</td>
-                                            <td>1</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>155</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>122</td>
-                                            <td>63.7</td>
-                                            <td>63.7</td>
-                                            <td>7.1</td>
-                                            <td>21.4</td>
-                                            <td>13.5</td>
-                                            <td>164</td>
-                                            <td>13.5</td>
-                                            <td>86.6</td>
-                                            <td>1</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>155</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>122</td>
-                                            <td>3.1</td>
-                                            <td>3.1</td>
-                                            <td>0.5</td>
-                                            <td>12.6</td>
-                                            <td>9.8</td>
-                                            <td>33</td>
-                                            <td>9.8</td>
-                                            <td>4.2</td>
-                                            <td>1</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>156</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>126</td>
-                                            <td>189.1</td>
-                                            <td>321.5</td>
-                                            <td>22.3</td>
-                                            <td>29.1</td>
-                                            <td>18</td>
-                                            <td>638</td>
-                                            <td>18</td>
-                                            <td>77.4</td>
-                                            <td>1.7</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>156</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>126</td>
-                                            <td>25.9</td>
-                                            <td>44</td>
-                                            <td>3.2</td>
-                                            <td>21.1</td>
-                                            <td>18.4</td>
-                                            <td>138</td>
-                                            <td>18.4</td>
-                                            <td>10.6</td>
-                                            <td>1.7</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>156</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>126</td>
-                                            <td>29.2</td>
-                                            <td>49.6</td>
-                                            <td>3.5</td>
-                                            <td>21.2</td>
-                                            <td>17</td>
-                                            <td>125</td>
-                                            <td>17</td>
-                                            <td>12</td>
-                                            <td>1.7</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>155</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>122</td>
-                                            <td>6.7</td>
-                                            <td>6.7</td>
-                                            <td>0.9</td>
-                                            <td>15.8</td>
-                                            <td>11.2</td>
-                                            <td>36</td>
-                                            <td>11.2</td>
-                                            <td>9.1</td>
-                                            <td>1</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>155</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>122</td>
-                                            <td>63.7</td>
-                                            <td>63.7</td>
-                                            <td>7.1</td>
-                                            <td>21.4</td>
-                                            <td>13.5</td>
-                                            <td>164</td>
-                                            <td>13.5</td>
-                                            <td>86.6</td>
-                                            <td>1</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>155</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>122</td>
-                                            <td>3.1</td>
-                                            <td>3.1</td>
-                                            <td>0.5</td>
-                                            <td>12.6</td>
-                                            <td>9.8</td>
-                                            <td>33</td>
-                                            <td>9.8</td>
-                                            <td>4.2</td>
-                                            <td>1</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>156</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>126</td>
-                                            <td>189.1</td>
-                                            <td>321.5</td>
-                                            <td>22.3</td>
-                                            <td>29.1</td>
-                                            <td>18</td>
-                                            <td>638</td>
-                                            <td>18</td>
-                                            <td>77.4</td>
-                                            <td>1.7</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>156</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>126</td>
-                                            <td>25.9</td>
-                                            <td>44</td>
-                                            <td>3.2</td>
-                                            <td>21.1</td>
-                                            <td>18.4</td>
-                                            <td>138</td>
-                                            <td>18.4</td>
-                                            <td>10.6</td>
-                                            <td>1.7</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>156</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>126</td>
-                                            <td>29.2</td>
-                                            <td>49.6</td>
-                                            <td>3.5</td>
-                                            <td>21.2</td>
-                                            <td>17</td>
-                                            <td>125</td>
-                                            <td>17</td>
-                                            <td>12</td>
-                                            <td>1.7</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>157</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>25</td>
-                                            <td>3.3</td>
-                                            <td>18.5</td>
-                                            <td>0.9</td>
-                                            <td>8.7</td>
-                                            <td>7.7</td>
-                                            <td>200</td>
-                                            <td>7.7</td>
-                                            <td>7</td>
-                                            <td>5.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>157</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>25</td>
-                                            <td>2.9</td>
-                                            <td>16.2</td>
-                                            <td>1</td>
-                                            <td>9</td>
-                                            <td>5.6</td>
-                                            <td>200</td>
-                                            <td>5.6</td>
-                                            <td>6.1</td>
-                                            <td>5.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>157</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>25</td>
-                                            <td>40.7</td>
-                                            <td>227.9</td>
-                                            <td>9.3</td>
-                                            <td>9.9</td>
-                                            <td>7.8</td>
-                                            <td>1500</td>
-                                            <td>7.8</td>
-                                            <td>86.9</td>
-                                            <td>5.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>157</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>25</td>
-                                            <td>3.3</td>
-                                            <td>18.5</td>
-                                            <td>0.9</td>
-                                            <td>8.7</td>
-                                            <td>7.7</td>
-                                            <td>200</td>
-                                            <td>7.7</td>
-                                            <td>7</td>
-                                            <td>5.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>157</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>25</td>
-                                            <td>2.9</td>
-                                            <td>16.2</td>
-                                            <td>1</td>
-                                            <td>9</td>
-                                            <td>5.6</td>
-                                            <td>200</td>
-                                            <td>5.6</td>
-                                            <td>6.1</td>
-                                            <td>5.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>157</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>25</td>
-                                            <td>40.7</td>
-                                            <td>227.9</td>
-                                            <td>9.3</td>
-                                            <td>9.9</td>
-                                            <td>7.8</td>
-                                            <td>1500</td>
-                                            <td>7.8</td>
-                                            <td>86.9</td>
-                                            <td>5.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>155</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>122</td>
-                                            <td>6.7</td>
-                                            <td>6.7</td>
-                                            <td>0.9</td>
-                                            <td>15.8</td>
-                                            <td>11.2</td>
-                                            <td>36</td>
-                                            <td>11.2</td>
-                                            <td>9.1</td>
-                                            <td>1</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>155</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>122</td>
-                                            <td>63.7</td>
-                                            <td>63.7</td>
-                                            <td>7.1</td>
-                                            <td>21.4</td>
-                                            <td>13.5</td>
-                                            <td>164</td>
-                                            <td>13.5</td>
-                                            <td>86.6</td>
-                                            <td>1</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>155</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>122</td>
-                                            <td>3.1</td>
-                                            <td>3.1</td>
-                                            <td>0.5</td>
-                                            <td>12.6</td>
-                                            <td>9.8</td>
-                                            <td>33</td>
-                                            <td>9.8</td>
-                                            <td>4.2</td>
-                                            <td>1</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>156</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>126</td>
-                                            <td>189.1</td>
-                                            <td>321.5</td>
-                                            <td>22.3</td>
-                                            <td>29.1</td>
-                                            <td>18</td>
-                                            <td>638</td>
-                                            <td>18</td>
-                                            <td>77.4</td>
-                                            <td>1.7</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>156</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>126</td>
-                                            <td>25.9</td>
-                                            <td>44</td>
-                                            <td>3.2</td>
-                                            <td>21.1</td>
-                                            <td>18.4</td>
-                                            <td>138</td>
-                                            <td>18.4</td>
-                                            <td>10.6</td>
-                                            <td>1.7</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>156</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>126</td>
-                                            <td>29.2</td>
-                                            <td>49.6</td>
-                                            <td>3.5</td>
-                                            <td>21.2</td>
-                                            <td>17</td>
-                                            <td>125</td>
-                                            <td>17</td>
-                                            <td>12</td>
-                                            <td>1.7</td>
-                                            <td>NO</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>157</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>25</td>
-                                            <td>3.3</td>
-                                            <td>18.5</td>
-                                            <td>0.9</td>
-                                            <td>8.7</td>
-                                            <td>7.7</td>
-                                            <td>200</td>
-                                            <td>7.7</td>
-                                            <td>7</td>
-                                            <td>5.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>157</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>25</td>
-                                            <td>2.9</td>
-                                            <td>16.2</td>
-                                            <td>1</td>
-                                            <td>9</td>
-                                            <td>5.6</td>
-                                            <td>200</td>
-                                            <td>5.6</td>
-                                            <td>6.1</td>
-                                            <td>5.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>157</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>25</td>
-                                            <td>40.7</td>
-                                            <td>227.9</td>
-                                            <td>9.3</td>
-                                            <td>9.9</td>
-                                            <td>7.8</td>
-                                            <td>1500</td>
-                                            <td>7.8</td>
-                                            <td>86.9</td>
-                                            <td>5.6</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>159</td>
-                                            <td>Produktion</td>
-                                            <td>Björk</td>
-                                            <td>122</td>
-                                            <td>3.3</td>
-                                            <td>9.2</td>
-                                            <td>0.5</td>
-                                            <td>15.2</td>
-                                            <td>14</td>
-                                            <td>37</td>
-                                            <td>14</td>
-                                            <td>1.7</td>
-                                            <td>2.8</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>159</td>
-                                            <td>Produktion</td>
-                                            <td>Gran</td>
-                                            <td>122</td>
-                                            <td>82.9</td>
-                                            <td>232.1</td>
-                                            <td>10.4</td>
-                                            <td>18.4</td>
-                                            <td>15.9</td>
-                                            <td>519</td>
-                                            <td>15.9</td>
-                                            <td>42.4</td>
-                                            <td>2.8</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>159</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>122</td>
-                                            <td>109.1</td>
-                                            <td>305.5</td>
-                                            <td>13.2</td>
-                                            <td>27.2</td>
-                                            <td>17.4</td>
-                                            <td>227</td>
-                                            <td>17.4</td>
-                                            <td>55.9</td>
-                                            <td>2.8</td>
-                                            <td>PF</td>
-                                            <td>S1</td>
-                                            </tr>
-                            
-                                            <tr>
-                                            <td>167</td>
-                                            <td>Produktion</td>
-                                            <td>Tall</td>
-                                            <td>54</td>
-                                            <td>101.2</td>
-                                            <td>30.4</td>
-                                            <td>21</td>
-                                            <td>13.3</td>
-                                            <td>9</td>
-                                            <td>1776</td>
-                                            <td>9</td>
-                                            <td>100</td>
-                                            <td>0.3</td>
-                                            <td>PG</td>
-                                            <td>G1</td>
-                                            </tr>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+
 
 
     <script>
@@ -1264,16 +219,19 @@
                 avd_data += '<td>' +value.SI+ '</td>';
                 avd_data += '<td>' +value.TGBÖ+ '</td>';
                 avd_data += '<td>' +value.VolymSkogPerAvdelning+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaTot+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaTall+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaGran+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaBjörk+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaÖvrigt+ '</td>';
-                avd_data += '<td>' +value.Huggningsklass+ '</td>';
-                avd_data += '</tr>';
+                //avd_data += '<td>' +value.VolymSkogPerHaTot+ '</td>';
+                //avd_data += '<td>' +value.VolymSkogPerHaTall+ '</td>';
+                //avd_data += '<td>' +value.VolymSkogPerHaGran+ '</td>';
+                //avd_data += '<td>' +value.VolymSkogPerHaBjörk+ '</td>';
+                //avd_data += '<td>' +value.VolymSkogPerHaÖvrigt+ '</td>';
+                //avd_data += '<td>' +value.Huggningsklass+ '</td>';
+                //avd_data += '</tr>';
                 //console.log(value.Trad);
                 var trad = value.Trad;
                 var avdLopnr = value.Lopnummer;
+                var avdNettoareal = value.Nettoarel;
+                var avdMalklass = value.Malklass;
+                var avdHuggningsklass = value.Huggningsklass;
                 $.each(trad, function(key, value){
                     //console.log(value);
                     //console.log(avdLopnr);
@@ -1281,6 +239,17 @@
                     trad_data += '<td>' +avdLopnr+ '</td>';
                     trad_data += '<td>' +value.Tradskikt_Typ+ '</td>';
                     trad_data += '<td>' +value.Tradslag+ '</td>';
+                    trad_data += '<td>' +value.Alder+ '</td>';
+                    trad_data += '<td>' +value.VolymSkogPerHa+ '</td>';
+                    trad_data += '<td>' +value.VolymSkogPerAvdelning+ '</td>';
+                    trad_data += '<td>' +value.Grundyta+ '</td>';
+                    trad_data += '<td>' +value.DiameterGv+ '</td>';
+                    trad_data += '<td>' +value.HojdGv+ '</td>';
+                    trad_data += '<td>' +value.StammarPerHa+ '</td>';
+                    trad_data += '<td>' +value.Andel+ '</td>';
+                    trad_data += '<td>' +avdNettoareal+ '</td>';
+                    trad_data += '<td>' +avdMalklass+ '</td>';
+                    trad_data += '<td>' +avdHuggningsklass+ '</td>';
                     trad_data += '</tr>';
                 });
             });
