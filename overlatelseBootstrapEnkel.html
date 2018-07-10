@@ -49,7 +49,20 @@
                 </div>
                 <div>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
-                    <canvas id="agoslagChart"></canvas>
+                    <div class="row">
+                        <div class="col-4 d-flex align-items-center justify-content-center">
+                            <table class="table-striped" id="agoslagTabell">
+                                <tr>
+                                    <th>Ägoslag</th>
+                                    <th>Areal</th>
+                                </tr>
+
+                            </table>                        
+                        </div>
+                        <div class="col d-flex align-items-center justify-content-center">
+                            <canvas id="agoslagChart"></canvas>    
+                        </div>
+                    </div>
                     <canvas id="hklassChart"></canvas>
                 </div>
             </div>
@@ -306,10 +319,18 @@
                 //Ägoslagsdiagram
                 var list = [];
                 var varde = [];
+                var tabell = '';
                 $.each(stat, function(key, value){
                     list.push(value.Agoslag);
                     varde.push(value.Areal);
+                    //till tabell
+                    tabell += '<tr>';
+                    tabell += '<td>' +value.Agoslag+ '</td>'
+                    tabell += '<td>' +value.Areal+ '</td>'
+                    tabell += '</tr>';
+
                 });
+                $('#agoslagTabell').append(tabell);
                 var colorAgo = ["#d5d5d5","#a8a8a8","#aa5500","#ffffff","#0055ff"]
                 var ctx = document.getElementById(htmlCanvas);
                 var myChart = new Chart(ctx, {
