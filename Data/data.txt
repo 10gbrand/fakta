@@ -8,71 +8,27 @@
    "AgoslagStat" : [
       {
          "Agoslag" : "Annan mark",
-         "Areal" : "21.1",
-         "FillColor" : "#d5d5d5"
+         "Areal" : "21.1"
       },
       {
          "Agoslag" : "Berg",
-         "Areal" : "1.1",
-         "FillColor" : "#a8a8a8"
+         "Areal" : "1.1"
       },
       {
          "Agoslag" : "Myr",
-         "Areal" : "157.3",
-         "FillColor" : "#aa5500"
+         "Areal" : "157.3"
       },
       {
          "Agoslag" : "Skogsmark",
-         "Areal" : "955.7",
-         "FillColor" : "#ffffff"
+         "Areal" : "955.7"
       },
       {
          "Agoslag" : "Vatten",
-         "Areal" : "168.9",
-         "FillColor" : "#0055ff"
+         "Areal" : "168.9"
       },
       {
          "Agoslag" : "Åker",
-         "Areal" : "0.1",
-         "FillColor" : "#ffff00"
-      }
-   ],
-   "HklStat" : [
-      {
-         "Huggningsklass" : "Saknar Hkl",
-         "Areal" : "0.4",
-         "Volym" : "0",
-         "FillColor" : "#000000"
-      },
-      {
-         "Huggningsklass" : "K2",
-         "Areal" : "45.0",
-         "Volym" : "151.8",
-         "FillColor" : "#f48341"
-      },
-      {
-         "Huggningsklass" : "R1",
-         "Areal" : "20.7",
-         "Volym" : "77.9",
-         "FillColor" : "#41f443"
-      },
-      {
-         "Huggningsklass" : "R2",
-         "Areal" : "221.9",
-         "Volym" : "6839.8",
-         "FillColor" : "#2daf6c"
-      },
-      {
-         "Huggningsklass" : "G1",
-         "Areal" : "580.5",
-         "Volym" : "88901.4",
-         "FillColor" : "#41d0fc"
-      },
-      {
-         "Huggningsklass" : "S1",
-         "Areal" : "87.2",
-         "Volym" : "19994.3",
-         "FillColor" : "#f23c7f"
+         "Areal" : "0.1"
       }
    ],
    "Avd" : [
@@ -385,7 +341,7 @@
          "Agoslag" : "Skogsmark",
          "Malklass" : "PG",
          "Nettoarel" : 18.2,
-         "ArealavdragSumma" : 0.8999999999999999,
+         "ArealavdragSumma" : 0.9,
          "Alder" : 48,
          "SI" : "T",
          "TGBÖ" : "X000",

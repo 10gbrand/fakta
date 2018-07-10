@@ -60,7 +60,9 @@
                             </table>                        
                         </div>
                         <div class="col d-flex align-items-center justify-content-center">
-                            <canvas id="agoslagChart"></canvas>    
+                            <div class="chart-container" style="width:500px">
+                                <canvas id="agoslagChart"></canvas>
+                            </div>    
                         </div>
                     </div>
                     <canvas id="hklassChart"></canvas>
@@ -319,10 +321,12 @@
                 //Ägoslagsdiagram
                 var list = [];
                 var varde = [];
+                var farg = [];
                 var tabell = '';
                 $.each(stat, function(key, value){
                     list.push(value.Agoslag);
                     varde.push(value.Areal);
+                    farg.push(value.FillColor)
                     //till tabell
                     tabell += '<tr>';
                     tabell += '<td>' +value.Agoslag+ '</td>'
@@ -332,6 +336,7 @@
                 });
                 $('#agoslagTabell').append(tabell);
                 var colorAgo = ["#d5d5d5","#a8a8a8","#aa5500","#ffffff","#0055ff"]
+                console.log(farg);
                 var ctx = document.getElementById(htmlCanvas);
                 var myChart = new Chart(ctx, {
                 //type: 'bar',
@@ -342,7 +347,7 @@
                             { 
                                 data: varde,
                                 label: 'Areal',
-                                backgroundColor: colorAgo,
+                                backgroundColor: farg,
                                 borderColor: "#000000",
                                 borderWidth: 1,
                             }
