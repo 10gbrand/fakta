@@ -72,10 +72,11 @@
                                     </tr>
                                     
                                     <tr class="table table-bordered">
-                                        <th colspan="2">Avd</th>
-                                        <th colspan="2"></th>
+                                        <th colspan="9">Avd</th>
+                                        
+                                        
+                                        <th colspan="5">m3sk/ha</th>
                                         <th colspan="2">Areal, ha</th>
-                                        <th colspan="4">m3sk/ha</th>
                                         <!--<th colspan="6"></th>-->
                                     </tr>
                                     
@@ -83,20 +84,22 @@
                                         <th>Nr</th>
                                         <th>Bet.</th>
                                         <th>Ägoslag</th>
-                                        <th>Mål- klass</th>
-                                        <th>Netto</th>
-                                        <th>Avdrag</th>
+                                        <th>Målkl.</th>
+                                        <th>Hkl</th>
+
                                         <th>Ålder</th>
                                         <th>SI</th>
                                         <th>TGBÖ</th>
-                                        <th>Volym/ Avd</th>
+                                        <th>m3sk</th>
                                         <th>Tot</th>
                                         <th>T</th>
                                         <th>G</th>
                                         <th>B</th>
                                         <th>Övr.</th>
-                                        <th>Hkl</th>
-                                    </tr>
+                                        <th>Netto</th>
+                                        <th>Avdr.</th>
+                                        
+                                       </tr>
                                 </div>
                             </div>
                         </tr>
@@ -220,19 +223,21 @@
                 avd_data += '<td>' +value.Beteckning+ '</td>';
                 avd_data += '<td>' +value.Agoslag+ '</td>';
                 avd_data += '<td>' +value.Malklass+ '</td>';
-                avd_data += '<td>' +value.Nettoarel+ '</td>';
-                avd_data += '<td>' +value.ArealavdragSumma+ '</td>';
+                avd_data += '<td>' +value.Huggningsklass+ '</td>';
                 avd_data += '<td>' +value.Alder+ '</td>';
                 avd_data += '<td>' +value.SI+ '</td>';
                 avd_data += '<td>' +value.TGBÖ+ '</td>';
                 avd_data += '<td>' +value.VolymSkogPerAvdelning+ '</td>';
-                //avd_data += '<td>' +value.VolymSkogPerHaTot+ '</td>';
-                //avd_data += '<td>' +value.VolymSkogPerHaTall+ '</td>';
-                //avd_data += '<td>' +value.VolymSkogPerHaGran+ '</td>';
-                //avd_data += '<td>' +value.VolymSkogPerHaBjörk+ '</td>';
-                //avd_data += '<td>' +value.VolymSkogPerHaÖvrigt+ '</td>';
-                //avd_data += '<td>' +value.Huggningsklass+ '</td>';
-                //avd_data += '</tr>';
+                avd_data += '<td>' +value.VolymSkogPerHaTot+ '</td>';
+                avd_data += '<td>' +value.VolymSkogPerHaTall+ '</td>';
+                avd_data += '<td>' +value.VolymSkogPerHaGran+ '</td>';
+                avd_data += '<td>' +value.VolymSkogPerHaBjörk+ '</td>';
+                avd_data += '<td>' +value.VolymSkogPerHaÖvrigt+ '</td>';
+                avd_data += '<td>' +value.Nettoarel+ '</td>';
+                avd_data += '<td>' +value.ArealavdragSumma+ '</td>';
+
+                //
+                avd_data += '</tr>';
                 //console.log(value.Trad);
                 var trad = value.Trad;
                 var avdLopnr = value.Lopnummer;
