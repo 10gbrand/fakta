@@ -9,6 +9,7 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
             <style>
 
@@ -48,6 +49,8 @@
                 </div>
                 <div>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
+                    <canvas id="agoslagChart"></canvas>
+                    <canvas id="hklassChart"></canvas>
                 </div>
             </div>
         </div>
@@ -208,14 +211,67 @@
 
 
     <script>
+
+                    //Ägoslagsdiagram
+            //var agoslag_stat= '';
+            var agoslag = ['Annan mark','Berg','Myr','Skogsmark','Vatten'];
+            var arealAgo = [7.3,3.1,130.3,654,138];
+            var colorAgo = ["#d5d5d5","#a8a8a8","#aa5500","#ffffff","#0055ff"]
+            var ctx1 = document.getElementById("agoslagChart");
+            var myChart = new Chart(ctx1, {
+            // type: 'bar',
+            type: 'horizontalBar',
+            data: {
+                labels: agoslag,
+                datasets: [
+                        { 
+                            data: arealAgo,
+                            label: "Areal",
+                            backgroundColor: colorAgo,
+                            borderColor: "#000000",
+                            borderWidth: 1,
+                        }
+                        ]
+                    }
+            });
+
+            //Huggningsklassdiagram
+            var Huggningsklass = ['Saknar Hkl','K2','R1','R2','G1','S1'];
+            var arealh = [0.2,42,66.1,90.8,41.2,413.7];
+            var colorh = ["#000000","#f48341","#41f443","#2daf6c","#41d0fc","#f23c7f"]
+            var ctx2 = document.getElementById("hklassChart");
+            var myChart = new Chart(ctx2, {
+            // type: 'bar',
+            type: 'horizontalBar',
+            data: {
+                labels: Huggningsklass,
+                datasets: [
+                        { 
+                            data: arealh,
+                            label: "Areal",
+                            backgroundColor: colorh,
+                            borderColor: "#000000",
+                            borderWidth: 1,
+                        }
+                        ]
+                    }
+                });
+
     $(document).ready(function(){
+
+        
         $.getJSON("Data/data.json", function(data){
             var analys_data = data;
+            
             //console.log(analys_data);
             var avd = analys_data.Avd;
-            //console.log(avd);            
+            var agoslag_stat = analys_data.AgoslagStat;
+            
+            //console.log(analys_data.AgoslagStat);            
             var avd_data = '';
             var trad_data = '';
+            
+
             $.each(avd, function(key, value){
                 //console.log(value.Lopnummer)
                 avd_data += '<tr>';
@@ -270,6 +326,8 @@
             $('#tradTabell').append(trad_data);
             console.log(trad_data)
         });
+
+
 
     });
         
