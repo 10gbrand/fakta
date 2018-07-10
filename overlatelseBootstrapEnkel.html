@@ -212,28 +212,7 @@
 
     <script>
 
-                    //Ägoslagsdiagram
-            //var agoslag_stat= '';
-            var agoslag = ['Annan mark','Berg','Myr','Skogsmark','Vatten'];
-            var arealAgo = [7.3,3.1,130.3,654,138];
-            var colorAgo = ["#d5d5d5","#a8a8a8","#aa5500","#ffffff","#0055ff"]
-            var ctx1 = document.getElementById("agoslagChart");
-            var myChart = new Chart(ctx1, {
-            // type: 'bar',
-            type: 'horizontalBar',
-            data: {
-                labels: agoslag,
-                datasets: [
-                        { 
-                            data: arealAgo,
-                            label: "Areal",
-                            backgroundColor: colorAgo,
-                            borderColor: "#000000",
-                            borderWidth: 1,
-                        }
-                        ]
-                    }
-            });
+
 
             //Huggningsklassdiagram
             var Huggningsklass = ['Saknar Hkl','K2','R1','R2','G1','S1'];
@@ -261,18 +240,15 @@
 
         
         $.getJSON("Data/data.json", function(data){
-            var analys_data = data;
+
             
-            //console.log(analys_data);
-            var avd = analys_data.Avd;
-            var agoslag_stat = analys_data.AgoslagStat;
+            makeAgoslagBarDiagram(data.AgoslagStat, 'agoslagChart');
             
             //console.log(analys_data.AgoslagStat);            
             var avd_data = '';
             var trad_data = '';
-            
 
-            $.each(avd, function(key, value){
+            $.each(data.Avd, function(key, value){
                 //console.log(value.Lopnummer)
                 avd_data += '<tr>';
                 avd_data += '<td>' +value.Lopnummer+ '</td>';
@@ -291,8 +267,6 @@
                 avd_data += '<td>' +value.VolymSkogPerHaÖvrigt+ '</td>';
                 avd_data += '<td>' +value.Nettoarel+ '</td>';
                 avd_data += '<td>' +value.ArealavdragSumma+ '</td>';
-
-                //
                 avd_data += '</tr>';
                 //console.log(value.Trad);
                 var trad = value.Trad;
@@ -321,10 +295,40 @@
                     trad_data += '</tr>';
                 });
             });
+
             $('#avdTabell').append(avd_data);
             //console.log(avd_data)
             $('#tradTabell').append(trad_data);
-            console.log(trad_data)
+            //console.log(trad_data)
+
+            //skapar grafer
+            function makeAgoslagBarDiagram(stat, htmlCanvas){
+                //Ägoslagsdiagram
+                var list = [];
+                var varde = [];
+                $.each(stat, function(key, value){
+                    list.push(value.Agoslag);
+                    varde.push(value.Areal);
+                });
+                var colorAgo = ["#d5d5d5","#a8a8a8","#aa5500","#ffffff","#0055ff"]
+                var ctx = document.getElementById(htmlCanvas);
+                var myChart = new Chart(ctx, {
+                //type: 'bar',
+                type: 'horizontalBar',
+                data: {
+                    labels: list,
+                    datasets: [
+                            { 
+                                data: varde,
+                                label: 'Areal',
+                                backgroundColor: colorAgo,
+                                borderColor: "#000000",
+                                borderWidth: 1,
+                            }
+                            ]
+                        }
+                });                
+                }
         });
 
 
