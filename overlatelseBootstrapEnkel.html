@@ -36,7 +36,7 @@
 
     <!--<div class="container-fuid">-->
     <div class="container">
-        <div class="row">
+        <div class="row" id="summary_1">
             <div class="col">
                 <div class="jumbotron">
                     <div>
@@ -51,7 +51,7 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
                     <div class="row">
                         <div class="col-4 d-flex align-items-center justify-content-center">
-                            <table class="table-striped" id="agoslagTabell">
+                            <table class="table-striped table-bordered" id="agoslagTabell">
                                 <tr>
                                     <th>Ägoslag</th>
                                     <th>Areal</th>
@@ -65,14 +65,30 @@
                             </div>    
                         </div>
                     </div>
-                    <canvas id="hklassChart"></canvas>
+                    <div class="row">
+                        <div class="col-4 d-flex align-items-center justify-content-center">
+                            <table class="table-striped table-bordered" id="hklTabell">
+                                <tr>
+                                    <th>Huggningsklass</th>
+                                    <th>Areal</th>
+                                    <th>Volym</th>
+                                </tr>
+
+                            </table>                        
+                        </div>
+                        <div class="col d-flex align-items-center justify-content-center">
+                            <div class="chart-container" style="width:500px">
+                                <canvas id="hklassChart"></canvas>
+                            </div>    
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     <!--</div>
 
     <div class="container">-->
-        <div class="row">
+        <div class="row" id="avd">
             <div class="col">
                 <table class="report-container table-striped" id="avdTabell">
                     <thead class="report-header">
@@ -151,7 +167,7 @@
     <!--</div>
 
     <div class="container">-->
-        <div class="row">
+        <div class="row" id="trad">
             <div class="col">
                 <table class="report-container table-striped" id="tradTabell">
                     <thead class="report-header">
@@ -229,37 +245,13 @@
 
 
 
-            //Huggningsklassdiagram
-            var Huggningsklass = ['Saknar Hkl','K2','R1','R2','G1','S1'];
-            var arealh = [0.2,42,66.1,90.8,41.2,413.7];
-            var colorh = ["#000000","#f48341","#41f443","#2daf6c","#41d0fc","#f23c7f"]
-            var ctx2 = document.getElementById("hklassChart");
-            var myChart = new Chart(ctx2, {
-            // type: 'bar',
-            type: 'horizontalBar',
-            data: {
-                labels: Huggningsklass,
-                datasets: [
-                        { 
-                            data: arealh,
-                            label: "Areal",
-                            backgroundColor: colorh,
-                            borderColor: "#000000",
-                            borderWidth: 1,
-                        }
-                        ]
-                    }
-                });
-
     $(document).ready(function(){
 
         
         $.getJSON("Data/data.json", function(data){
-
             
-            makeAgoslagBarDiagram(data.AgoslagStat, 'agoslagChart');
-            
-            //console.log(analys_data.AgoslagStat);            
+//---------------Skapar tabelerna för Avdelning och Trädslag------------------------------------
+                        
             var avd_data = '';
             var trad_data = '';
 
@@ -316,16 +308,19 @@
             $('#tradTabell').append(trad_data);
             //console.log(trad_data)
 
-            //skapar grafer
+//----------------skapar Ägoslagssammanfattning------------------------------------------
+            //console.log(analys_data.AgoslagStat);
+            makeAgoslagBarDiagram(data.AgoslagStat, 'agoslagChart');
+
             function makeAgoslagBarDiagram(stat, htmlCanvas){
                 //Ägoslagsdiagram
                 var list = [];
-                var varde = [];
+                var areal = [];
                 var farg = [];
                 var tabell = '';
                 $.each(stat, function(key, value){
                     list.push(value.Agoslag);
-                    varde.push(value.Areal);
+                    areal.push(value.Areal);
                     farg.push(value.FillColor)
                     //till tabell
                     tabell += '<tr>';
@@ -336,7 +331,6 @@
                 });
                 $('#agoslagTabell').append(tabell);
                 var colorAgo = ["#d5d5d5","#a8a8a8","#aa5500","#ffffff","#0055ff"]
-                console.log(farg);
                 var ctx = document.getElementById(htmlCanvas);
                 var myChart = new Chart(ctx, {
                 //type: 'bar',
@@ -345,7 +339,51 @@
                     labels: list,
                     datasets: [
                             { 
-                                data: varde,
+                                data: areal,
+                                label: 'Areal',
+                                backgroundColor: farg,
+                                borderColor: "#000000",
+                                borderWidth: 1,
+                            }
+                            ]
+                        }
+                });                
+                }
+
+
+//----------------skapar Huggningsklasssammanfattning------------------------------------------
+            //console.log(analys_data.AgoslagStat);
+            makeHklBarDiagram(data.HklStat, 'hklassChart');
+
+            function makeHklBarDiagram(stat, htmlCanvas){
+                //Ägoslagsdiagram
+                var list = [];
+                var areal = [];
+                var farg = [];
+                var tabell = '';
+                $.each(stat, function(key, value){
+                    list.push(value.Huggningsklass);
+                    areal.push(value.Areal);
+                    farg.push(value.FillColor)
+                    //till tabell
+                    tabell += '<tr>';
+                    tabell += '<td>' +value.Huggningsklass+ '</td>'
+                    tabell += '<td>' +value.Areal+ '</td>'
+                    tabell += '<td>' +value.Volym+ '</td>'
+                    tabell += '</tr>';
+
+                });
+                $('#hklTabell').append(tabell);
+                var colorAgo = ["#d5d5d5","#a8a8a8","#aa5500","#ffffff","#0055ff"]
+                var ctx = document.getElementById(htmlCanvas);
+                var myChart = new Chart(ctx, {
+                //type: 'bar',
+                type: 'horizontalBar',
+                data: {
+                    labels: list,
+                    datasets: [
+                            { 
+                                data: areal,
                                 label: 'Areal',
                                 backgroundColor: farg,
                                 borderColor: "#000000",
@@ -356,8 +394,6 @@
                 });                
                 }
         });
-
-
 
     });
         
