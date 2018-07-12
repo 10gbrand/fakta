@@ -114,6 +114,45 @@
             </div>
         </div>
 
+        <div class="row pgaBreak" id="summary_3">
+                <div class="col">
+                    <div class="jumbotron">
+                        <div>
+                            <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                        </div>
+                        <div>
+                            <h1 align="center">Planeringsunderlag försäljning</h1>
+                            <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
+                        </div>
+                    </div>
+                    <div>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 align="center">Målklass</h3>
+                            </div>  
+                            <div class="col-4 d-flex align-items-center justify-content-center">
+                                <table class="table-striped table-bordered" id="malklassTabell">
+                                    <tr>
+                                        <th>Ägoslag</th>
+                                        <th>Areal</th>
+                                        <th>Volym</th>
+                                    </tr>
+    
+                                </table>                        
+                            </div>
+                            <div class="col-8 d-flex align-items-center justify-content-center">
+                                <div class="chart-container" style="width:500px">
+                                    <canvas id="malklassArealChart"></canvas>
+                                    <canvas id="malklassVolymChart"></canvas>
+                                </div>    
+                            </div>    
+                            
+                        </div>
+
+                </div>
+            </div>
+
         <div class="row pgaBreak" id="avd">
             <div class="col">
                 <table class="report-container table-striped" id="avdTabell">
@@ -416,7 +455,8 @@
                     });                
                 }
 
-                //----------------skapar Huggningsklasssammanfattning------------------------------------------
+                
+                //----------------skapar Åldersklasssammanfattning------------------------------------------
                 //console.log(analys_data.AgoslagStat);
                 makeAlderArealBarDiagram(data.AlderStat, 'alderArealChart');
                 makeAlderVolymBarDiagram(data.AlderStat, 'alderVolymChart');
@@ -487,8 +527,81 @@
                                 }
                     });                
                 }
-            });
+                
+                
+                //----------------skapar Målklassklasssammanfattning------------------------------------------
+                //console.log(analys_data.AgoslagStat);
+                makeMalklassArealBarDiagram(data.MalklassStat, 'malklassArealChart');
+                makeMalklassVolymBarDiagram(data.MalklassStat, 'malklassVolymChart');
 
+                function makeMalklassArealBarDiagram(stat, htmlCanvas){
+                    //Målklassdiagram
+                    var list = [];
+                    var areal = [];
+                    var farg = [];
+                    var tabell = '';
+                    $.each(stat, function(key, value){
+                        list.push(value.Malklass);
+                        areal.push(value.Areal);
+                        farg.push(value.FillColor)
+                        //till tabell
+                        tabell += '<tr>';
+                        tabell += '<td>' +value.Malklass+ '</td>'
+                        tabell += '<td>' +value.Areal+ '</td>'
+                        tabell += '<td>' +value.Volym+ '</td>'
+                        tabell += '</tr>';
+
+                    });
+                    $('#malklassTabell').append(tabell);
+                    
+                    var ctx = document.getElementById(htmlCanvas);
+                    var myChart = new Chart(ctx, {
+                        //type: 'bar',
+                        type: 'horizontalBar',
+                        data: {
+                            labels: list,
+                            datasets: [
+                                    { 
+                                        data: areal,
+                                        label: 'Areal',
+                                        backgroundColor: farg,
+                                        borderColor: "#000000",
+                                        borderWidth: 1,
+                                    }
+                                    ]
+                                }
+                    });                
+                }
+                function makeMalklassVolymBarDiagram(stat, htmlCanvas){
+                    //Alderdiagram
+                    var list = [];
+                    var areal = [];
+                    var farg = [];
+                    var tabell = '';
+                    $.each(stat, function(key, value){
+                        list.push(value.Malklass);
+                        areal.push(value.Volym);
+                        farg.push(value.FillColor)
+                    });
+                    var ctx = document.getElementById(htmlCanvas);
+                    var myChart = new Chart(ctx, {
+                        //type: 'bar',
+                        type: 'horizontalBar',
+                        data: {
+                            labels: list,
+                            datasets: [
+                                    { 
+                                        data: areal,
+                                        label: 'Volym',
+                                        backgroundColor: farg,
+                                        borderColor: "#000000",
+                                        borderWidth: 1,
+                                    }
+                                    ]
+                                }
+                    });                
+                }                
+            });
         });
             
 

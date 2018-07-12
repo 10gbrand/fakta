@@ -149,6 +149,56 @@
          "FillColor" : "#b22a3a"
       }
    ],
+   "MalklassStat" : [
+      {
+         "Malklass" : "NO ",
+         "Areal" : "2.5",
+         "Volym" : "930.4",
+         "FillColor" : "#000000"
+      },
+      {
+         "Malklass" : "NO ej utb.",
+         "Areal" : "41.9",
+         "Volym" : "9950.3",
+         "FillColor" : "#000000"
+      },
+      {
+         "Malklass" : "NO_NS ",
+         "Areal" : "8.3",
+         "Volym" : "2560.5",
+         "FillColor" : "#000000"
+      },
+      {
+         "Malklass" : "NO_NS ej utb.",
+         "Areal" : "0.5",
+         "Volym" : "144",
+         "FillColor" : "#000000"
+      },
+      {
+         "Malklass" : "NS ej utb.",
+         "Areal" : "9.2",
+         "Volym" : "1229.3",
+         "FillColor" : "#000000"
+      },
+      {
+         "Malklass" : "PF ej utb.",
+         "Areal" : "63.1",
+         "Volym" : "9719.0",
+         "FillColor" : "#000000"
+      },
+      {
+         "Malklass" : "PG ",
+         "Areal" : "480.7",
+         "Volym" : "40280.4",
+         "FillColor" : "#000000"
+      },
+      {
+         "Malklass" : "PG ej utb.",
+         "Areal" : "349.5",
+         "Volym" : "51151.3",
+         "FillColor" : "#000000"
+      }
+   ],
    "Avd" : [
       {
          "Lopnummer" : 1,
