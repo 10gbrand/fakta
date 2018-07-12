@@ -114,7 +114,7 @@
             </div>
         </div>
 
-        <div class="row pgaBreak" id="summary_3">
+        <div class="row pgaBreak" id="summary_2">
                 <div class="col">
                     <div class="jumbotron">
                         <div>
@@ -146,15 +146,125 @@
                                     <canvas id="malklassArealChart"></canvas>
                                     <canvas id="malklassVolymChart"></canvas>
                                 </div>    
-                            </div>    
-                            
+                            </div>
                         </div>
-
+                    </div>
                 </div>
             </div>
 
-        <div class="row pgaBreak" id="avd">
+        <div class="row pgaBreak" id="berordaobjekt">
+            <div class="col-12">
+                <table class="report-container table-striped col-12" id="berordaobjektTabell">
+                    <thead class="report-header">
+                        <tr>
+                            <div class="report-header-cell">
+                                <div class="header-info">
+                                    <tr>
+                                        <th colspan="16">
+                                            <div class="jumbotron">
+                                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                                                <h1 align="center">Planeringsunderlag försäljning</h1>
+                                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>   
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr class="table table-bordered">
+                                        <th>Lager</th>
+                                        <th>Lopnummer</th>
+                                        <th>Benämning</th>
+                                        <th>Status</th>
+                                        <th>Typ</th>
+                                        <th>Kategori</th>
+                                        <th>Motpart</th>
+                                    </tr>
+                                </div>
+                            </div>
+                        </tr>
+                    </thead>
+                    <tfoot class="report-footer">
+                        <tr>
+                            <div class="report-footer-cell">
+                                <div class="footer-info">
+                                    <td colspan="7">
+                                        <h6>Förklaring:</h6>
+                                        <p>Lager: Be=Belastning, Rä=Rättighet, Hu=Hus, To=Tomt</p>
+                                    </td>
+                                </div>
+                            </div>
+                        </tr>
+                    </tfoot>
+                    <tbody class="report-content">
+                        <tr>
+                            <td class="report-content-cell">
+                                <div class="main" >
+                                    <!-- tabelldata avdelning från json-fil -->
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+        <div class="row pgaBreak" id="kartsida_1">
             <div class="col">
+                <div class="jumbotron">
+                    <div>
+                        <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                    </div>
+                    <div>
+                        <h1 align="center">Planeringsunderlag försäljning</h1>
+                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
+                    </div>
+                </div>
+                <div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 align="center">Karta - Översikt</h3>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" align="center">
+                            <img src="Data/Oversikt_map.png" alt="Översiktskarta" style="padding:5px;" width="600px" align="center">    
+                        </div>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pgaBreak" id="kartsida_2">
+                <div class="col">
+                    <div class="jumbotron">
+                        <div>
+                            <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                        </div>
+                        <div>
+                            <h1 align="center">Planeringsunderlag försäljning</h1>
+                            <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
+                        </div>
+                    </div>
+                    <div>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 align="center">Karta - Ägoslag</h3>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12" align="center">
+                                <img src="Data/Agoslag_map.png" alt="Översiktskarta" class="col-12 img-responsive">    
+                            </div>                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <div class="row pgaBreak" id="avd">
+            <div class="col-12">
                 <table class="report-container table-striped" id="avdTabell">
                     <thead class="report-header">
                         <tr>
@@ -170,7 +280,7 @@
                                         </th>
                                     </tr>
                                     
-                                    <tr class="table table-bordered">
+                                    <tr class="table table-bordered table-fixed">
                                         <th colspan="9">Avd</th>
                                         
                                         
@@ -185,7 +295,6 @@
                                         <th>Ägoslag</th>
                                         <th>Målkl.</th>
                                         <th>Hkl</th>
-
                                         <th>Ålder</th>
                                         <th>SI</th>
                                         <th>TGBÖ</th>
@@ -197,8 +306,7 @@
                                         <th>Övr.</th>
                                         <th>Netto</th>
                                         <th>Avdr.</th>
-                                        
-                                       </tr>
+                                    </tr>
                                 </div>
                             </div>
                         </tr>
@@ -313,6 +421,27 @@
             
             $.getJSON("Data/data.json", function(data){
                 
+                //---------------Skapar tabelerna för belastning, rättighet, byggnad, tomt------------------------------------
+                            
+                var berordaobjekt_data = '';
+                
+
+                $.each(data.Berordaobjekt, function(key, value){
+                    //console.log(value.Lopnummer)
+                    berordaobjekt_data += '<tr>';
+                    berordaobjekt_data += '<td>' +value.Lager+ '</td>';
+                    berordaobjekt_data += '<td>' +value.Lopnummer+ '</td>';
+                    berordaobjekt_data += '<td>' +value.Benamning+ '</td>';
+                    berordaobjekt_data += '<td>' +value.Status+ '</td>';
+                    berordaobjekt_data += '<td>' +value.Typ+ '</td>';
+                    berordaobjekt_data += '<td>' +value.Kategori+ '</td>';
+                    berordaobjekt_data += '<td>' +value.Motpart+ '</td>';
+                    berordaobjekt_data += '</tr>';
+                });
+
+                $('#berordaobjektTabell').append(berordaobjekt_data);
+
+
                 //---------------Skapar tabelerna för Avdelning och Trädslag------------------------------------
                             
                 var avd_data = '';
