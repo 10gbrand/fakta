@@ -75,6 +75,80 @@
          "FillColor" : "#f23c7f"
       }
    ],
+   "AlderStat" : [
+      {
+         "Aldersklass" : "Kalmark",
+         "Areal" : "23.5",
+         "Volym" : "132",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "0 .. 9",
+         "Areal" : "17.6",
+         "Volym" : "19.8",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "9 .. 19",
+         "Areal" : "114.8",
+         "Volym" : "804.2",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "20 .. 29",
+         "Areal" : "171.5",
+         "Volym" : "11112.4",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "30 .. 39",
+         "Areal" : "262.0",
+         "Volym" : "38131.7",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "40 .. 49",
+         "Areal" : "185.4",
+         "Volym" : "27731.2",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "50 .. 59",
+         "Areal" : "93.7",
+         "Volym" : "18039.6",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "60 .. 69",
+         "Areal" : "5.6",
+         "Volym" : "1743.6",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "70 .. 79",
+         "Areal" : "0",
+         "Volym" : "0",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "100 .. 109",
+         "Areal" : "1.1",
+         "Volym" : "225.5",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "110 .. 119",
+         "Areal" : "20.5",
+         "Volym" : "5596.1",
+         "FillColor" : "#b22a3a"
+      },
+      {
+         "Aldersklass" : "120 .. ",
+         "Areal" : "60.0",
+         "Volym" : "12429.1",
+         "FillColor" : "#b22a3a"
+      }
+   ],
    "Avd" : [
       {
          "Lopnummer" : 1,
