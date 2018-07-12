@@ -25,7 +25,7 @@
             }
 
             @media print {
-                .row {page-break-after: always;}
+                .row.pgaBreak {page-break-after: always;}
 
             }
             </style>
@@ -34,9 +34,9 @@
 <body>
     
 
-    <!--<div class="container-fuid">-->
+
     <div class="container">
-        <div class="row" id="summary_1">
+        <div class="row pgaBreak" id="summary_1">
             <div class="col">
                 <div class="jumbotron">
                     <div>
@@ -50,6 +50,9 @@
                 <div>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
                     <div class="row">
+                        <div class="col-12">
+                            <h3 align="center">Ägoslag</h3>
+                        </div>  
                         <div class="col-4 d-flex align-items-center justify-content-center">
                             <table class="table-striped table-bordered" id="agoslagTabell">
                                 <tr>
@@ -59,13 +62,17 @@
 
                             </table>                        
                         </div>
-                        <div class="col d-flex align-items-center justify-content-center">
+                        <div class="col-8 d-flex align-items-center justify-content-center">
                             <div class="chart-container" style="width:500px">
                                 <canvas id="agoslagChart"></canvas>
                             </div>    
-                        </div>
+                        </div>    
+                        
                     </div>
                     <div class="row">
+                            <div class="col-12">
+                                <h3 align="center">Huggningsklass</h3>
+                            </div>  
                         <div class="col-4 d-flex align-items-center justify-content-center">
                             <table class="table-striped table-bordered" id="hklTabell">
                                 <tr>
@@ -76,19 +83,38 @@
 
                             </table>                        
                         </div>
-                        <div class="col d-flex align-items-center justify-content-center">
+                        <div class="col-8 d-flex align-items-center justify-content-center">
                             <div class="chart-container" style="width:500px">
                                 <canvas id="hklassChart"></canvas>
                             </div>    
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                        <div class="col-12">
+                            <h3 align="center">Åldersklass</h3>
+                        </div>  
+                    <div class="col-4 d-flex align-items-center justify-content-center">
+                        <table class="table-striped table-bordered" id="alderTabell">
+                            <tr>
+                                <th>Åldersklass</th>
+                                <th>Areal</th>
+                                <th>Volym</th>
+                            </tr>
+
+                        </table>                        
+                    </div>
+                    <div class="col-8 d-flex align-items-center justify-content-center">
+                        <div class="chart-container" style="width:500px">
+                            <canvas id="alderArealChart"></canvas>
+                            <canvas id="alderVolymChart"></canvas>
+                        </div>    
+                    </div>
+                </div>
             </div>
         </div>
-    <!--</div>
 
-    <div class="container">-->
-        <div class="row" id="avd">
+        <div class="row pgaBreak" id="avd">
             <div class="col">
                 <table class="report-container table-striped" id="avdTabell">
                     <thead class="report-header">
@@ -164,10 +190,8 @@
                 </table>
             </div>
         </div>
-    <!--</div>
 
-    <div class="container">-->
-        <div class="row" id="trad">
+        <div class="row pgaBreak" id="trad">
             <div class="col">
                 <table class="report-container table-striped" id="tradTabell">
                     <thead class="report-header">
@@ -236,7 +260,7 @@
             </div>
         </div>
     </div>
-    <!--</div>-->
+
 
 
 
@@ -245,158 +269,228 @@
 
 
 
-    $(document).ready(function(){
+        $(document).ready(function(){
 
-        
-        $.getJSON("Data/data.json", function(data){
             
-//---------------Skapar tabelerna för Avdelning och Trädslag------------------------------------
-                        
-            var avd_data = '';
-            var trad_data = '';
+            $.getJSON("Data/data.json", function(data){
+                
+                //---------------Skapar tabelerna för Avdelning och Trädslag------------------------------------
+                            
+                var avd_data = '';
+                var trad_data = '';
 
-            $.each(data.Avd, function(key, value){
-                //console.log(value.Lopnummer)
-                avd_data += '<tr>';
-                avd_data += '<td>' +value.Lopnummer+ '</td>';
-                avd_data += '<td>' +value.Beteckning+ '</td>';
-                avd_data += '<td>' +value.Agoslag+ '</td>';
-                avd_data += '<td>' +value.Malklass+ '</td>';
-                avd_data += '<td>' +value.Huggningsklass+ '</td>';
-                avd_data += '<td>' +value.Alder+ '</td>';
-                avd_data += '<td>' +value.SI+ '</td>';
-                avd_data += '<td>' +value.TGBÖ+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerAvdelning+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaTot+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaTall+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaGran+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaBjörk+ '</td>';
-                avd_data += '<td>' +value.VolymSkogPerHaÖvrigt+ '</td>';
-                avd_data += '<td>' +value.Nettoarel+ '</td>';
-                avd_data += '<td>' +value.ArealavdragSumma+ '</td>';
-                avd_data += '</tr>';
-                //console.log(value.Trad);
-                var trad = value.Trad;
-                var avdLopnr = value.Lopnummer;
-                var avdNettoareal = value.Nettoarel;
-                var avdMalklass = value.Malklass;
-                var avdHuggningsklass = value.Huggningsklass;
-                $.each(trad, function(key, value){
-                    //console.log(value);
-                    //console.log(avdLopnr);
-                    trad_data += '<tr>';
-                    trad_data += '<td>' +avdLopnr+ '</td>';
-                    trad_data += '<td>' +value.Tradskikt_Typ+ '</td>';
-                    trad_data += '<td>' +value.Tradslag+ '</td>';
-                    trad_data += '<td>' +value.Alder+ '</td>';
-                    trad_data += '<td>' +value.VolymSkogPerHa+ '</td>';
-                    trad_data += '<td>' +value.VolymSkogPerAvdelning+ '</td>';
-                    trad_data += '<td>' +value.Grundyta+ '</td>';
-                    trad_data += '<td>' +value.DiameterGv+ '</td>';
-                    trad_data += '<td>' +value.HojdGv+ '</td>';
-                    trad_data += '<td>' +value.StammarPerHa+ '</td>';
-                    trad_data += '<td>' +value.Andel+ '</td>';
-                    trad_data += '<td>' +avdNettoareal+ '</td>';
-                    trad_data += '<td>' +avdMalklass+ '</td>';
-                    trad_data += '<td>' +avdHuggningsklass+ '</td>';
-                    trad_data += '</tr>';
+                $.each(data.Avd, function(key, value){
+                    //console.log(value.Lopnummer)
+                    avd_data += '<tr>';
+                    avd_data += '<td>' +value.Lopnummer+ '</td>';
+                    avd_data += '<td>' +value.Beteckning+ '</td>';
+                    avd_data += '<td>' +value.Agoslag+ '</td>';
+                    avd_data += '<td>' +value.Malklass+ '</td>';
+                    avd_data += '<td>' +value.Huggningsklass+ '</td>';
+                    avd_data += '<td>' +value.Alder+ '</td>';
+                    avd_data += '<td>' +value.SI+ '</td>';
+                    avd_data += '<td>' +value.TGBÖ+ '</td>';
+                    avd_data += '<td>' +value.VolymSkogPerAvdelning+ '</td>';
+                    avd_data += '<td>' +value.VolymSkogPerHaTot+ '</td>';
+                    avd_data += '<td>' +value.VolymSkogPerHaTall+ '</td>';
+                    avd_data += '<td>' +value.VolymSkogPerHaGran+ '</td>';
+                    avd_data += '<td>' +value.VolymSkogPerHaBjörk+ '</td>';
+                    avd_data += '<td>' +value.VolymSkogPerHaÖvrigt+ '</td>';
+                    avd_data += '<td>' +value.Nettoarel+ '</td>';
+                    avd_data += '<td>' +value.ArealavdragSumma+ '</td>';
+                    avd_data += '</tr>';
+                    //console.log(value.Trad);
+                    var trad = value.Trad;
+                    var avdLopnr = value.Lopnummer;
+                    var avdNettoareal = value.Nettoarel;
+                    var avdMalklass = value.Malklass;
+                    var avdHuggningsklass = value.Huggningsklass;
+                    $.each(trad, function(key, value){
+                        //console.log(value);
+                        //console.log(avdLopnr);
+                        trad_data += '<tr>';
+                        trad_data += '<td>' +avdLopnr+ '</td>';
+                        trad_data += '<td>' +value.Tradskikt_Typ+ '</td>';
+                        trad_data += '<td>' +value.Tradslag+ '</td>';
+                        trad_data += '<td>' +value.Alder+ '</td>';
+                        trad_data += '<td>' +value.VolymSkogPerHa+ '</td>';
+                        trad_data += '<td>' +value.VolymSkogPerAvdelning+ '</td>';
+                        trad_data += '<td>' +value.Grundyta+ '</td>';
+                        trad_data += '<td>' +value.DiameterGv+ '</td>';
+                        trad_data += '<td>' +value.HojdGv+ '</td>';
+                        trad_data += '<td>' +value.StammarPerHa+ '</td>';
+                        trad_data += '<td>' +value.Andel+ '</td>';
+                        trad_data += '<td>' +avdNettoareal+ '</td>';
+                        trad_data += '<td>' +avdMalklass+ '</td>';
+                        trad_data += '<td>' +avdHuggningsklass+ '</td>';
+                        trad_data += '</tr>';
+                    });
                 });
+
+                $('#avdTabell').append(avd_data);
+                //console.log(avd_data)
+                $('#tradTabell').append(trad_data);
+                //console.log(trad_data)
+
+                //----------------skapar Ägoslagssammanfattning------------------------------------------
+                //console.log(analys_data.AgoslagStat);
+                makeAgoslagBarDiagram(data.AgoslagStat, 'agoslagChart');
+
+                function makeAgoslagBarDiagram(stat, htmlCanvas){
+                    //Ägoslagsdiagram
+                    var list = [];
+                    var areal = [];
+                    var farg = [];
+                    var tabell = '';
+                    $.each(stat, function(key, value){
+                        list.push(value.Agoslag);
+                        areal.push(value.Areal);
+                        farg.push(value.FillColor)
+                        //till tabell
+                        tabell += '<tr>';
+                        tabell += '<td>' +value.Agoslag+ '</td>'
+                        tabell += '<td>' +value.Areal+ '</td>'
+                        tabell += '</tr>';
+
+                    });
+                    $('#agoslagTabell').append(tabell);
+                    var ctx = document.getElementById(htmlCanvas);
+                    var myChart = new Chart(ctx, {
+                        //type: 'bar',
+                        type: 'horizontalBar',
+                        data: {
+                            labels: list,
+                            datasets: [
+                                    { 
+                                        data: areal,
+                                        label: 'Areal',
+                                        backgroundColor: farg,
+                                        borderColor: "#000000",
+                                        borderWidth: 1,
+                                    }
+                                    ]
+                                }
+                    });                
+                }
+
+
+                //----------------skapar Huggningsklasssammanfattning------------------------------------------
+                //console.log(analys_data.AgoslagStat);
+                makeHklBarDiagram(data.HklStat, 'hklassChart');
+
+                function makeHklBarDiagram(stat, htmlCanvas){
+                    //Ägoslagsdiagram
+                    var list = [];
+                    var areal = [];
+                    var farg = [];
+                    var tabell = '';
+                    $.each(stat, function(key, value){
+                        list.push(value.Huggningsklass);
+                        areal.push(value.Areal);
+                        farg.push(value.FillColor)
+                        //till tabell
+                        tabell += '<tr>';
+                        tabell += '<td>' +value.Huggningsklass+ '</td>'
+                        tabell += '<td>' +value.Areal+ '</td>'
+                        tabell += '<td>' +value.Volym+ '</td>'
+                        tabell += '</tr>';
+
+                    });
+                    $('#hklTabell').append(tabell);
+                    var ctx = document.getElementById(htmlCanvas);
+                    var myChart = new Chart(ctx, {
+                        //type: 'bar',
+                        type: 'horizontalBar',
+                        data: {
+                            labels: list,
+                            datasets: [
+                                    { 
+                                        data: areal,
+                                        label: 'Areal',
+                                        backgroundColor: farg,
+                                        borderColor: "#000000",
+                                        borderWidth: 1,
+                                    }
+                                    ]
+                                }
+                    });                
+                }
+
+                //----------------skapar Huggningsklasssammanfattning------------------------------------------
+                //console.log(analys_data.AgoslagStat);
+                makeAlderArealBarDiagram(data.AlderStat, 'alderArealChart');
+                makeAlderVolymBarDiagram(data.AlderStat, 'alderVolymChart');
+
+                function makeAlderArealBarDiagram(stat, htmlCanvas){
+                    //Alderdiagram
+                    var list = [];
+                    var areal = [];
+                    var farg = [];
+                    var tabell = '';
+                    $.each(stat, function(key, value){
+                        list.push(value.Aldersklass);
+                        areal.push(value.Areal);
+                        farg.push(value.FillColor)
+                        //till tabell
+                        tabell += '<tr>';
+                        tabell += '<td>' +value.Aldersklass+ '</td>'
+                        tabell += '<td>' +value.Areal+ '</td>'
+                        tabell += '<td>' +value.Volym+ '</td>'
+                        tabell += '</tr>';
+
+                    });
+                    $('#alderTabell').append(tabell);
+                    var ctx = document.getElementById(htmlCanvas);
+                    var myChart = new Chart(ctx, {
+                        //type: 'bar',
+                        type: 'horizontalBar',
+                        data: {
+                            labels: list,
+                            datasets: [
+                                    { 
+                                        data: areal,
+                                        label: 'Areal',
+                                        backgroundColor: farg,
+                                        borderColor: "#000000",
+                                        borderWidth: 1,
+                                    }
+                                    ]
+                                }
+                    });                
+                }
+                function makeAlderVolymBarDiagram(stat, htmlCanvas){
+                    //Alderdiagram
+                    var list = [];
+                    var areal = [];
+                    var farg = [];
+                    var tabell = '';
+                    $.each(stat, function(key, value){
+                        list.push(value.Aldersklass);
+                        areal.push(value.Volym);
+                        farg.push(value.FillColor)
+                    });
+                    var ctx = document.getElementById(htmlCanvas);
+                    var myChart = new Chart(ctx, {
+                        //type: 'bar',
+                        type: 'horizontalBar',
+                        data: {
+                            labels: list,
+                            datasets: [
+                                    { 
+                                        data: areal,
+                                        label: 'Volym',
+                                        backgroundColor: farg,
+                                        borderColor: "#000000",
+                                        borderWidth: 1,
+                                    }
+                                    ]
+                                }
+                    });                
+                }
             });
 
-            $('#avdTabell').append(avd_data);
-            //console.log(avd_data)
-            $('#tradTabell').append(trad_data);
-            //console.log(trad_data)
-
-//----------------skapar Ägoslagssammanfattning------------------------------------------
-            //console.log(analys_data.AgoslagStat);
-            makeAgoslagBarDiagram(data.AgoslagStat, 'agoslagChart');
-
-            function makeAgoslagBarDiagram(stat, htmlCanvas){
-                //Ägoslagsdiagram
-                var list = [];
-                var areal = [];
-                var farg = [];
-                var tabell = '';
-                $.each(stat, function(key, value){
-                    list.push(value.Agoslag);
-                    areal.push(value.Areal);
-                    farg.push(value.FillColor)
-                    //till tabell
-                    tabell += '<tr>';
-                    tabell += '<td>' +value.Agoslag+ '</td>'
-                    tabell += '<td>' +value.Areal+ '</td>'
-                    tabell += '</tr>';
-
-                });
-                $('#agoslagTabell').append(tabell);
-                var colorAgo = ["#d5d5d5","#a8a8a8","#aa5500","#ffffff","#0055ff"]
-                var ctx = document.getElementById(htmlCanvas);
-                var myChart = new Chart(ctx, {
-                //type: 'bar',
-                type: 'horizontalBar',
-                data: {
-                    labels: list,
-                    datasets: [
-                            { 
-                                data: areal,
-                                label: 'Areal',
-                                backgroundColor: farg,
-                                borderColor: "#000000",
-                                borderWidth: 1,
-                            }
-                            ]
-                        }
-                });                
-                }
-
-
-//----------------skapar Huggningsklasssammanfattning------------------------------------------
-            //console.log(analys_data.AgoslagStat);
-            makeHklBarDiagram(data.HklStat, 'hklassChart');
-
-            function makeHklBarDiagram(stat, htmlCanvas){
-                //Ägoslagsdiagram
-                var list = [];
-                var areal = [];
-                var farg = [];
-                var tabell = '';
-                $.each(stat, function(key, value){
-                    list.push(value.Huggningsklass);
-                    areal.push(value.Areal);
-                    farg.push(value.FillColor)
-                    //till tabell
-                    tabell += '<tr>';
-                    tabell += '<td>' +value.Huggningsklass+ '</td>'
-                    tabell += '<td>' +value.Areal+ '</td>'
-                    tabell += '<td>' +value.Volym+ '</td>'
-                    tabell += '</tr>';
-
-                });
-                $('#hklTabell').append(tabell);
-                var colorAgo = ["#d5d5d5","#a8a8a8","#aa5500","#ffffff","#0055ff"]
-                var ctx = document.getElementById(htmlCanvas);
-                var myChart = new Chart(ctx, {
-                //type: 'bar',
-                type: 'horizontalBar',
-                data: {
-                    labels: list,
-                    datasets: [
-                            { 
-                                data: areal,
-                                label: 'Areal',
-                                backgroundColor: farg,
-                                borderColor: "#000000",
-                                borderWidth: 1,
-                            }
-                            ]
-                        }
-                });                
-                }
         });
-
-    });
-        
+            
 
     </script>
 </body>
