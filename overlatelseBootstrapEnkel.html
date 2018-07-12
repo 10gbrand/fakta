@@ -438,25 +438,15 @@
 
         $(document).ready(function(){
 
-            addMapOnPage();
+            
+            
+            
+            $.getJSON("Data/data.json", function(data, mymap){
 
-            function addMapOnPage(){
-                var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-                L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 18,
-                    id: 'mapbox.streets',
-                    accessToken: 'pk.eyJ1IjoiMTBnYnJhbmQiLCJhIjoiY2pja3o3OHJ3MDB2bjJycXFlcnpvMjE5dSJ9.mSgczyDS3VZ9vypuPiLksQ'
-                }).addTo(mymap);  
-            }
-            
-            
-            $.getJSON("Data/data.json", function(data){
                 
                 //---------------Skapar tabelerna för belastning, rättighet, byggnad, tomt------------------------------------
                             
                 var berordaobjekt_data = '';
-                
 
                 $.each(data.Berordaobjekt, function(key, value){
                     //console.log(value.Lopnummer)
@@ -761,7 +751,44 @@
                                     ]
                                 }
                     });                
-                }                
+                }
+
+                //-----------------------------lägger till en leafletkarta-------------------------------
+                addMapOnPage();
+
+                function addMapOnPage(){
+                    var mymap = L.map('mapid').setView([59.45492440132072, 15.024222541583153], 13);
+                    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                        maxZoom: 18,
+                        id: 'mapbox.streets',
+                        accessToken: 'pk.eyJ1IjoiMTBnYnJhbmQiLCJhIjoiY2pja3o3OHJ3MDB2bjJycXFlcnpvMjE5dSJ9.mSgczyDS3VZ9vypuPiLksQ'
+                    }).addTo(mymap);
+                    var polygon = L.polygon([
+                        [51.509, -0.08],
+                        [51.503, -0.06],
+                        [51.51, -0.047]
+                    ]).addTo(mymap); 
+                    //var polygon2 = L.polygon(data.Geometry.coordinates).addTo(mymap);
+                    var avdMap=data.Avd;
+                    var avdMapLayer =[];
+                    $.each(avdMap, function(key, value){
+                        avdMapLayer.push(L.polygon(value.Geometry.coordinates));
+                    });
+                    
+                    var avdelningar = L.layerGroup(avdMapLayer).addTo(mymap);
+                    console.log(avdelningar);
+                    //Detta funkar inte ännu!
+                    avdelningar.eachLayer(function (layer) {  
+                        //if(layer.feature.properties.NAME == 'feature 1') {    
+                            layer.setStyle({fillColor :'#000000'}) 
+                        });
+                }
+
+                console.log(data.Geometry.coordinates);
+
+                //
+
             });
         });
             
