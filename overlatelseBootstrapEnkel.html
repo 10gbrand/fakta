@@ -757,32 +757,62 @@
                 addMapOnPage();
 
                 function addMapOnPage(){
-                    var mymap = L.map('mapid').setView([59.45492440132072, 15.024222541583153], 13);
+
+                    //----------------hämtar center av överlåtelsen---------------
+                    overlatelseGeojson = L.geoJson(data.Geometry);
+                    overlatelseCenter = overlatelseGeojson.getBounds().getCenter();
+
+                    //----------------skapar kartan och cetrerar på objektet-------------
+                    //var centerMarker = L.marker(overlatelseCenter).addTo(mymap);
+                    var mymap = L.map('mapid').setView(overlatelseCenter, 3);
+                    mymap.fitBounds(overlatelseGeojson.getBounds());
                     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                         maxZoom: 18,
                         id: 'mapbox.streets',
                         accessToken: 'pk.eyJ1IjoiMTBnYnJhbmQiLCJhIjoiY2pja3o3OHJ3MDB2bjJycXFlcnpvMjE5dSJ9.mSgczyDS3VZ9vypuPiLksQ'
                     }).addTo(mymap);
-                    var polygon = L.polygon([
-                        [51.509, -0.08],
-                        [51.503, -0.06],
-                        [51.51, -0.047]
-                    ]).addTo(mymap); 
-                    //var polygon2 = L.polygon(data.Geometry.coordinates).addTo(mymap);
+
+                    //---------------------------Lägger till avdelningarna på kartan----------------------
                     var avdMap=data.Avd;
-                    var avdMapLayer =[];
+                    var agoslagList = data.AgoslagStat
+                    var avdMapGeoJson =[];
                     $.each(avdMap, function(key, value){
-                        avdMapLayer.push(L.polygon(value.Geometry.coordinates));
+                        var agoslagLookupArr = $.grep(agoslagList, function(obj){ return obj.Agoslag === value.Agoslag});
+                        var agoslagLookup = agoslagLookupArr[0];
+                        agoslagColor = agoslagLookup.FillColor
+                        //console.log(agoslagColor);
+                //
+                       avdMapGeoJson.push(value.Geometry);
                     });
+                    console.log(avdMapGeoJson);
+                    var avdMapLayer = L.geoJson(
+                        avdMapGeoJson,
+                        {style : agoslagMapStyle(this, '#ffffff')}
+                        ).addTo(mymap);
+                    //var avdelningarLayer = L.layerGroup(avdMapLayer).addTo(mymap);
                     
-                    var avdelningar = L.layerGroup(avdMapLayer).addTo(mymap);
-                    console.log(avdelningar);
-                    //Detta funkar inte ännu!
-                    avdelningar.eachLayer(function (layer) {  
-                        //if(layer.feature.properties.NAME == 'feature 1') {    
-                            layer.setStyle({fillColor :'#000000'}) 
-                        });
+
+                    //---------------------Lägger till överlåtelsen på kartan------------------
+                    //L.geoJSON(data.Geometry, {
+                    //    style: function (feature) {
+                    //        console.log('hej');
+                    //        //return {color: feature.properties.color};
+                    //        return {color :'#ffffff'};
+                    //    }
+                    //}).addTo(mymap);
+                    
+                }
+                
+                function agoslagMapStyle(feature, fillcolor){
+                    return {
+                        fillColor: fillcolor,
+                        weight : 2,
+                        opacity : 1,
+                        color : '#000000',
+                        dashArray : 3,
+                        fillOpacity : 0.7
+                    }
                 }
 
                 console.log(data.Geometry.coordinates);
