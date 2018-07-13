@@ -14,7 +14,10 @@
             <!-- Leaflet -->
             <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
             <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
-            <!--<script src="avd.geojson" type="text/javascript"></script>-->
+
+            <!-- Load Esri Leaflet from CDN.  it has no .css stylesheet of its own, only .js -->
+            <script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
+
             <style type="text/css">
                 #mapid { height : 800px;}
             </style>
@@ -50,7 +53,7 @@
     <script>
 
 
-
+//https://kartportal.sveaskog.se/portal/sharing/servers/5f1b259ea72b49aab68d7504a99c265b/rest/services/MetriaMapsOrto/MapServer
 
         $(document).ready(function(){
             $.getJSON("Data/data.json", function(JsonData){
@@ -102,6 +105,15 @@
                         layers: [mapboxbackground]
                     });
 
+                    //------------------------------ Ortofoto-----------------------------------
+
+                    var imageUrl = 'Data/leafletMap.png',
+                        imageBounds = [[ 61.80810977470252, 12.426252403414077 ], [ 61.837880799524235, 12.485243652362108]];
+                    var orto = L.imageOverlay(imageUrl, imageBounds).addTo(mymap);
+
+                    var imageUrl = 'Data/Agoslag_map.png',
+                        imageBounds = [[ 59.42432210317572, 14.94016605395809 ], [ 59.47354617672031, 15.036878609639727]];
+                    var orto2 = L.imageOverlay(imageUrl, imageBounds).addTo(mymap);
 
                     //------------------skapar avd lager------------------
                     var avdMapLayer = L.geoJson(
@@ -141,6 +153,7 @@
 
                     //------------------Zoomar till avdelningarna----------------
                     mymap.fitBounds(avdMapLayer.getBounds());
+                    //mymap.fitBounds(orto.getBounds());
 
 
                     //---------------Skapar lagergrupper------------------------
