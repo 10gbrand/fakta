@@ -109,11 +109,11 @@
 
                     var imageUrl = 'Data/leafletMap.png',
                         imageBounds = [[ 61.80810977470252, 12.426252403414077 ], [ 61.837880799524235, 12.485243652362108]];
-                    var orto = L.imageOverlay(imageUrl, imageBounds).addTo(mymap);
+                    var orto = L.imageOverlay(imageUrl, imageBounds)//.addTo(mymap);
 
                     var imageUrl = 'Data/Agoslag_map.png',
                         imageBounds = [[ 59.42432210317572, 14.94016605395809 ], [ 59.47354617672031, 15.036878609639727]];
-                    var orto2 = L.imageOverlay(imageUrl, imageBounds).addTo(mymap);
+                    var orto2 = L.imageOverlay(imageUrl, imageBounds)//.addTo(mymap);
 
                     //------------------skapar avd lager------------------
                     var avdMapLayer = L.geoJson(
@@ -126,11 +126,12 @@
                     var skogMapLayer = L.geoJson(
                         avdGeoJsonData.features,
                         {style : agoslagMapStyle(this, agoslagColorLookup("Skogsmark")),
-                        filter : skogsmarkfilter
+                       // filter : skogsmarkfilter
                         }
                         )
 
                     function skogsmarkfilter(feature) {
+                        console.log(feature.properties.Agoslag)
                         if (feature.properties.Agoslag === "Skogsmark") return true
                     }
 
@@ -151,6 +152,15 @@
                         {style : overlatelseMapStyle(this, '#000000')}
                         )//.addTo(mymap);
 
+
+                    //-----------------Lägger till ett lager från karttjanster.se--------------
+                    var UnderlagForForsaljningAvdLayer = L.esri.featureLayer({
+                        url :'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljningAvd/MapServer/1',
+                        where : "Agoslag = 'Myr'",
+                        style : agoslagMapStyle(this, agoslagColorLookup("Myr")),
+                    }).addTo(mymap);
+
+
                     //------------------Zoomar till avdelningarna----------------
                     mymap.fitBounds(avdMapLayer.getBounds());
                     //mymap.fitBounds(orto.getBounds());
@@ -160,13 +170,21 @@
                     var avdLayerGroup = L.layerGroup([avdMapLayer]).addTo(mymap);
                     var overlatelseLayerGroup = L.layerGroup([overlatelseMapLayer]).addTo(mymap);
                     var agoslagLayerGroup = L.layerGroup([skogMapLayer, myrMapLayer]).addTo(mymap);
+                    //var esriRestAvd = L.layerGroup([UnderlagForForsaljningAvdLayer]).addTo(mymap);
+                    var imageOrto = L.layerGroup([orto2]).addTo(mymap);
 
 
                     var overlayMaps = {
                         "Avdelningar": avdLayerGroup,
                         "Överltelse" : overlatelseLayerGroup,
-                        "Ägoslag" : agoslagLayerGroup
+                        "Ägoslag" : agoslagLayerGroup,
+                        //"EsriAvd" : esriRestAvd,
+                        "Orto" : imageOrto
                     };
+
+                    //var overlayRaster = {
+                    //    "Orto" : imageOrto
+                    //};
                     
                     var baseMaps = {
                         "Mapbox": mapboxbackground
@@ -206,7 +224,7 @@
         } 
 
         function agoslagMapStyle(feature, fillcolor){
-            console.log(feature);
+            //console.log(feature);
             return {
                 fillColor: fillcolor, //'green', //getAgoslagColor(feature.properties.Agoslag),
                 weight : 2,
