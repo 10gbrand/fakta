@@ -18,6 +18,10 @@
             <!-- Load Esri Leaflet from CDN.  it has no .css stylesheet of its own, only .js -->
             <script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
 
+            <!-- Laddar proj4 -->
+            <script src="https://unpkg.com/proj4@2.4.3"></script>
+            <script src="https://unpkg.com/proj4leaflet@1.0.1"></script>
+
             <style type="text/css">
                 #mapid { height : 800px;}
             </style>
@@ -115,67 +119,59 @@
                         imageBounds = [[ 59.42432210317572, 14.94016605395809 ], [ 59.47354617672031, 15.036878609639727]];
                     var orto2 = L.imageOverlay(imageUrl, imageBounds)//.addTo(mymap);
 
-                    //------------------skapar avd lager------------------
-                    var avdMapLayer = L.geoJson(
-                        avdGeoJsonData.features,
-                        {style : avdMapStyle(this, '#ffffff')}
-                        )//.addTo(mymap);
-
-                    //------------------skapar lager för olika ägoslag------------------
-
-                   // var skogMapLayer = L.geoJson(
-                   //     avdGeoJsonData.features,
-                   //     {style : agoslagMapStyle(this, agoslagColorLookup("Skogsmark")),
-                   //    // filter : skogsmarkfilter
-                   //     }
-                   //     )
-//
-                   // function skogsmarkfilter(feature) {
-                   //     console.log(feature.properties.Agoslag)
-                   //     if (feature.properties.Agoslag === "Skogsmark") return true
-                   // }
-
-                    //------------------skapar överlåtelselager------------------
-                    var overlatelseMapLayer = L.geoJson(
-                        overlatelseGeoJsonData.features,
-                        {style : overlatelseMapStyle(this, '#000000')}
-                        )//.addTo(mymap);
+                   
+                    var metriaOrtoMapLayer = L.esri.tiledMapLayer({
+                        url :'https://kartportal.sveaskog.se/portal/sharing/servers/5f1b259ea72b49aab68d7504a99c265b/rest/services/MetriaMapsOrto/MapServer',
+                    }).addTo(mymap);
+                    console.log(metriaOrtoMapLayer);
+                    
 
 
                     //-----------------Lägger till ett lager från karttjanster.se--------------
 
-                    var skogMapLayer = L.esri.featureLayer({
-                        url :'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljningAvd/MapServer/1',
-                        where : "Agoslag = 'Skogsmark'",
-                        style : agoslagMapStyle(this, agoslagColorLookup("Skogsmark")),
+                    var overlatelseMapLayer = L.esri.featureLayer({
+                        url :'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/Overlatelser/MapServer/5',
+                       // where : "Agoslag = 'Skogsmark'",
+                        where : "OverlatelseNummer = 142401",
+                        style : overlatelseMapStyle(this),
                     }).addTo(mymap);
-                    console.log(skogMapLayer);
-
-                    var myrMapLayer = L.esri.featureLayer({
-                        url :'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljningAvd/MapServer/1',
-                        where : "Agoslag = 'Myr'",
-                        style : agoslagMapStyle(this, agoslagColorLookup("Myr")),
-                    }).addTo(mymap);
-
-
-                    //------------------Zoomar till avdelningarna----------------
-                    mymap.fitBounds(avdMapLayer.getBounds());
-                    //mymap.fitBounds(orto.getBounds());
+                    console.log(overlatelseMapLayer);
                     
 
 
+                    //------------------Zoomar till Övarlåtelsen----------------
+                    //mymap.fitBounds(overlatelseMapLayer.getBounds());
+                    //mymap.fitBounds(orto.getBounds());
+
+                     // listen for when all features have been retrieved from the server
+                    overlatelseMapLayer.once("load", function(evt) {
+                        // create a new empty Leaflet bounds object
+                        var bounds = L.latLngBounds([]);
+                        // loop through the features returned by the server
+                        overlatelseMapLayer.eachFeature(function(layer) {
+                        // get the bounds of an individual feature
+                        var layerBounds = layer.getBounds();
+                        // extend the bounds of the collection to fit the bounds of the new feature
+                        bounds.extend(layerBounds);
+                        });
+
+                        // once we've looped through all the features, zoom the map to the extent of the collection
+                        mymap.fitBounds(bounds);
+                    });
+
+
                     //---------------Skapar lagergrupper------------------------
-                    var avdLayerGroup = L.layerGroup([avdMapLayer]).addTo(mymap);
+                    //var avdLayerGroup = L.layerGroup([avdMapLayer]).addTo(mymap);
                     var overlatelseLayerGroup = L.layerGroup([overlatelseMapLayer]).addTo(mymap);
-                    var agoslagLayerGroup = L.layerGroup([skogMapLayer, myrMapLayer]).addTo(mymap);
+                    //var agoslagLayerGroup = L.layerGroup([skogMapLayer, myrMapLayer]).addTo(mymap);
                     
                     var imageOrto = L.layerGroup([orto2]).addTo(mymap);
 
 
                     var overlayMaps = {
-                        "Avdelningar": avdLayerGroup,
+                        //"Avdelningar": avdLayerGroup,
                         "Överltelse" : overlatelseLayerGroup,
-                        "Ägoslag" : agoslagLayerGroup,
+                        //"Ägoslag" : agoslagLayerGroup,
                         
                         "Orto" : imageOrto
                     };
@@ -209,29 +205,6 @@
         }
 
         //------------------------------Funktioner för att sätta mapstyle för olika lager-------------------------
-        function avdMapStyle(feature, fillcolor){
-            console.log(feature);
-            return {
-                fillColor: fillcolor, //'green', //getAgoslagColor(feature.properties.Agoslag),
-                weight : 2,
-                opacity : 1,
-                color : 'blue',
-                dashArray : 3,
-                fillOpacity : 0.0
-            }
-        } 
-
-        function agoslagMapStyle(feature, fillcolor){
-            //console.log(feature);
-            return {
-                fillColor: fillcolor, //'green', //getAgoslagColor(feature.properties.Agoslag),
-                weight : 2,
-                opacity : 1,
-                color : 'blue',
-                dashArray : 3,
-                fillOpacity : 0.7
-            }
-        } 
         function overlatelseMapStyle(feature, fillcolor){
             //console.log('hej')
             return {
