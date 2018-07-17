@@ -114,10 +114,18 @@
 
                     //-----------------Skapar kartan och zoomar till Sverige---------------------------
                     var mymap = L.map('mapid', {
-                        center: [ 59.44767530781756, 14.948004381200652 ],
-                        zoom: 4,
-                        layers: [mapboxbackground]
+                        //center: [ 59.44767530781756, 14.948004381200652 ],
+                        zoom: 7,
+                       // layers: [mapboxbackground],
+                        crs: crs
                     });
+
+                    L.tileLayer('http://api.geosition.com/tile/osm-bright-3006/{z}/{x}/{y}.png', {
+                    maxZoom: crs.options.resolutions.length,
+                    minZoom: 0,
+                    continuousWorld: true,
+                    attribution: 'Map data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, Imagery © <a href="http://www.kartena.se/">Kartena</a>'
+                    }).addTo(mymap);
 
                     //------------------------------ Ortofoto-----------------------------------
 
@@ -130,11 +138,11 @@
                     var orto2 = L.imageOverlay(imageUrl, imageBounds)//.addTo(mymap);
 
                    
-                    var metriaOrtoMapLayer = L.esri.tiledMapLayer({
-                        url :'https://kartportal.sveaskog.se/portal/sharing/servers/5f1b259ea72b49aab68d7504a99c265b/rest/services/MetriaMapsOrto/MapServer',
-                    }).addTo(mymap);
-                    console.log(metriaOrtoMapLayer);
-                    
+                   // var metriaOrtoMapLayer = L.esri.tiledMapLayer({
+                   //     url :'https://kartportal.sveaskog.se/portal/sharing/servers/5f1b259ea72b49aab68d7504a99c265b/rest/services/MetriaMapsOrto/MapServer',
+                   // }).addTo(mymap);
+                   // console.log(metriaOrtoMapLayer);
+                   // 
 
 
                     //-----------------Lägger till ett lager från karttjanster.se--------------
