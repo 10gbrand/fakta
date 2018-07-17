@@ -62,6 +62,16 @@
         $(document).ready(function(){
             $.getJSON("Data/data.json", function(JsonData){
 
+                // SWEREF99 TM (EPSG:3006) with map's pixel origin at SWEREF99 TM coordinate (0, 0)
+                var crs = new L.Proj.CRS('EPSG:3006',
+                '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+                {
+                    resolutions: [
+                    8192, 4096, 2048, 1024, 512, 256, 128
+                    ],
+                    origin: [0, 0]
+                })
+
                 //----------------------------Funktion för att hämta färger för ägoslag---------------------------
                 function agoslagColorLookup(val) {
                     var result = '';
@@ -186,6 +196,13 @@
 
                     L.control.layers(baseMaps, overlayMaps).addTo(mymap);
                     
+
+                    mymap.on('click', function(e){
+                    var coord = e.latlng;
+                    var lat = coord.lat;
+                    var lng = coord.lng;
+                    console.log("Du klickade på latitude: " + lat + " och longitude: " + lng);
+                    }); 
                     
                 });   
             });
@@ -215,7 +232,9 @@
                 dashArray : 10,
                 fillOpacity : 0.0
             }
-        }       
+        }    
+
+  
 
     </script>
 </body>
