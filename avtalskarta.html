@@ -22,6 +22,9 @@
             <script src="https://unpkg.com/proj4@2.4.3"></script>
             <script src="https://unpkg.com/proj4leaflet@1.0.1"></script>
 
+            <!-- Laddar symbologi -->
+            <script type="text/javascript" src="Data/symbologi.json"></script>
+
             <style type="text/css">
                 #mapid { height : 800px;}
             </style>
@@ -33,21 +36,30 @@
 
     <div class="container">
             <div class="row pgaBreak" id="kartsida_3">
-                    <div class="col">
-                        <div class="jumbotron">
-                            <div>
-                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
-                            </div>
-                            <div>
-                                <h1 align="center">Planeringsunderlag försäljning</h1>
-                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
-                            </div>
+                <div class="col-12">
+                    <div class="jumbotron">
+                        <div>
+                            <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
                         </div>
                         <div>
-                            <div id="mapid"></div> 
+                            <h1 align="center">Planeringsunderlag försäljning</h1>
+                            <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
                         </div>
                     </div>
+                    <div calss="row">
+                        <div id="mapid"></div> 
+                    </div>
+                    <div id="legend">
+                        <h4 class="text-center">Legend</h4>
+                        <svg height="200" width="100%">
+                            <line x1="10" y1="10" x2="80" y2="10" style="stroke:greenyellow; stroke-width: 2; stroke-dasharray: 20, 5, 10, 5"/>
+                            <text x="90" y="15" style="font-family: sans-serif; font-size: 16px;">Belastning</text>
+                        </svg>
+
+                    </div>
                 </div>
+            </div>
+
     </div>
 
 
@@ -55,194 +67,156 @@
 
 
     <script>
+    
+    //var symbologi = require('Data/symbologi.json');
+    var symbologi = symbologiJson;
+    console.log(symbologi);
 
-
-//https://kartportal.sveaskog.se/portal/sharing/servers/5f1b259ea72b49aab68d7504a99c265b/rest/services/MetriaMapsOrto/MapServer
-
-        $(document).ready(function(){
-            $.getJSON("Data/data.json", function(JsonData){
-
-                // SWEREF99 TM (EPSG:3006) with map's pixel origin at SWEREF99 TM coordinate (0, 0)
-                var crs = new L.Proj.CRS('EPSG:3006',
-                '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
-                {
-                    resolutions: [
-                    8192, 4096, 2048, 1024, 512, 256, 128
-                    ],
-                    origin: [0, 0]
-                })
-
-                //----------------------------Funktion för att hämta färger för ägoslag---------------------------
-                function agoslagColorLookup(val) {
-                    var result = '';
-                    var lookuptext = '';
-                    var agoslagStatArr = JsonData.AgoslagStat;
-                    $.each(agoslagStatArr, function(key, value){
-                        lookuptext += '"' +value.Agoslag +'" : "' + value.FillColor + '", ';
-                    })
-                    var lookup = eval('({' + lookuptext + '})');
-                    console.log(lookup);
-                    return lookup[val];
-                }
-
-                //----------------Läser in geojson fil med avdelningsdata----------------------
-                $.getJSON("Data/overlatelse.geo.json", function(GeoJsonData){
-                    //console.log(GeoJsonData);
-                    //----------------Delar upp jsonobjektet efter lager-------------------------------
-                    var i;
-                    for (i = 0; i < GeoJsonData.length; i++) { 
-                        if (GeoJsonData[i].name == "avd"){
-                            //console.log('avd');
-                            var avdGeoJsonData = GeoJsonData[i]
-                        } else {
-                            if (GeoJsonData[i].name == "overlatelse"){
-                                //console.log('overlatelse');
-                                var overlatelseGeoJsonData = GeoJsonData[i]
-                            } else {
-                                //console.log('ej avd eller overlatelse');
-                            }
-                        }
-
-                    }
-                    //----------------------Definierar bakgrundskartor------------------------
-                    var mapboxbackground = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                        maxZoom: 18,
-                        id: 'mapbox.streets',
-                        accessToken: 'pk.eyJ1IjoiMTBnYnJhbmQiLCJhIjoiY2pja3o3OHJ3MDB2bjJycXFlcnpvMjE5dSJ9.mSgczyDS3VZ9vypuPiLksQ'
-                    });
-
-                    //-----------------Skapar kartan och zoomar till Sverige---------------------------
-                    var mymap = L.map('mapid', {
-                        //center: [ 59.44767530781756, 14.948004381200652 ],
-                        zoom: 7,
-                       // layers: [mapboxbackground],
-                        crs: crs
-                    });
-
-                    L.tileLayer('http://api.geosition.com/tile/osm-bright-3006/{z}/{x}/{y}.png', {
-                    maxZoom: crs.options.resolutions.length,
-                    minZoom: 0,
-                    continuousWorld: true,
-                    attribution: 'Map data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, Imagery © <a href="http://www.kartena.se/">Kartena</a>'
-                    }).addTo(mymap);
-
-                    //------------------------------ Ortofoto-----------------------------------
-
-                    var imageUrl = 'Data/leafletMap.png',
-                        imageBounds = [[ 61.80810977470252, 12.426252403414077 ], [ 61.837880799524235, 12.485243652362108]];
-                    var orto = L.imageOverlay(imageUrl, imageBounds)//.addTo(mymap);
-
-                    var imageUrl = 'Data/Agoslag_map.png',
-                        imageBounds = [[ 59.42432210317572, 14.94016605395809 ], [ 59.47354617672031, 15.036878609639727]];
-                    var orto2 = L.imageOverlay(imageUrl, imageBounds)//.addTo(mymap);
-
-                   
-                   // var metriaOrtoMapLayer = L.esri.tiledMapLayer({
-                   //     url :'https://kartportal.sveaskog.se/portal/sharing/servers/5f1b259ea72b49aab68d7504a99c265b/rest/services/MetriaMapsOrto/MapServer',
-                   // }).addTo(mymap);
-                   // console.log(metriaOrtoMapLayer);
-                   // 
-
-
-                    //-----------------Lägger till ett lager från karttjanster.se--------------
-
-                    var overlatelseMapLayer = L.esri.featureLayer({
-                        url :'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/Overlatelser/MapServer/5',
-                       // where : "Agoslag = 'Skogsmark'",
-                        where : "OverlatelseNummer = 142401",
-                        style : overlatelseMapStyle(this),
-                    }).addTo(mymap);
-                    console.log(overlatelseMapLayer);
-                    
-
-
-                    //------------------Zoomar till Övarlåtelsen----------------
-                    //mymap.fitBounds(overlatelseMapLayer.getBounds());
-                    //mymap.fitBounds(orto.getBounds());
-
-                     // listen for when all features have been retrieved from the server
-                    overlatelseMapLayer.once("load", function(evt) {
-                        // create a new empty Leaflet bounds object
-                        var bounds = L.latLngBounds([]);
-                        // loop through the features returned by the server
-                        overlatelseMapLayer.eachFeature(function(layer) {
-                        // get the bounds of an individual feature
-                        var layerBounds = layer.getBounds();
-                        // extend the bounds of the collection to fit the bounds of the new feature
-                        bounds.extend(layerBounds);
-                        });
-
-                        // once we've looped through all the features, zoom the map to the extent of the collection
-                        mymap.fitBounds(bounds);
-                    });
-
-
-                    //---------------Skapar lagergrupper------------------------
-                    //var avdLayerGroup = L.layerGroup([avdMapLayer]).addTo(mymap);
-                    var overlatelseLayerGroup = L.layerGroup([overlatelseMapLayer]).addTo(mymap);
-                    //var agoslagLayerGroup = L.layerGroup([skogMapLayer, myrMapLayer]).addTo(mymap);
-                    
-                    var imageOrto = L.layerGroup([orto2]).addTo(mymap);
-
-
-                    var overlayMaps = {
-                        //"Avdelningar": avdLayerGroup,
-                        "Överltelse" : overlatelseLayerGroup,
-                        //"Ägoslag" : agoslagLayerGroup,
-                        
-                        "Orto" : imageOrto
-                    };
-
-                    //var overlayRaster = {
-                    //    "Orto" : imageOrto
-                    //};
-                    
-                    var baseMaps = {
-                        "Mapbox": mapboxbackground
-                    };
-
-                    L.control.layers(baseMaps, overlayMaps).addTo(mymap);
-                    
-
-                    mymap.on('click', function(e){
-                    var coord = e.latlng;
-                    var lat = coord.lat;
-                    var lng = coord.lng;
-                    console.log("Du klickade på latitude: " + lat + " och longitude: " + lng);
-                    }); 
-                    
-                });   
-            });
+    var crs = new L.Proj.CRS('EPSG:3006',
+        '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+        {
+            resolutions: [
+                8192, 4096, 2048, 1024, 512, 256, 128,
+                64, 32, 16, 8, 4, 2, 1, 0.5
+            ],
+            origin: [0, 0],
+            bounds: L.bounds([218128.7031, 6126002.9379], [1083427.2970, 7692850.9468])
+        }),
+        map = new L.Map('mapid', {
+            crs: crs,
         });
-        
-        //----------------------------Funktion för att hämta färger för ägoslag---------------------------
-        function agoslagColorLookup(val) {
-            var result = '';
-            var lookuptext = '';
-            var agoslagStatArr = JsonData.AgoslagStat;
-            $.each(agoslagStatArr, function(key, value){
-                lookuptext += '"' +value.Agoslag +'" : "' + value.FillColor + '", ';
-            })
-            var lookup = eval('({' + lookuptext + '})');
-            console.log(lookup);
-            return lookup[val];
+    
+    map.setView([62.0, 15.0], 2);
+    
+    //----------------- OpenStreetMap ---------------------
+    var osm = L.tileLayer('https://api.geosition.com/tile/osm-bright-3006/{z}/{x}/{y}.png', {
+        maxZoom: 14,
+        minZoom: 0,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, Imagery &copy; <a href="http://www.kartena.se/">Kartena</a>'
+    }).addTo(map);
+
+    //--------------------------------------------- Metria maps skarp ----------------------------
+    var wmsMetriaBakgrundLayer = L.tileLayer.wms('https://kartportaltest.sveaskog.se/tokenproxy/metria/wms?', {
+        layers: 'MetriaFastighetSkarp',
+        //opacity : 0.25,
+        maxZoom: 14
+    });//.addTo(map);
+    
+
+    //----------------------------- ortofoto från Metria via tokenproxy ---------------------
+    var wmsOrtoLayer = L.tileLayer.wms('https://kartportaltest.sveaskog.se/tokenproxy/metria/wms?', {
+        layers: 'metria:orto_farg',
+        //opacity : 0.25,
+        maxZoom: 14
+    });//.addTo(map);
+
+    //----------------------------- Fastigheter från Metria via tokenproxy ---------------------
+    var wmsFstLayer = L.tileLayer.wms('https://kartportaltest.sveaskog.se/tokenproxy/metria/wms?', {
+        layers: 'metria:FastighetsytorGranser_FK',
+        //opacity : 0.25,
+        maxZoom: 14,
+        transparent: true,
+        format: 'image/png'
+    });//.addTo(map);
+
+    //---------------------------------- Överlåtelsen ------------------------------------
+    var overlatelseMapLayer = L.esri.featureLayer({
+        url :'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/Overlatelser/MapServer/5',
+        where : "OverlatelseNummer = 142401",
+        style : overlatelseMapStyle(this),
+    }).addTo(map);
+    console.log(overlatelseMapLayer);
+
+    // ------------------------- Avdelning -----------------------------
+    var agoslagMapLayer = L.esri.featureLayer({
+        url :'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljningAvd/MapServer/1',
+        where : "OverlatelseID = 142401",
+        style : agoslagMapStyle(this),
+    });//.addTo(map);
+    
+
+    //------------------Zoomar till Övarlåtelsen----------------
+
+    overlatelseMapLayer.once("load", function(evt) {
+        // create a new empty Leaflet bounds object
+        var bounds = L.latLngBounds([]);
+        // loop through the features returned by the server
+        overlatelseMapLayer.eachFeature(function(layer) {
+        // get the bounds of an individual feature
+        var layerBounds = layer.getBounds();
+        // extend the bounds of the collection to fit the bounds of the new feature
+        bounds.extend(layerBounds);
+        });
+        // once we've looped through all the features, zoom the map to the extent of the collection
+        map.fitBounds(bounds);
+    });
+
+    //----------------------------------------- Skapar lagergrupper ------------------------
+    var ortoLayerGroup = L.layerGroup([wmsOrtoLayer]);//.addTo(map);
+    var overlatelseLayerGroup = L.layerGroup([overlatelseMapLayer]).addTo(map);
+    var avdLayerGroup = L.layerGroup([agoslagMapLayer]);//.addTo(map);
+    var fastgransLayerGroup = L.layerGroup([wmsFstLayer]);
+ 
+    var overlayMaps = {
+        "Avdelningar": avdLayerGroup,
+        "Överltelse" : overlatelseLayerGroup,
+        "Fastighetsgräns" : fastgransLayerGroup,
+    };
+
+    
+    var baseMaps = {
+        "Open Street Map" : osm,
+        "Bakgrund": wmsMetriaBakgrundLayer,
+        "Orto": wmsOrtoLayer
+    };
+
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
+    L.control.scale({
+        imperial: false
+    }).addTo(map);
+
+
+    
+	//----------------------- Popup med koordinater vid klick i kartan ---------------------------
+	var popup = L.popup();
+	function onMapClick(e) {
+		var swerefproj = "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
+		var swerefcoords = proj4(swerefproj, [e.latlng.lng, e.latlng.lat]);
+        console.log(swerefcoords);
+        console.log(e.latlng);
+        console.log(swerefcoords[1]);
+		popup
+			.setLatLng(e.latlng)
+			.setContent("X: " + swerefcoords[0].toString().substring(0,6) + '<br/>' + "Y: " + swerefcoords[1].toString().substring(0,6))
+			.openOn(map);
+	};
+	map.on('click', onMapClick);
+
+    //------------------------------Funktioner för att sätta mapstyle för olika lager-------------------------
+    function overlatelseMapStyle(feature, fillcolor){
+    //console.log('hej')
+    return {
+        fillColor: null,
+        weight : 5,
+        opacity : 1,
+        color : 'purple',
+        dashArray : 10,
+        fillOpacity : 0.0
         }
+    } 
 
-        //------------------------------Funktioner för att sätta mapstyle för olika lager-------------------------
-        function overlatelseMapStyle(feature, fillcolor){
-            //console.log('hej')
-            return {
-                fillColor: null,
-                weight : 5,
-                opacity : 1,
-                color : 'purple',
-                dashArray : 10,
-                fillOpacity : 0.0
-            }
-        }    
+    function agoslagMapStyle(feature, fillcolor){
+    //console.log('hej')
+    return {
+        fillColor: null,
+        weight : 1,
+        opacity : 1,
+        color : 'black',
+        dashArray : 3,
+        fillOpacity : 0.0
+        }
+    }   
 
-  
 
     </script>
 </body>
