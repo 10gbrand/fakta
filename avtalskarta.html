@@ -121,8 +121,8 @@
 
     //---------------------------------- Överlåtelsen ------------------------------------
     var overlatelseMapLayer = L.esri.featureLayer({
-        url :'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/Overlatelser/MapServer/5',
-        where : "OverlatelseNummer = 142401",
+        url :'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/8',
+        where : "OverlatelseID = 142401",
         style : overlatelseMapStyle(this),
     }).addTo(map);
     console.log(overlatelseMapLayer);
