@@ -25,8 +25,12 @@
     <script src="https://unpkg.com/proj4@2.4.3"></script>
     <script src="https://unpkg.com/proj4leaflet@1.0.1"></script>
 
+    <script src="lib/leaflet.label.js"></script>
+
     <!-- Laddar symbologi -->
     <script type="text/javascript" src="Data/symbologi.json"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
 
     <style type="text/css">
         #mapid {
@@ -55,7 +59,7 @@
                     <div id="mapid"></div>
                 </div>
                 <div id="legend">
-                    <h4 class="text-center">Legend</h4>
+                    <h4 class="text-center">Legend </h4>
                     <svg height="200" width="100%">
                         <line x1="10" y1="10" x2="80" y2="10" style="stroke:greenyellow; stroke-width: 2; stroke-dasharray: 20, 5, 10, 5" />
                         <text x="90" y="15" style="font-family: sans-serif; font-size: 16px;">Belastning</text>
@@ -73,10 +77,14 @@
 
     <script>
 
-        var OverlatelseID
+        //var overlatelseID = 142401;
+        var overlatelseID = getQueryVariable("id");
+
+
+
         //var symbologi = require('Data/symbologi.json');
         var symbologi = symbologiJson;
-        console.log(symbologi);
+        //console.log(symbologi);
 
         var crs = new L.Proj.CRS('EPSG:3006',
             '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
@@ -128,17 +136,57 @@
         //---------------------------------- Överlåtelsen ------------------------------------
         var overlatelseMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/8',
-            where: "OverlatelseID = 142401",
+            where: "OverlatelseID = " + overlatelseID,
             style: overlatelseMapStyle(this),
         }).addTo(map);
-        console.log(overlatelseMapLayer);
+        //console.log(overlatelseMapLayer);
 
         // ------------------------- Avdelning -----------------------------
         var agoslagMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljningAvd/MapServer/1',
-            where: "OverlatelseID = 142401",
+            where: "OverlatelseID = " + overlatelseID,
             style: agoslagMapStyle(this),
         });//.addTo(map);
+
+        //---------------------------------- tomt ------------------------------------
+
+
+        //var tomtPunktMapLayer = L.esri.featureLayer({
+        //    url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/0',
+        //    pointToLayer: function (geojson, latlng) {
+        //        console.log(latlng);
+        //        console.log(geojson);
+        //        console.log(geojson.properties);
+        //        label = String(geojson.properties.lopnummer)
+        //        return L.marker(latlng, {
+        //            icon: tomtIcon,
+        //
+        //            //icon: divIcon,
+        //        }).bindTooltip(label, { permanent: true, opacity: 0.9 }).openTooltip();
+        //    },
+        //});//.addTo(map);
+
+        var tomtPunktMapLayer = L.esri.featureLayer({
+            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/0',
+            where: "OverlatelseID = " + overlatelseID,
+            pointToLayer: function (geojson, latlng) {
+                //console.log(latlng);
+                //console.log(geojson);
+                //console.log(geojson.properties);
+                label = String(geojson.properties.lopnummer)
+                return L.circleMarker(latlng, {
+                    weight: 3,
+                    fillColor: 'green',
+
+                    //icon: divIcon,
+                }).bindTooltip(label, { permanent: true, opacity: 0.9, background: '#e93434' }).openTooltip();
+            },
+        });//.addTo(map);
+
+
+
+
+
 
 
         //------------------Zoomar till Övarlåtelsen----------------
@@ -162,11 +210,13 @@
         var overlatelseLayerGroup = L.layerGroup([overlatelseMapLayer]).addTo(map);
         var avdLayerGroup = L.layerGroup([agoslagMapLayer]);//.addTo(map);
         var fastgransLayerGroup = L.layerGroup([wmsFstLayer]);
+        var tomtLayerGroup = L.layerGroup([tomtPunktMapLayer]).addTo(map);
 
         var overlayMaps = {
             "Avdelningar": avdLayerGroup,
             "Överltelse": overlatelseLayerGroup,
             "Fastighetsgräns": fastgransLayerGroup,
+            "Tomt": tomtLayerGroup,
         };
 
 
@@ -223,7 +273,28 @@
             }
         }
 
+        //-------------------- olika ikoner -------------------------------------
+        var tomtIcon = L.icon({
+            iconUrl: 'src/arrow-down.svg',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            //popupAnchor: [-3, -76],
+            //shadowUrl: 'my-icon-shadow.png',
+            //shadowSize: [68, 95],
+            //shadowAnchor: [22, 94],
+            //html: "<span style='color:blue;'>textToDisplay</span>",
+        })
 
+        //---------------------- Hämtar överlåtelseid från url parameter eller uppmanar användare att ange id -------------------------------
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) { return pair[1]; }
+            }
+            return (false);
+        }
     </script>
 </body>
 
