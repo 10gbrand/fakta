@@ -36,6 +36,36 @@
         #mapid {
             height: 800px;
         }
+
+        .label {
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: -1em;
+        }
+
+        .label div {
+            position: relative;
+            left: -50%;
+            text-shadow: 0px 2px 1px rgba(255, 255, 255, 0.85);
+        }
+
+        .map-marker {
+            text-align: center;
+            position: absolute;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            line-height: 22pt;
+            font-size: 22px;
+            font-family: 'FontAwesome';
+            filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+        }
+        .map-marker.marker-color-gray {background: lightgray;}
     </style>
 </head>
 
@@ -137,9 +167,42 @@
         var overlatelseMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/8',
             where: "OverlatelseID = " + overlatelseID,
-            style: overlatelseMapStyle(this),
+            //style: overlatelseMapStyle(this),
         }).addTo(map);
         //console.log(overlatelseMapLayer);
+
+        //------------ fungerande men ej aktiv för att sätta etiket på överlåtelsen------------------------------
+        //var overlatelseLabels = {};
+        //
+        //overlatelseMapLayer.on('createfeature', function (e) {
+        //    var id = e.feature.id;
+        //    var feature = overlatelseMapLayer.getFeature(id);
+        //    console.log(feature);
+        //    console.log(feature.feature.properties.OverlatelseBenamning);
+        //    var center = feature.getBounds().getCenter();
+        //    var label = L.marker(center, {
+        //        icon: L.divIcon({
+        //            iconSize: null,
+        //            className: 'label',
+        //            html: '<div>' + feature.feature.properties.OverlatelseBenamning + '</div>'
+        //        })
+        //    }).addTo(map);
+        //    overlatelseLabels[id] = label;
+        //});
+        //
+        //overlatelseMapLayer.on('addfeature', function (e) {
+        //    var label = overlatelseLabels[e.feature.id];
+        //    if (label) {
+        //        label.addTo(map);
+        //    }
+        //});
+        //
+        //overlatelseMapLayer.on('removefeature', function (e) {
+        //    var label = overlatelseLabels[e.feature.id];
+        //    if (label) {
+        //        map.removeLayer(label);
+        //    }
+        //});
 
         // ------------------------- Avdelning -----------------------------
         var agoslagMapLayer = L.esri.featureLayer({
@@ -166,6 +229,23 @@
         //    },
         //});//.addTo(map);
 
+        //var tomtPunktMapLayer = L.esri.featureLayer({
+        //    url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/0',
+        //    where: "OverlatelseID = " + overlatelseID,
+        //    pointToLayer: function (geojson, latlng) {
+        //        //console.log(latlng);
+        //        //console.log(geojson);
+        //        //console.log(geojson.properties);
+        //        label = String(geojson.properties.lopnummer)
+        //        return L.circleMarker(latlng, {
+        //            weight: 3,
+        //            fillColor: 'green',
+        //
+        //            //icon: divIcon,
+        //        }).bindTooltip(label, { permanent: true, opacity: 0.9, background: '#e93434' }).openTooltip();
+        //    },
+        //});//.addTo(map);
+
         var tomtPunktMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/0',
             where: "OverlatelseID = " + overlatelseID,
@@ -174,14 +254,15 @@
                 //console.log(geojson);
                 //console.log(geojson.properties);
                 label = String(geojson.properties.lopnummer)
-                return L.circleMarker(latlng, {
-                    weight: 3,
-                    fillColor: 'green',
-
-                    //icon: divIcon,
-                }).bindTooltip(label, { permanent: true, opacity: 0.9, background: '#e93434' }).openTooltip();
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        iconSize: null,
+                        className: 'map-marker marker-color-gray',
+                        html: '<div>' + label + '</div>'
+                    })
+                })
             },
-        });//.addTo(map);
+        }).addTo(map);
 
 
 
