@@ -86,7 +86,7 @@
         }
 
         .map-marker.marker-color-belastning {
-            background: #e69900 !important;
+            background: #e69900;
         }
 
         .map-marker.marker-color-belastning-yl {
@@ -124,14 +124,36 @@
                 <div calss="row">
                     <div id="mapid"></div>
                 </div>
-                <div id="legend">
-                    <h4 class="text-center">Legend </h4>
-                    <svg height="200" width="100%">
-                        <line x1="10" y1="10" x2="80" y2="10" style="stroke:greenyellow; stroke-width: 2; stroke-dasharray: 20, 5, 10, 5" />
-                        <text x="90" y="15" style="font-family: sans-serif; font-size: 16px;">Belastning</text>
-                    </svg>
-
+                <div calss="row">
+                    <div id="legend">
+                            <h4 class="text-center">Legend </h4>
+                            <svg height="200" width="100%">
+                                <text x="10" y="15" style="font-family: sans-serif; font-size: 16px; font-style: oblique">Linje</text>
+                                <text x="100" y="15" style="font-family: sans-serif; font-size: 16px; font-style: oblique">Yta</text>
+                                <text x="150" y="15" style="font-family: sans-serif; font-size: 16px; font-style: oblique">Punkt</text>
+                                <text x="200" y="15" style="font-family: sans-serif; font-size: 16px; font-style: oblique">Typ</text>
+        
+                                <line x1="10" y1="30" x2="80" y2="30" style="stroke:#e69900; stroke-width: 2; stroke-dasharray: 20, 5, 10, 5" ></line>
+                                <rect x="100" y="25" width="30" height="10" style="fill:#e69900;stroke:pink;stroke-width:1;fill-opacity:0.9;stroke-opacity:0.9" ></rect>
+                                <circle cx="170" cy="30" r="10" stroke="white" stroke-width="3" fill="#e69900" ></circle>
+                                <text x="167" y="33" style="font-family: sans-serif; font-size: 12px; stroke: #fff">3</text>
+                                <text x="200" y="35" style="font-family: sans-serif; font-size: 16px;">Belastning</text>
+        
+                                <line x1="10" y1="50" x2="80" y2="50" style="stroke:#00c5ff; stroke-width: 2; stroke-dasharray: 20, 5, 10, 5" ></line>
+                                <rect x="100" y="45" width="30" height="10" style="fill:#00c5ff;stroke:pink;stroke-width:1;fill-opacity:0.9;stroke-opacity:0.9" ></rect>
+                                <circle cx="170" cy="50" r="10" stroke="white" stroke-width="3" fill="#00c5ff" ></circle>
+                                <text x="167" y="53" style="font-family: sans-serif; font-size: 12px; stroke: #fff">3</text>
+                                <text x="200" y="55" style="font-family: sans-serif; font-size: 16px;">Rättighet</text>
+                            </svg>
+        
+                    </div>
                 </div>
+                <div calss="row">
+                        <div id="karobjekt">
+                            
+                        </div>
+                </div>
+                
             </div>
         </div>
 
@@ -449,7 +471,7 @@
         var belastningLinjeMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/5',
             where: "OverlatelseID = " + overlatelseID,
-            style: belastningMapStyle(this),
+            style: belastningMapStyleLine(this),
 
         });//.addTo(map);
 
@@ -567,12 +589,13 @@
         var ortoLayerGroup = L.layerGroup([wmsOrtoLayer]);//.addTo(map);
 
         var avdLayerGroup = L.layerGroup([agoslagMapLayer]);//.addTo(map);
-        var fastgransLayerGroup = L.layerGroup([wmsFstLayer, fastighetYtaMapLayer]);
+        var fastgransLayerGroup = L.layerGroup([fastighetYtaMapLayer]);
         var tomtLayerGroup = L.layerGroup([tomtPunktMapLayer, tomtYtaMapLayer]);//.addTo(map);
         var belastningLayerGroup = L.layerGroup([belastningYtaMapLayer, belastingPunktMapLayer, belastningLinjeMapLayer]);//.addTo(map);
         var overlatelseLayerGroup = L.layerGroup([overlatelseMapLayer]).addTo(map);
         var rattighetLayerGroup = L.layerGroup([rattighetPunktMapLayer, ratighetLinjeMapLayer, rattighetYtaMapLayer]);//.addTo(map);
         var byggnadLayerGroup = L.layerGroup([byggnadPunktMapLayer]);//.addTo(map);
+        var wmsFstLayerGroup = L.layerGroup([wmsFstLayer]);
 
         var overlayMaps = {
             "Överltelse": overlatelseLayerGroup,
@@ -582,6 +605,7 @@
             "Rättighet": rattighetLayerGroup,
             "Tomt": tomtLayerGroup,
             "Byggnad": byggnadLayerGroup,
+            "Fastighet-Metria":wmsFstLayerGroup,
 
         };
 
@@ -589,7 +613,8 @@
         var baseMaps = {
             "Open Street Map": osm,
             "Bakgrund": wmsMetriaBakgrundLayer,
-            "Orto": wmsOrtoLayer
+            "Orto": wmsOrtoLayer,
+            
         };
 
         L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -669,11 +694,30 @@
             return {
 
                 fillColor: '#e69900',
+                //fillColor: 'white',
+                weight: 3,
+                opacity: 1,
+                //color: '#e69900',
+                color: 'white',
+                dashArray: "20, 10, 10, 10",
+                //dashArray: "5, 20, 5, 10",
+                fillOpacity: 0.5
+            }
+        }
+
+        function belastningMapStyleLine(feature, fillcolor) {
+            //console.log('hej')
+            return {
+
+                //fillColor: '#e69900',
+                //fillColor: 'white',
                 weight: 3,
                 opacity: 1,
                 color: '#e69900',
-                dashArray: 3,
-                fillOpacity: 0.5
+                //color: 'white',
+                dashArray: "20, 10, 10, 10",
+                //dashArray: "5, 20, 5, 10",
+                fillOpacity: 0.8
             }
         }
 

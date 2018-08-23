@@ -1,0 +1,27 @@
+[
+    {"lager": "Belastning",
+        "farg" : {
+            "html-color" : "#e69900",
+            "rgb" : [230, 153, 0]
+        }
+    },
+    {"lager": "Rättighet",
+        "farg" : {
+            "html-color" : "#00c5ff",
+            "rgb" : [0, 197, 255]
+        }
+    },
+    {"lager": "Tomt",
+        "farg" : {
+            "html-color" : "#734c00",
+            "rgb" : [115, 76, 0]
+        }
+    },
+    {"lager": "Byggnad",
+        "farg" : {
+            "html-color" : "#55ff00",
+            "rgb" : [85, 255, 0]
+        }
+    }
+
+]

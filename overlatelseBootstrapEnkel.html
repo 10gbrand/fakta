@@ -1,42 +1,52 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-            <!-- skapad utifrån http://www.jessicaschillinger.us/2017/blog/print-repeating-header-browser/ -->
-            <title>Planeringsunderlag försäljning</title>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
-            <!-- Leaflet -->
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
-            <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+<head>
+    <!-- skapad utifrån http://www.jessicaschillinger.us/2017/blog/print-repeating-header-browser/ -->
+    <title>Planeringsunderlag försäljning</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="lib/FMEServer.js"></script>
 
-            <style>
-            table.report-container {
-                page-break-after:always;
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+        crossorigin=""></script>
+
+    <style>
+        table.report-container {
+            page-break-after: always;
+        }
+
+        thead.report-header {
+            display: table-header-group;
+        }
+
+        tfoot.report-footer {
+            display: table-footer-group;
+        }
+
+        #mapid {
+            height: 900px;
+        }
+
+        @media print {
+            .row.pgaBreak {
+                page-break-after: always;
             }
-            thead.report-header {
-                display:table-header-group;
-            }
-            tfoot.report-footer {
-                display:table-footer-group;
-            }
 
-            #mapid { height: 900px; }
-
-            @media print {
-                .row.pgaBreak {page-break-after: always;}
-
-            }
-            </style>
-    </head>
+        }
+    </style>
+</head>
 
 <body>
-    
+
 
 
     <div class="container">
@@ -44,19 +54,20 @@
             <div class="col">
                 <div class="jumbotron">
                     <div>
-                        <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                        <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">
                     </div>
                     <div>
                         <h1 align="center">Planeringsunderlag försäljning</h1>
-                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
+                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>
                     </div>
                 </div>
                 <div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam
+                        rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
                     <div class="row">
                         <div class="col-12">
                             <h3 align="center">Ägoslag</h3>
-                        </div>  
+                        </div>
                         <div class="col-4 d-flex align-items-center justify-content-center">
                             <table class="table-striped table-bordered" id="agoslagTabell">
                                 <tr>
@@ -64,19 +75,19 @@
                                     <th>Areal</th>
                                 </tr>
 
-                            </table>                        
+                            </table>
                         </div>
                         <div class="col-8 d-flex align-items-center justify-content-center">
                             <div class="chart-container" style="width:500px">
                                 <canvas id="agoslagChart"></canvas>
-                            </div>    
-                        </div>    
-                        
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
-                            <div class="col-12">
-                                <h3 align="center">Huggningsklass</h3>
-                            </div>  
+                        <div class="col-12">
+                            <h3 align="center">Huggningsklass</h3>
+                        </div>
                         <div class="col-4 d-flex align-items-center justify-content-center">
                             <table class="table-striped table-bordered" id="hklTabell">
                                 <tr>
@@ -85,19 +96,19 @@
                                     <th>Volym</th>
                                 </tr>
 
-                            </table>                        
+                            </table>
                         </div>
                         <div class="col-8 d-flex align-items-center justify-content-center">
                             <div class="chart-container" style="width:500px">
                                 <canvas id="hklassChart"></canvas>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                        <div class="col-12">
-                            <h3 align="center">Åldersklass</h3>
-                        </div>  
+                    <div class="col-12">
+                        <h3 align="center">Åldersklass</h3>
+                    </div>
                     <div class="col-4 d-flex align-items-center justify-content-center">
                         <table class="table-striped table-bordered" id="alderTabell">
                             <tr>
@@ -106,55 +117,56 @@
                                 <th>Volym</th>
                             </tr>
 
-                        </table>                        
+                        </table>
                     </div>
                     <div class="col-8 d-flex align-items-center justify-content-center">
                         <div class="chart-container" style="width:500px">
                             <canvas id="alderArealChart"></canvas>
                             <canvas id="alderVolymChart"></canvas>
-                        </div>    
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row pgaBreak" id="summary_2">
-                <div class="col">
-                    <div class="jumbotron">
-                        <div>
-                            <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
-                        </div>
-                        <div>
-                            <h1 align="center">Planeringsunderlag försäljning</h1>
-                            <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
-                        </div>
+            <div class="col">
+                <div class="jumbotron">
+                    <div>
+                        <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">
                     </div>
                     <div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
-                        <div class="row">
-                            <div class="col-12">
-                                <h3 align="center">Målklass</h3>
-                            </div>  
-                            <div class="col-4 d-flex align-items-center justify-content-center">
-                                <table class="table-striped table-bordered" id="malklassTabell">
-                                    <tr>
-                                        <th>Ägoslag</th>
-                                        <th>Areal</th>
-                                        <th>Volym</th>
-                                    </tr>
-    
-                                </table>                        
-                            </div>
-                            <div class="col-8 d-flex align-items-center justify-content-center">
-                                <div class="chart-container" style="width:500px">
-                                    <canvas id="malklassArealChart"></canvas>
-                                    <canvas id="malklassVolymChart"></canvas>
-                                </div>    
+                        <h1 align="center">Planeringsunderlag försäljning</h1>
+                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>
+                    </div>
+                </div>
+                <div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam
+                        rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 align="center">Målklass</h3>
+                        </div>
+                        <div class="col-4 d-flex align-items-center justify-content-center">
+                            <table class="table-striped table-bordered" id="malklassTabell">
+                                <tr>
+                                    <th>Ägoslag</th>
+                                    <th>Areal</th>
+                                    <th>Volym</th>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="col-8 d-flex align-items-center justify-content-center">
+                            <div class="chart-container" style="width:500px">
+                                <canvas id="malklassArealChart"></canvas>
+                                <canvas id="malklassVolymChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         <div class="row pgaBreak" id="berordaobjekt">
             <div class="col-12">
@@ -166,9 +178,9 @@
                                     <tr>
                                         <th colspan="16">
                                             <div class="jumbotron">
-                                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">
                                                 <h1 align="center">Planeringsunderlag försäljning</h1>
-                                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>   
+                                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>
                                             </div>
                                         </th>
                                     </tr>
@@ -200,7 +212,7 @@
                     <tbody class="report-content">
                         <tr>
                             <td class="report-content-cell">
-                                <div class="main" >
+                                <div class="main">
                                     <!-- tabelldata avdelning från json-fil -->
                                 </div>
                             </td>
@@ -209,79 +221,81 @@
                 </table>
             </div>
         </div>
-    
+
         <div class="row pgaBreak" id="kartsida_1">
             <div class="col">
                 <div class="jumbotron">
                     <div>
-                        <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                        <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">
                     </div>
                     <div>
                         <h1 align="center">Planeringsunderlag försäljning</h1>
-                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
+                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>
                     </div>
                 </div>
                 <div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam
+                        rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
                     <div class="row">
                         <div class="col-12">
                             <h3 align="center">Karta - Översikt</h3>
-                            
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12" align="center">
-                            <img src="Data/Oversikt_map.png" alt="Översiktskarta" style="padding:5px;" width="600px" align="center">    
-                        </div>                          
+                            <img src="Data/Oversikt_map.png" alt="Översiktskarta" style="padding:5px;" width="600px" align="center">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row pgaBreak" id="kartsida_2">
-                <div class="col">
-                    <div class="jumbotron">
-                        <div>
-                            <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
-                        </div>
-                        <div>
-                            <h1 align="center">Planeringsunderlag försäljning</h1>
-                            <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
-                        </div>
+            <div class="col">
+                <div class="jumbotron">
+                    <div>
+                        <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">
                     </div>
                     <div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
-                        <div class="row">
-                            <div class="col-12">
-                                <h3 align="center">Karta - Ägoslag</h3>
-                                
-                            </div>
+                        <h1 align="center">Planeringsunderlag försäljning</h1>
+                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>
+                    </div>
+                </div>
+                <div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, iusto nemo et, molestias vitae quisquam
+                        rem vel veniam tenetur rerum facere blanditiis qui a quam quo perferendis, sint incidunt libero.</p>
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 align="center">Karta - Ägoslag</h3>
+
                         </div>
-                        <div class="row">
-                            <div class="col-12" align="center">
-                                <img src="Data/Agoslag_map.png" alt="Översiktskarta" class="col-12 img-responsive">    
-                            </div>                          
+                    </div>
+                    <div class="row">
+                        <div class="col-12" align="center">
+                            <img src="Data/Agoslag_map.png" alt="Översiktskarta" class="col-12 img-responsive">
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="row pgaBreak" id="kartsida_3">
-                    <div class="col">
-                        <div class="jumbotron">
-                            <div>
-                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
-                            </div>
-                            <div>
-                                <h1 align="center">Planeringsunderlag försäljning</h1>
-                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
-                            </div>
-                        </div>
-                        <div>
-                            <div id="mapid"></div> 
-                        </div>
+        <div class="row pgaBreak" id="kartsida_3">
+            <div class="col">
+                <div class="jumbotron">
+                    <div>
+                        <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">
+                    </div>
+                    <div>
+                        <h1 align="center">Planeringsunderlag försäljning</h1>
+                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>
                     </div>
                 </div>
+                <div>
+                    <div id="mapid"></div>
+                </div>
+            </div>
+        </div>
 
         <div class="row pgaBreak" id="avd">
             <div class="col-12">
@@ -293,22 +307,22 @@
                                     <tr>
                                         <th colspan="16">
                                             <div class="jumbotron">
-                                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">
                                                 <h1 align="center">Planeringsunderlag försäljning</h1>
-                                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
+                                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>
                                             </div>
                                         </th>
                                     </tr>
-                                    
+
                                     <tr class="table table-bordered table-fixed">
                                         <th colspan="9">Avd</th>
-                                        
-                                        
+
+
                                         <th colspan="5">m3sk/ha</th>
                                         <th colspan="2">Areal, ha</th>
                                         <!--<th colspan="6"></th>-->
                                     </tr>
-                                    
+
                                     <tr class="table table-bordered">
                                         <th>Nr</th>
                                         <th>Bet.</th>
@@ -337,8 +351,9 @@
                                 <div class="footer-info">
                                     <td colspan="16">
                                         <p>
-                                            En beskrivning av huggningsklass tex
-                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate cumque ab sit veritatis repellat fugiat tempore error esse, inventore soluta autem, delectus repudiandae? Temporibus magnam possimus voluptatem in, blanditiis quis!
+                                            En beskrivning av huggningsklass tex Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate cumque ab sit veritatis
+                                            repellat fugiat tempore error esse, inventore soluta autem, delectus repudiandae?
+                                            Temporibus magnam possimus voluptatem in, blanditiis quis!
                                         </p>
                                     </td>
                                 </div>
@@ -348,7 +363,7 @@
                     <tbody class="report-content">
                         <tr>
                             <td class="report-content-cell">
-                                <div class="main" >
+                                <div class="main">
                                     <!-- tabelldata avdelning från json-fil -->
                                 </div>
                             </td>
@@ -368,10 +383,10 @@
                                     <tr>
                                         <th colspan="14">
                                             <div class="jumbotron">
-                                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">    
+                                                <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">
                                                 <h1 align="center">Planeringsunderlag försäljning</h1>
-                                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>    
-                                            </div>                                           
+                                                <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con</p>
+                                            </div>
                                         </th>
                                     </tr>
                                     <tr class="table table-bordered">
@@ -406,8 +421,8 @@
                                 <div class="footer-info">
                                     <td colspan="16">
                                         <p>
-                                            En beskrivning av något annat
-                                            Voluptate cumque ab sit veritatis repellat fugiat tempore error esse, inventore soluta autem, delectus repudiandae? Temporibus magnam possimus voluptatem in, blanditiis quis!
+                                            En beskrivning av något annat Voluptate cumque ab sit veritatis repellat fugiat tempore error esse, inventore soluta autem,
+                                            delectus repudiandae? Temporibus magnam possimus voluptatem in, blanditiis quis!
                                         </p>
                                     </td>
                                 </div>
@@ -436,28 +451,32 @@
 
 
 
-        $(document).ready(function(){
+        $(document).ready(function () {
+            var jsonUrl = '//sv004/R-disken/Drift/GISS-databaser/Fakta/Prod/PlanUndFastaffar/Overlatelse_142900'
+            $.getJSON(jsonUrl, function (jsondata) {
+                console.log(jsondata);
+            });
 
-            
-            
-            
-            $.getJSON("Data/data.json", function(data, mymap){
 
-                
+
+
+            $.getJSON("Data/data.json", function (data, mymap) {
+
+
                 //---------------Skapar tabelerna för belastning, rättighet, byggnad, tomt------------------------------------
-                            
+
                 var berordaobjekt_data = '';
 
-                $.each(data.Berordaobjekt, function(key, value){
+                $.each(data.Berordaobjekt, function (key, value) {
                     //console.log(value.Lopnummer)
                     berordaobjekt_data += '<tr>';
-                    berordaobjekt_data += '<td>' +value.Lager+ '</td>';
-                    berordaobjekt_data += '<td>' +value.Lopnummer+ '</td>';
-                    berordaobjekt_data += '<td>' +value.Benamning+ '</td>';
-                    berordaobjekt_data += '<td>' +value.Status+ '</td>';
-                    berordaobjekt_data += '<td>' +value.Typ+ '</td>';
-                    berordaobjekt_data += '<td>' +value.Kategori+ '</td>';
-                    berordaobjekt_data += '<td>' +value.Motpart+ '</td>';
+                    berordaobjekt_data += '<td>' + value.Lager + '</td>';
+                    berordaobjekt_data += '<td>' + value.Lopnummer + '</td>';
+                    berordaobjekt_data += '<td>' + value.Benamning + '</td>';
+                    berordaobjekt_data += '<td>' + value.Status + '</td>';
+                    berordaobjekt_data += '<td>' + value.Typ + '</td>';
+                    berordaobjekt_data += '<td>' + value.Kategori + '</td>';
+                    berordaobjekt_data += '<td>' + value.Motpart + '</td>';
                     berordaobjekt_data += '</tr>';
                 });
 
@@ -465,29 +484,29 @@
 
 
                 //---------------Skapar tabelerna för Avdelning och Trädslag------------------------------------
-                            
+
                 var avd_data = '';
                 var trad_data = '';
 
-                $.each(data.Avd, function(key, value){
+                $.each(data.Avd, function (key, value) {
                     //console.log(value.Lopnummer)
                     avd_data += '<tr>';
-                    avd_data += '<td>' +value.Lopnummer+ '</td>';
-                    avd_data += '<td>' +value.Beteckning+ '</td>';
-                    avd_data += '<td>' +value.Agoslag+ '</td>';
-                    avd_data += '<td>' +value.Malklass+ '</td>';
-                    avd_data += '<td>' +value.Huggningsklass+ '</td>';
-                    avd_data += '<td>' +value.Alder+ '</td>';
-                    avd_data += '<td>' +value.SI+ '</td>';
-                    avd_data += '<td>' +value.TGBÖ+ '</td>';
-                    avd_data += '<td>' +value.VolymSkogPerAvdelning+ '</td>';
-                    avd_data += '<td>' +value.VolymSkogPerHaTot+ '</td>';
-                    avd_data += '<td>' +value.VolymSkogPerHaTall+ '</td>';
-                    avd_data += '<td>' +value.VolymSkogPerHaGran+ '</td>';
-                    avd_data += '<td>' +value.VolymSkogPerHaBjörk+ '</td>';
-                    avd_data += '<td>' +value.VolymSkogPerHaÖvrigt+ '</td>';
-                    avd_data += '<td>' +value.Nettoarel+ '</td>';
-                    avd_data += '<td>' +value.ArealavdragSumma+ '</td>';
+                    avd_data += '<td>' + value.Lopnummer + '</td>';
+                    avd_data += '<td>' + value.Beteckning + '</td>';
+                    avd_data += '<td>' + value.Agoslag + '</td>';
+                    avd_data += '<td>' + value.Malklass + '</td>';
+                    avd_data += '<td>' + value.Huggningsklass + '</td>';
+                    avd_data += '<td>' + value.Alder + '</td>';
+                    avd_data += '<td>' + value.SI + '</td>';
+                    avd_data += '<td>' + value.TGBÖ + '</td>';
+                    avd_data += '<td>' + value.VolymSkogPerAvdelning + '</td>';
+                    avd_data += '<td>' + value.VolymSkogPerHaTot + '</td>';
+                    avd_data += '<td>' + value.VolymSkogPerHaTall + '</td>';
+                    avd_data += '<td>' + value.VolymSkogPerHaGran + '</td>';
+                    avd_data += '<td>' + value.VolymSkogPerHaBjörk + '</td>';
+                    avd_data += '<td>' + value.VolymSkogPerHaÖvrigt + '</td>';
+                    avd_data += '<td>' + value.Nettoarel + '</td>';
+                    avd_data += '<td>' + value.ArealavdragSumma + '</td>';
                     avd_data += '</tr>';
                     //console.log(value.Trad);
                     var trad = value.Trad;
@@ -495,24 +514,24 @@
                     var avdNettoareal = value.Nettoarel;
                     var avdMalklass = value.Malklass;
                     var avdHuggningsklass = value.Huggningsklass;
-                    $.each(trad, function(key, value){
+                    $.each(trad, function (key, value) {
                         //console.log(value);
                         //console.log(avdLopnr);
                         trad_data += '<tr>';
-                        trad_data += '<td>' +avdLopnr+ '</td>';
-                        trad_data += '<td>' +value.Tradskikt_Typ+ '</td>';
-                        trad_data += '<td>' +value.Tradslag+ '</td>';
-                        trad_data += '<td>' +value.Alder+ '</td>';
-                        trad_data += '<td>' +value.VolymSkogPerHa+ '</td>';
-                        trad_data += '<td>' +value.VolymSkogPerAvdelning+ '</td>';
-                        trad_data += '<td>' +value.Grundyta+ '</td>';
-                        trad_data += '<td>' +value.DiameterGv+ '</td>';
-                        trad_data += '<td>' +value.HojdGv+ '</td>';
-                        trad_data += '<td>' +value.StammarPerHa+ '</td>';
-                        trad_data += '<td>' +value.Andel+ '</td>';
-                        trad_data += '<td>' +avdNettoareal+ '</td>';
-                        trad_data += '<td>' +avdMalklass+ '</td>';
-                        trad_data += '<td>' +avdHuggningsklass+ '</td>';
+                        trad_data += '<td>' + avdLopnr + '</td>';
+                        trad_data += '<td>' + value.Tradskikt_Typ + '</td>';
+                        trad_data += '<td>' + value.Tradslag + '</td>';
+                        trad_data += '<td>' + value.Alder + '</td>';
+                        trad_data += '<td>' + value.VolymSkogPerHa + '</td>';
+                        trad_data += '<td>' + value.VolymSkogPerAvdelning + '</td>';
+                        trad_data += '<td>' + value.Grundyta + '</td>';
+                        trad_data += '<td>' + value.DiameterGv + '</td>';
+                        trad_data += '<td>' + value.HojdGv + '</td>';
+                        trad_data += '<td>' + value.StammarPerHa + '</td>';
+                        trad_data += '<td>' + value.Andel + '</td>';
+                        trad_data += '<td>' + avdNettoareal + '</td>';
+                        trad_data += '<td>' + avdMalklass + '</td>';
+                        trad_data += '<td>' + avdHuggningsklass + '</td>';
                         trad_data += '</tr>';
                     });
                 });
@@ -526,20 +545,20 @@
                 //console.log(analys_data.AgoslagStat);
                 makeAgoslagBarDiagram(data.AgoslagStat, 'agoslagChart');
 
-                function makeAgoslagBarDiagram(stat, htmlCanvas){
+                function makeAgoslagBarDiagram(stat, htmlCanvas) {
                     //Ägoslagsdiagram
                     var list = [];
                     var areal = [];
                     var farg = [];
                     var tabell = '';
-                    $.each(stat, function(key, value){
+                    $.each(stat, function (key, value) {
                         list.push(value.Agoslag);
                         areal.push(value.Areal);
                         farg.push(value.FillColor)
                         //till tabell
                         tabell += '<tr>';
-                        tabell += '<td>' +value.Agoslag+ '</td>'
-                        tabell += '<td>' +value.Areal+ '</td>'
+                        tabell += '<td>' + value.Agoslag + '</td>'
+                        tabell += '<td>' + value.Areal + '</td>'
                         tabell += '</tr>';
 
                     });
@@ -551,16 +570,16 @@
                         data: {
                             labels: list,
                             datasets: [
-                                    { 
-                                        data: areal,
-                                        label: 'Areal',
-                                        backgroundColor: farg,
-                                        borderColor: "#000000",
-                                        borderWidth: 1,
-                                    }
-                                    ]
+                                {
+                                    data: areal,
+                                    label: 'Areal',
+                                    backgroundColor: farg,
+                                    borderColor: "#000000",
+                                    borderWidth: 1,
                                 }
-                    });                
+                            ]
+                        }
+                    });
                 }
 
 
@@ -568,21 +587,21 @@
                 //console.log(analys_data.AgoslagStat);
                 makeHklBarDiagram(data.HklStat, 'hklassChart');
 
-                function makeHklBarDiagram(stat, htmlCanvas){
+                function makeHklBarDiagram(stat, htmlCanvas) {
                     //Ägoslagsdiagram
                     var list = [];
                     var areal = [];
                     var farg = [];
                     var tabell = '';
-                    $.each(stat, function(key, value){
+                    $.each(stat, function (key, value) {
                         list.push(value.Huggningsklass);
                         areal.push(value.Areal);
                         farg.push(value.FillColor)
                         //till tabell
                         tabell += '<tr>';
-                        tabell += '<td>' +value.Huggningsklass+ '</td>'
-                        tabell += '<td>' +value.Areal+ '</td>'
-                        tabell += '<td>' +value.Volym+ '</td>'
+                        tabell += '<td>' + value.Huggningsklass + '</td>'
+                        tabell += '<td>' + value.Areal + '</td>'
+                        tabell += '<td>' + value.Volym + '</td>'
                         tabell += '</tr>';
 
                     });
@@ -594,39 +613,39 @@
                         data: {
                             labels: list,
                             datasets: [
-                                    { 
-                                        data: areal,
-                                        label: 'Areal',
-                                        backgroundColor: farg,
-                                        borderColor: "#000000",
-                                        borderWidth: 1,
-                                    }
-                                    ]
+                                {
+                                    data: areal,
+                                    label: 'Areal',
+                                    backgroundColor: farg,
+                                    borderColor: "#000000",
+                                    borderWidth: 1,
                                 }
-                    });                
+                            ]
+                        }
+                    });
                 }
 
-                
+
                 //----------------skapar Åldersklasssammanfattning------------------------------------------
                 //console.log(analys_data.AgoslagStat);
                 makeAlderArealBarDiagram(data.AlderStat, 'alderArealChart');
                 makeAlderVolymBarDiagram(data.AlderStat, 'alderVolymChart');
 
-                function makeAlderArealBarDiagram(stat, htmlCanvas){
+                function makeAlderArealBarDiagram(stat, htmlCanvas) {
                     //Alderdiagram
                     var list = [];
                     var areal = [];
                     var farg = [];
                     var tabell = '';
-                    $.each(stat, function(key, value){
+                    $.each(stat, function (key, value) {
                         list.push(value.Aldersklass);
                         areal.push(value.Areal);
                         farg.push(value.FillColor)
                         //till tabell
                         tabell += '<tr>';
-                        tabell += '<td>' +value.Aldersklass+ '</td>'
-                        tabell += '<td>' +value.Areal+ '</td>'
-                        tabell += '<td>' +value.Volym+ '</td>'
+                        tabell += '<td>' + value.Aldersklass + '</td>'
+                        tabell += '<td>' + value.Areal + '</td>'
+                        tabell += '<td>' + value.Volym + '</td>'
                         tabell += '</tr>';
 
                     });
@@ -638,24 +657,24 @@
                         data: {
                             labels: list,
                             datasets: [
-                                    { 
-                                        data: areal,
-                                        label: 'Areal',
-                                        backgroundColor: farg,
-                                        borderColor: "#000000",
-                                        borderWidth: 1,
-                                    }
-                                    ]
+                                {
+                                    data: areal,
+                                    label: 'Areal',
+                                    backgroundColor: farg,
+                                    borderColor: "#000000",
+                                    borderWidth: 1,
                                 }
-                    });                
+                            ]
+                        }
+                    });
                 }
-                function makeAlderVolymBarDiagram(stat, htmlCanvas){
+                function makeAlderVolymBarDiagram(stat, htmlCanvas) {
                     //Alderdiagram
                     var list = [];
                     var areal = [];
                     var farg = [];
                     var tabell = '';
-                    $.each(stat, function(key, value){
+                    $.each(stat, function (key, value) {
                         list.push(value.Aldersklass);
                         areal.push(value.Volym);
                         farg.push(value.FillColor)
@@ -667,44 +686,44 @@
                         data: {
                             labels: list,
                             datasets: [
-                                    { 
-                                        data: areal,
-                                        label: 'Volym',
-                                        backgroundColor: farg,
-                                        borderColor: "#000000",
-                                        borderWidth: 1,
-                                    }
-                                    ]
+                                {
+                                    data: areal,
+                                    label: 'Volym',
+                                    backgroundColor: farg,
+                                    borderColor: "#000000",
+                                    borderWidth: 1,
                                 }
-                    });                
+                            ]
+                        }
+                    });
                 }
-                
-                
+
+
                 //----------------skapar Målklassklasssammanfattning------------------------------------------
                 //console.log(analys_data.AgoslagStat);
                 makeMalklassArealBarDiagram(data.MalklassStat, 'malklassArealChart');
                 makeMalklassVolymBarDiagram(data.MalklassStat, 'malklassVolymChart');
 
-                function makeMalklassArealBarDiagram(stat, htmlCanvas){
+                function makeMalklassArealBarDiagram(stat, htmlCanvas) {
                     //Målklassdiagram
                     var list = [];
                     var areal = [];
                     var farg = [];
                     var tabell = '';
-                    $.each(stat, function(key, value){
+                    $.each(stat, function (key, value) {
                         list.push(value.Malklass);
                         areal.push(value.Areal);
                         farg.push(value.FillColor)
                         //till tabell
                         tabell += '<tr>';
-                        tabell += '<td>' +value.Malklass+ '</td>'
-                        tabell += '<td>' +value.Areal+ '</td>'
-                        tabell += '<td>' +value.Volym+ '</td>'
+                        tabell += '<td>' + value.Malklass + '</td>'
+                        tabell += '<td>' + value.Areal + '</td>'
+                        tabell += '<td>' + value.Volym + '</td>'
                         tabell += '</tr>';
 
                     });
                     $('#malklassTabell').append(tabell);
-                    
+
                     var ctx = document.getElementById(htmlCanvas);
                     var myChart = new Chart(ctx, {
                         //type: 'bar',
@@ -712,24 +731,24 @@
                         data: {
                             labels: list,
                             datasets: [
-                                    { 
-                                        data: areal,
-                                        label: 'Areal',
-                                        backgroundColor: farg,
-                                        borderColor: "#000000",
-                                        borderWidth: 1,
-                                    }
-                                    ]
+                                {
+                                    data: areal,
+                                    label: 'Areal',
+                                    backgroundColor: farg,
+                                    borderColor: "#000000",
+                                    borderWidth: 1,
                                 }
-                    });                
+                            ]
+                        }
+                    });
                 }
-                function makeMalklassVolymBarDiagram(stat, htmlCanvas){
+                function makeMalklassVolymBarDiagram(stat, htmlCanvas) {
                     //Alderdiagram
                     var list = [];
                     var areal = [];
                     var farg = [];
                     var tabell = '';
-                    $.each(stat, function(key, value){
+                    $.each(stat, function (key, value) {
                         list.push(value.Malklass);
                         areal.push(value.Volym);
                         farg.push(value.FillColor)
@@ -741,22 +760,22 @@
                         data: {
                             labels: list,
                             datasets: [
-                                    { 
-                                        data: areal,
-                                        label: 'Volym',
-                                        backgroundColor: farg,
-                                        borderColor: "#000000",
-                                        borderWidth: 1,
-                                    }
-                                    ]
+                                {
+                                    data: areal,
+                                    label: 'Volym',
+                                    backgroundColor: farg,
+                                    borderColor: "#000000",
+                                    borderWidth: 1,
                                 }
-                    });                
+                            ]
+                        }
+                    });
                 }
 
                 //-----------------------------lägger till en leafletkarta-------------------------------
                 addMapOnPage();
 
-                function addMapOnPage(){
+                function addMapOnPage() {
 
                     //----------------hämtar center av överlåtelsen---------------
                     overlatelseGeojson = L.geoJson(data.Geometry);
@@ -774,24 +793,24 @@
                     }).addTo(mymap);
 
                     //---------------------------Lägger till avdelningarna på kartan----------------------
-                    var avdMap=data.Avd;
+                    var avdMap = data.Avd;
                     var agoslagList = data.AgoslagStat
-                    var avdMapGeoJson =[];
-                    $.each(avdMap, function(key, value){
-                        var agoslagLookupArr = $.grep(agoslagList, function(obj){ return obj.Agoslag === value.Agoslag});
+                    var avdMapGeoJson = [];
+                    $.each(avdMap, function (key, value) {
+                        var agoslagLookupArr = $.grep(agoslagList, function (obj) { return obj.Agoslag === value.Agoslag });
                         var agoslagLookup = agoslagLookupArr[0];
                         agoslagColor = agoslagLookup.FillColor
                         //console.log(agoslagColor);
-                //
-                       avdMapGeoJson.push(value.Geometry);
+                        //
+                        avdMapGeoJson.push(value.Geometry);
                     });
                     console.log(avdMapGeoJson);
                     var avdMapLayer = L.geoJson(
                         avdMapGeoJson,
-                        {style : agoslagMapStyle(this, '#ffffff')}
-                        ).addTo(mymap);
+                        { style: agoslagMapStyle(this, '#ffffff') }
+                    ).addTo(mymap);
                     //var avdelningarLayer = L.layerGroup(avdMapLayer).addTo(mymap);
-                    
+
 
                     //---------------------Lägger till överlåtelsen på kartan------------------
                     //L.geoJSON(data.Geometry, {
@@ -801,17 +820,17 @@
                     //        return {color :'#ffffff'};
                     //    }
                     //}).addTo(mymap);
-                    
+
                 }
-                
-                function agoslagMapStyle(feature, fillcolor){
+
+                function agoslagMapStyle(feature, fillcolor) {
                     return {
                         fillColor: fillcolor,
-                        weight : 2,
-                        opacity : 1,
-                        color : '#000000',
-                        dashArray : 3,
-                        fillOpacity : 0.7
+                        weight: 2,
+                        opacity: 1,
+                        color: '#000000',
+                        dashArray: 3,
+                        fillOpacity: 0.7
                     }
                 }
 
@@ -821,9 +840,9 @@
 
             });
         });
-            
+
 
     </script>
 </body>
-</html>
 
+</html>

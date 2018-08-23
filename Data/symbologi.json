@@ -1,0 +1,12 @@
+var symbologiJson = [{
+    "Lager": "agoslag",
+    "Typ" : "Skogsmark", 
+    "MapSymbologi" : {
+        "fillColor": null,
+        "weight" : 1,
+        "opacity" : 1,
+        "color" : "black",
+        "dashArray" : 3,
+        "fillOpacity" : 0.0
+    }
+}]

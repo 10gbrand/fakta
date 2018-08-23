@@ -1,0 +1,1 @@
+xcopy C:\Data_No_Backup\git\fakta\avtalskarta.html C:\Data_No_Backup\git\fakta\avtalskarta.aspx /f /y;
