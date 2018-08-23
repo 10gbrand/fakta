@@ -152,12 +152,14 @@
                         <div class="col-12">
                             <h6 align="center">Belastningar</h6>
                         </div>
-                        <p><button onclick="sortTables()">Sort</button></p>
+                        <!--<p><button onclick="sortTables()">Sortera alla tabeller</button></p>-->
                         
                             <table class="table-striped table-bordered" id="Tabell">
                                 <tr>
-                                    <th>Löpnummer</th>
-                                    <th>Benämning</th>
+                                    <th onclick="sortTable(0, Tabell)">Löpnummer</th>
+                                    <th onclick="sortTable(1, Tabell)">Lager</th>
+                                    <th onclick="sortTable(2, Tabell)">Benämning</th>
+                                    <th onclick="sortTable(3, Tabell)">YLP</th>
                                 </tr>
 
                             </table>
@@ -473,13 +475,8 @@
 
             //---------------- skapar tabellen----------------------
             properties = feature.feature.properties;
-            var belastningsData = '';
-            belastningsData += '<tr>';
-            belastningsData += '<td>' + properties.lopnummer + '</td>';
-            belastningsData += '<td>' + properties.Benamning + '</td>';
-            belastningsData += '</tr>';
-            console.log(belastningsData);
-            $('#Tabell').append(belastningsData);
+            addToTabell(properties, "Belastning", "Y");
+            sortTables();
 
         });
 
@@ -488,6 +485,7 @@
             if (label) {
                 label.addTo(map);
             }
+
         });
 
         belastningYtaMapLayer.on('removefeature', function (e) {
@@ -495,7 +493,10 @@
             if (label) {
                 map.removeLayer(label);
             }
+            deleteRow("Belastning_tabellrad");
+            
         });
+
 
 
         //----------------belastning Linje----------------
@@ -522,6 +523,11 @@
                 })
             }).addTo(map);
             belsatningYtaLabels[id] = label;
+
+            //---------------- skapar tabellen----------------------
+            //properties = feature.feature.properties;
+            //addToTabell(properties, "Belastning", "L");
+            //sortTables();
         });
 
         belastningLinjeMapLayer.on('addfeature', function (e) {
@@ -529,6 +535,12 @@
             if (label) {
                 label.addTo(map);
             }
+            //---------------- skapar tabellen----------------------
+            //var id = e.feature.id;
+            //var feature = belastningYtaMapLayer.getFeature(id);
+            //properties = feature.feature.properties;
+            //addToTabell(properties, "Belastning", "L");
+            //sortTables();
         });
 
         belastningLinjeMapLayer.on('removefeature', function (e) {
@@ -536,6 +548,7 @@
             if (label) {
                 map.removeLayer(label);
             }
+            //deleteRow("Belastning_tabellrad");
         });
 
         //---------------------------------- tomt ------------------------------------
@@ -787,12 +800,32 @@
             return (false);
         }
 
-        //----------------------------- sortera tabell -----------------------------------------------------
-        function sortTables() {
-            sortTable("Tabell");
+        //----- en funktion för att skapa tabell------
+        function addToTabell(properties, lager, ylp) {
+            var Data = '';
+            Data += '<tr id="' + lager + '_tabellrad">';
+            Data += '<td>' + properties.lopnummer + '</td>';
+            Data += '<td>' + lager + '</td>';
+            Data += '<td>' + properties.Benamning + '</td>';
+            Data += '<td>' + ylp + '</td>';
+            Data += '</tr>';
+            console.log(Data);
+            $('#Tabell').append(Data);
         }
 
-        function sortTable(tabellNamn) {
+        //-------------- tabort rader-------------------------------
+        function deleteRow(rowid)  
+            {   
+                var row = document.getElementById(rowid);
+                row.parentElement.removeChild(row);
+            }
+
+        //----------------------------- sortera tabell -----------------------------------------------------
+        function sortTables() {
+            sortTableLopnummer("Tabell");
+        }
+
+        function sortTableLopnummer(tabellNamn) {
             var table, rows, switching, i, x, y, shouldSwitch;
             table = document.getElementById(tabellNamn);
             switching = true;
@@ -826,6 +859,61 @@
                 }
             }
             }
+
+            function sortTable(n, tabellNamn) {
+                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                table = document.getElementById("Tabell");
+                switching = true;
+                // Set the sorting direction to ascending:
+                dir = "asc"; 
+                /* Make a loop that will continue until
+                no switching has been done: */
+                while (switching) {
+                    // Start by saying: no switching is done:
+                    switching = false;
+                    rows = table.rows;
+                    /* Loop through all table rows (except the
+                    first, which contains table headers): */
+                    for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place,
+                    based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                        }
+                    }
+                    }
+                    if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount ++; 
+                    } else {
+                    /* If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                    }
+                }
+                }
     </script>
 </body>
 
