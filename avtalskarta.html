@@ -148,9 +148,24 @@
         
                     </div>
                 </div>
+                <div class="row">
+                        <div class="col-12">
+                            <h6 align="center">Belastningar</h6>
+                        </div>
+                        <p><button onclick="sortTables()">Sort</button></p>
+                        
+                            <table class="table-striped table-bordered" id="Tabell">
+                                <tr>
+                                    <th>Löpnummer</th>
+                                    <th>Benämning</th>
+                                </tr>
+
+                            </table>
+                        
+                    </div>
                 <div calss="row">
                         <div id="karobjekt">
-                            
+
                         </div>
                 </div>
                 
@@ -234,8 +249,8 @@
         fastighetYtaMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = fastighetYtaMapLayer.getFeature(id);
-            console.log(feature);
-            console.log(feature.feature.properties.lopnummer);
+            //console.log(feature);
+            //console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -312,8 +327,8 @@
         rattighetYtaMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = rattighetYtaMapLayer.getFeature(id);
-            console.log(feature);
-            console.log(feature.feature.properties.lopnummer);
+            //console.log(feature);
+            //console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -354,8 +369,8 @@
         ratighetLinjeMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = ratighetLinjeMapLayer.getFeature(id);
-            console.log(feature);
-            console.log(feature.feature.properties.lopnummer);
+            //console.log(feature);
+            //console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -433,12 +448,17 @@
         });//.addTo(map);
 
         var belsatningYtaLabels = {};
+        var belastningYtaTabel = [];
 
         belastningYtaMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = belastningYtaMapLayer.getFeature(id);
-            console.log(feature);
-            console.log(feature.feature.properties.lopnummer);
+            //console.log(feature);
+            //console.log(feature.feature.properties.lopnummer);
+            //console.log(feature.feature.properties);
+            //belastningYtaTabel.push(feature.feature.properties);
+            //belastningYtaTabel = feature.feature.properties;
+
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -450,6 +470,17 @@
                 })
             }).addTo(map);
             belsatningYtaLabels[id] = label;
+
+            //---------------- skapar tabellen----------------------
+            properties = feature.feature.properties;
+            var belastningsData = '';
+            belastningsData += '<tr>';
+            belastningsData += '<td>' + properties.lopnummer + '</td>';
+            belastningsData += '<td>' + properties.Benamning + '</td>';
+            belastningsData += '</tr>';
+            console.log(belastningsData);
+            $('#Tabell').append(belastningsData);
+
         });
 
         belastningYtaMapLayer.on('addfeature', function (e) {
@@ -480,8 +511,8 @@
         belastningLinjeMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = belastningLinjeMapLayer.getFeature(id);
-            console.log(feature);
-            console.log(feature.feature.properties.lopnummer);
+            //console.log(feature);
+            //console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -541,8 +572,8 @@
         tomtYtaMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = tomtYtaMapLayer.getFeature(id);
-            console.log(feature);
-            console.log(feature.feature.properties.lopnummer);
+            //console.log(feature);
+            //console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -629,9 +660,9 @@
         function onMapClick(e) {
             var swerefproj = "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
             var swerefcoords = proj4(swerefproj, [e.latlng.lng, e.latlng.lat]);
-            console.log(swerefcoords);
-            console.log(e.latlng);
-            console.log(swerefcoords[1]);
+            //console.log(swerefcoords);
+            //console.log(e.latlng);
+            //console.log(swerefcoords[1]);
             popup
                 .setLatLng(e.latlng)
                 .setContent("X: " + swerefcoords[0].toString().substring(0, 6) + '<br/>' + "Y: " + swerefcoords[1].toString().substring(0, 6))
@@ -755,6 +786,46 @@
             }
             return (false);
         }
+
+        //----------------------------- sortera tabell -----------------------------------------------------
+        function sortTables() {
+            sortTable("Tabell");
+        }
+
+        function sortTable(tabellNamn) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById(tabellNamn);
+            switching = true;
+            /*Make a loop that will continue until
+            no switching has been done:*/
+            while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /*Loop through all table rows (except the
+                first, which contains table headers):*/
+                for (i = 1; i < (rows.length - 1); i++) {
+                //start by saying there should be no switching:
+                shouldSwitch = false;
+                /*Get the two elements you want to compare,
+                one from current row and one from the next:*/
+                x = rows[i].getElementsByTagName("td")[0];
+                y = rows[i + 1].getElementsByTagName("td")[0];
+                //check if the two rows should switch place:
+                if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                }
+                }
+                if (shouldSwitch) {
+                /*If a switch has been marked, make the switch
+                and mark that a switch has been done:*/
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                }
+            }
+            }
     </script>
 </body>
 
