@@ -121,9 +121,28 @@
                         <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con <span class="step">1</span></p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-6">
+                            <p id="northWest" align="left">xkoord</p>   
+                    </div>
+                    <div class="col-6">
+                            <p id="northEast" align="right">xkoord</p>
+                    </div>
+                </div>
+
                 <div calss="row">
                     <div id="mapid"></div>
                 </div>
+
+                <div class="row">
+                    <div class="col-6">
+                            <p id="southWest" align="left">xkoord</p>   
+                    </div>
+                    <div class="col-6">
+                            <p id="southEast" align="right">xkoord</p>
+                    </div>
+                </div>
+
                 <div calss="row">
                     <div id="legend">
                             <h4 class="text-center">Legend </h4>
@@ -316,6 +335,20 @@
             },
         });//.addTo(map);
 
+        //---------------- skapar tabellen----------------------
+        rattighetPunktMapLayer.on('createfeature', function (e) {
+            var id = e.feature.id;
+            var feature = belastingPunktMapLayer.getFeature(id);
+            console.log(feature);
+            
+            properties = feature.feature.properties;
+            addToTabell(properties, "Byggnad", "P");
+            sortTables();
+
+        });
+
+        
+
         //----------------rättighet Yta----------------
         var rattighetYtaMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/7',
@@ -342,6 +375,11 @@
                 })
             }).addTo(map);
             rattighetYtaLabels[id] = label;
+
+            //---------------- skapar tabellen----------------------
+            properties = feature.feature.properties;
+            addToTabell(properties, "Rättighet", "Y");
+            sortTables();
         });
 
         rattighetYtaMapLayer.on('addfeature', function (e) {
@@ -384,6 +422,11 @@
                 })
             }).addTo(map);
             rattighetLinjeLabels[id] = label;
+
+            //---------------- skapar tabellen----------------------
+            properties = feature.feature.properties;
+            addToTabell(properties, "Rättighet", "L");
+            sortTables();
         });
 
         ratighetLinjeMapLayer.on('addfeature', function (e) {
@@ -420,6 +463,17 @@
             },
         });//.addTo(map);
 
+        //---------------- skapar tabellen----------------------
+        byggnadPunktMapLayer.on('createfeature', function (e) {
+            var id = e.feature.id;
+            var feature = belastingPunktMapLayer.getFeature(id);
+            
+            properties = feature.feature.properties;
+            addToTabell(properties, "Byggnad", "P");
+            sortTables();
+
+        });
+
         //---------------------------------- belastning ------------------------------------
         //----------------belastning Punkt-------------
         var belastingPunktMapLayer = L.esri.featureLayer({
@@ -439,7 +493,23 @@
                     })
                 })
             },
+            
+
+
         });//.addTo(map);
+
+        //---------------- skapar tabellen----------------------
+        belastingPunktMapLayer.on('createfeature', function (e) {
+            var id = e.feature.id;
+            var feature = belastingPunktMapLayer.getFeature(id);
+            console.log(feature);
+            
+            properties = feature.feature.properties;
+            addToTabell(properties, "Belastning", "P");
+            sortTables();
+
+        });
+        
 
         //----------------belastning Yta----------------
         var belastningYtaMapLayer = L.esri.featureLayer({
@@ -451,6 +521,8 @@
 
         var belsatningYtaLabels = {};
         var belastningYtaTabel = [];
+        
+
 
         belastningYtaMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
@@ -493,7 +565,7 @@
             if (label) {
                 map.removeLayer(label);
             }
-            deleteRow("Belastning_tabellrad");
+            //deleteRow("Belastning_Y_tabellrad");
             
         });
 
@@ -525,9 +597,9 @@
             belsatningYtaLabels[id] = label;
 
             //---------------- skapar tabellen----------------------
-            //properties = feature.feature.properties;
-            //addToTabell(properties, "Belastning", "L");
-            //sortTables();
+            properties = feature.feature.properties;
+            addToTabell(properties, "Belastning", "L");
+            sortTables();
         });
 
         belastningLinjeMapLayer.on('addfeature', function (e) {
@@ -554,7 +626,7 @@
         //---------------------------------- tomt ------------------------------------
 
 
-
+        //---------------------------------- tomt Punkt ------------------------------------
         var tomtPunktMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/0',
             where: "OverlatelseID = " + overlatelseID,
@@ -573,6 +645,18 @@
             },
         });//.addTo(map);
 
+        //---------------- skapar tabellen----------------------
+        tomtPunktMapLayer.on('createfeature', function (e) {
+            var id = e.feature.id;
+            var feature = tomtPunktMapLayer.getFeature(id);
+            
+            properties = feature.feature.properties;
+            addToTabell(properties, "Tomt", "P");
+            sortTables();
+
+        });
+
+        //---------------------------------- tomt yta ------------------------------------
         var tomtYtaMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/6',
             where: "OverlatelseID = " + overlatelseID,
@@ -596,6 +680,12 @@
                 })
             }).addTo(map);
             tomtYtaLabels[id] = label;
+
+            //---------------- skapar tabellen----------------------
+            properties = feature.feature.properties;
+            addToTabell(properties, "Tomt", "Y");
+            sortTables();
+
         });
 
         tomtYtaMapLayer.on('addfeature', function (e) {
@@ -628,6 +718,8 @@
             // once we've looped through all the features, zoom the map to the extent of the collection
             map.fitBounds(bounds);
         });
+
+
 
         //----------------------------------------- Skapar lagergrupper ------------------------
         var ortoLayerGroup = L.layerGroup([wmsOrtoLayer]);//.addTo(map);
@@ -672,16 +764,47 @@
         var popup = L.popup();
         function onMapClick(e) {
             var swerefproj = "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
+            console.log(e);
             var swerefcoords = proj4(swerefproj, [e.latlng.lng, e.latlng.lat]);
             //console.log(swerefcoords);
             //console.log(e.latlng);
             //console.log(swerefcoords[1]);
             popup
                 .setLatLng(e.latlng)
-                .setContent("X: " + swerefcoords[0].toString().substring(0, 6) + '<br/>' + "Y: " + swerefcoords[1].toString().substring(0, 6))
+                .setContent("E: " + swerefcoords[0].toString().substring(0, 6) + '<br/>' + "N: " + swerefcoords[1].toString().substring(0, 7))
                 .openOn(map);
         };
         map.on('click', onMapClick);
+
+        //----------------------- Bounding box koordinater ---------------------------
+        //var popup2 = L.popup();
+        function boundingBoxCoordinat(e) {
+            var swerefproj = "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
+            console.log(e);
+            var bounds = map.getBounds();
+            console.log(bounds);
+            var northEastSwerefcoords = proj4(swerefproj, [bounds._northEast.lng, bounds._northEast.lat]);
+            var southWestSwerefcoords = proj4(swerefproj, [bounds._southWest.lng, bounds._southWest.lat]);
+            console.log(northEastSwerefcoords);
+            console.log(southWestSwerefcoords);
+            document.getElementById('northWest').innerHTML = "E:" + southWestSwerefcoords[0].toString().substring(0, 6) + " N:" + northEastSwerefcoords[1].toString().substring(0, 7);
+            document.getElementById('northEast').innerHTML = "E:" + northEastSwerefcoords[0].toString().substring(0, 6) + " N:" + northEastSwerefcoords[1].toString().substring(0, 7);
+            document.getElementById('southWest').innerHTML = "E:" + southWestSwerefcoords[0].toString().substring(0, 6) + " N:" + southWestSwerefcoords[1].toString().substring(0, 7);
+            document.getElementById('southEast').innerHTML = "E:" + northEastSwerefcoords[0].toString().substring(0, 6) + " N:" + southWestSwerefcoords[1].toString().substring(0, 7);
+        //    //console.log(e.latlng);
+        //    //console.log(swerefcoords[1]);
+        //    popup2
+        //        .setLatLng(e.latlng)
+        //        .setContent("X: " + swerefcoords[0].toString().substring(0, 6) + '<br/>' + "Y: " + swerefcoords[1].toString().substring(0, 6))
+        //        .openOn(map);
+        };
+        map.on('moveend', boundingBoxCoordinat);
+
+       // map.on('moveend', function() { 
+       //                 var bounds = map.getBounds();
+       //     console.log(bounds);
+       //     alert(map.getBounds());
+       // });
 
         //------------------------------Funktioner för att sätta mapstyle för olika lager-------------------------
         function fastighetMapStyle(feature, fillcolor) {
@@ -803,7 +926,7 @@
         //----- en funktion för att skapa tabell------
         function addToTabell(properties, lager, ylp) {
             var Data = '';
-            Data += '<tr id="' + lager + '_tabellrad">';
+            Data += '<tr id="' + lager + '_' + ylp +'_tabellrad">';
             Data += '<td>' + properties.lopnummer + '</td>';
             Data += '<td>' + lager + '</td>';
             Data += '<td>' + properties.Benamning + '</td>';
