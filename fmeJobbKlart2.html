@@ -3,7 +3,7 @@
 
 <head>
     <!-- skapad utifrån http://www.jessicaschillinger.us/2017/blog/print-repeating-header-browser/ -->
-    <title>Planeringsunderlag försäljning</title>
+    <title>jobbet_klart</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -86,7 +86,7 @@
         }
 
         .map-marker.marker-color-belastning {
-            background: #e69900;
+            background: #e69900 !important;
         }
 
         .map-marker.marker-color-belastning-yl {
@@ -112,95 +112,26 @@
     <div class="container">
         <div class="row pgaBreak" id="kartsida_3">
             <div class="col-12">
-                <!--<div class="jumbotron">-->
-                <div>
+                <div class="jumbotron">
                     <div>
                         <img src="https://www.sveaskog.se/static/dist/img/sveaskog-logo.svg" alt="Sveaskog" style="padding:5px;" width="200px" align="left">
                     </div>
                     <div>
-                        <h1 align="center">Underlag försäljning</h1>
-                        <p align="center">Kartbilaga<span class="step"> 1</span></p>
+                        <h1 align="center">Analysen för överlåtelse '--overlatelseID--'</h1>
+                        <p align="center">Sveaskog säljer Lorem ipsum dolor sit amet con <span class="step">1</span></p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-6">
-                            <p id="northWest" align="left">xkoord</p>   
-                    </div>
-                    <div class="col-6">
-                            <p id="northEast" align="right">xkoord</p>
-                    </div>
-                </div>
-
                 <div calss="row">
                     <div id="mapid"></div>
                 </div>
+                <div id="legend">
+                    <h4 class="text-center">Legend </h4>
+                    <svg height="200" width="100%">
+                        <line x1="10" y1="10" x2="80" y2="10" style="stroke:greenyellow; stroke-width: 2; stroke-dasharray: 20, 5, 10, 5" />
+                        <text x="90" y="15" style="font-family: sans-serif; font-size: 16px;">Belastning</text>
+                    </svg>
 
-                <div class="row">
-                    <div class="col-4">
-                            <p id="southWest" align="left">xkoord</p>
-                    </div>
-                    <div class="col-4">
-                            <p align="center">Sweref99</p>
-                    </div>
-                    <div class="col-4">
-                            <p id="southEast" align="right">xkoord</p>
-                    </div>
-                    
                 </div>
-
-                <div calss="row">
-                    <div id="legend">
-                            <h6 class="text-center">Teckenförklaring</h6>
-                            <svg height="100" width="100%">
-                                <text x="10" y="15" style="font-family: sans-serif; font-size: 16px; font-style: oblique">Linje</text>
-                                <text x="100" y="15" style="font-family: sans-serif; font-size: 16px; font-style: oblique">Yta</text>
-                                <text x="150" y="15" style="font-family: sans-serif; font-size: 16px; font-style: oblique">Punkt</text>
-                                <text x="200" y="15" style="font-family: sans-serif; font-size: 16px; font-style: oblique">Typ</text>
-        
-                                <line x1="10" y1="30" x2="80" y2="30" style="stroke:#e69900; stroke-width: 2; stroke-dasharray: 20, 5, 10, 5" ></line>
-                                <rect x="100" y="25" width="30" height="10" style="fill:#e69900;stroke:pink;stroke-width:1;fill-opacity:0.9;stroke-opacity:0.9" ></rect>
-                                <circle cx="170" cy="30" r="10" stroke="white" stroke-width="3" fill="#e69900" ></circle>
-                                <text x="167" y="33" style="font-family: sans-serif; font-size: 12px; stroke: #fff">3</text>
-                                <text x="200" y="35" style="font-family: sans-serif; font-size: 16px;">Belastning</text>
-        
-                                <line x1="10" y1="50" x2="80" y2="50" style="stroke:#00c5ff; stroke-width: 2; stroke-dasharray: 20, 5, 10, 5" ></line>
-                                <rect x="100" y="45" width="30" height="10" style="fill:#00c5ff;stroke:pink;stroke-width:1;fill-opacity:0.9;stroke-opacity:0.9" ></rect>
-                                <circle cx="170" cy="50" r="10" stroke="white" stroke-width="3" fill="#00c5ff" ></circle>
-                                <text x="167" y="53" style="font-family: sans-serif; font-size: 12px; stroke: #fff">3</text>
-                                <text x="200" y="55" style="font-family: sans-serif; font-size: 16px;">Rättighet</text>
-
-                                <!--<line x1="10" y1="70" x2="80" y2="70" style="stroke:#00c5ff; stroke-width: 2; stroke-dasharray: 20, 5, 10, 5" ></line>-->
-                                <rect x="100" y="65" width="30" height="10" style="fill:#990099;stroke:pink;stroke-width:1;fill-opacity:0.9;stroke-opacity:0.9" ></rect>
-                                <!--<circle cx="170" cy="70" r="10" stroke="white" stroke-width="3" fill="#990099" ></circle>
-                                <text x="167" y="73" style="font-family: sans-serif; font-size: 12px; stroke: #fff">3</text>-->
-                                <text x="200" y="75" style="font-family: sans-serif; font-size: 16px;">Jaktupplåtelse</text>
-                            </svg>
-        
-                    </div>
-                </div>
-                <div class="row">
-                        <div class="col-12">
-                            <h6 align="center">Berörda objekt</h6>
-                        </div>
-                        <!--<p><button onclick="sortTables()">Sortera alla tabeller</button></p>-->
-                        
-                            <table class="table-striped table-bordered" id="Tabell">
-                                <tr>
-                                    <th onclick="sortTable(0, Tabell)">Löpnummer</th>
-                                    <th onclick="sortTable(1, Tabell)">Lager</th>
-                                    <th onclick="sortTable(2, Tabell)">Benämning</th>
-                                    <th onclick="sortTable(3, Tabell)">YLP</th>
-                                </tr>
-
-                            </table>
-                        
-                    </div>
-                <div calss="row">
-                        <div id="karobjekt">
-
-                        </div>
-                </div>
-                
             </div>
         </div>
 
@@ -212,8 +143,8 @@
 
     <script>
 
-        //var overlatelseID = 142401;
-        var overlatelseID = getQueryVariable("id");
+        var overlatelseID = 142401;
+        //var overlatelseID = '--overlatelseID--';
 
         var crs = new L.Proj.CRS('EPSG:3006',
             '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
@@ -281,8 +212,8 @@
         fastighetYtaMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = fastighetYtaMapLayer.getFeature(id);
-            //console.log(feature);
-            //console.log(feature.feature.properties.lopnummer);
+            console.log(feature);
+            console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -346,20 +277,6 @@
             },
         });//.addTo(map);
 
-        //---------------- skapar tabellen----------------------
-        rattighetPunktMapLayer.on('createfeature', function (e) {
-            var id = e.feature.id;
-            var feature = belastingPunktMapLayer.getFeature(id);
-            console.log(feature);
-            
-            properties = feature.feature.properties;
-            addToTabell(properties, "Byggnad", "P");
-            sortTables();
-
-        });
-
-        
-
         //----------------rättighet Yta----------------
         var rattighetYtaMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/7',
@@ -373,8 +290,8 @@
         rattighetYtaMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = rattighetYtaMapLayer.getFeature(id);
-            //console.log(feature);
-            //console.log(feature.feature.properties.lopnummer);
+            console.log(feature);
+            console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -386,11 +303,6 @@
                 })
             }).addTo(map);
             rattighetYtaLabels[id] = label;
-
-            //---------------- skapar tabellen----------------------
-            properties = feature.feature.properties;
-            addToTabell(properties, "Rättighet", "Y");
-            sortTables();
         });
 
         rattighetYtaMapLayer.on('addfeature', function (e) {
@@ -420,8 +332,8 @@
         ratighetLinjeMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = ratighetLinjeMapLayer.getFeature(id);
-            //console.log(feature);
-            //console.log(feature.feature.properties.lopnummer);
+            console.log(feature);
+            console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -433,11 +345,6 @@
                 })
             }).addTo(map);
             rattighetLinjeLabels[id] = label;
-
-            //---------------- skapar tabellen----------------------
-            properties = feature.feature.properties;
-            addToTabell(properties, "Rättighet", "L");
-            sortTables();
         });
 
         ratighetLinjeMapLayer.on('addfeature', function (e) {
@@ -474,17 +381,6 @@
             },
         });//.addTo(map);
 
-        //---------------- skapar tabellen----------------------
-        byggnadPunktMapLayer.on('createfeature', function (e) {
-            var id = e.feature.id;
-            var feature = belastingPunktMapLayer.getFeature(id);
-            
-            properties = feature.feature.properties;
-            addToTabell(properties, "Byggnad", "P");
-            sortTables();
-
-        });
-
         //---------------------------------- belastning ------------------------------------
         //----------------belastning Punkt-------------
         var belastingPunktMapLayer = L.esri.featureLayer({
@@ -504,23 +400,7 @@
                     })
                 })
             },
-            
-
-
         });//.addTo(map);
-
-        //---------------- skapar tabellen----------------------
-        belastingPunktMapLayer.on('createfeature', function (e) {
-            var id = e.feature.id;
-            var feature = belastingPunktMapLayer.getFeature(id);
-            console.log(feature);
-            
-            properties = feature.feature.properties;
-            addToTabell(properties, "Belastning", "P");
-            sortTables();
-
-        });
-        
 
         //----------------belastning Yta----------------
         var belastningYtaMapLayer = L.esri.featureLayer({
@@ -531,19 +411,12 @@
         });//.addTo(map);
 
         var belsatningYtaLabels = {};
-        var belastningYtaTabel = [];
-        
-
 
         belastningYtaMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = belastningYtaMapLayer.getFeature(id);
-            //console.log(feature);
-            //console.log(feature.feature.properties.lopnummer);
-            //console.log(feature.feature.properties);
-            //belastningYtaTabel.push(feature.feature.properties);
-            //belastningYtaTabel = feature.feature.properties;
-
+            console.log(feature);
+            console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -555,12 +428,6 @@
                 })
             }).addTo(map);
             belsatningYtaLabels[id] = label;
-
-            //---------------- skapar tabellen----------------------
-            properties = feature.feature.properties;
-            addToTabell(properties, "Belastning", "Y");
-            sortTables();
-
         });
 
         belastningYtaMapLayer.on('addfeature', function (e) {
@@ -568,7 +435,6 @@
             if (label) {
                 label.addTo(map);
             }
-
         });
 
         belastningYtaMapLayer.on('removefeature', function (e) {
@@ -576,17 +442,14 @@
             if (label) {
                 map.removeLayer(label);
             }
-            //deleteRow("Belastning_Y_tabellrad");
-            
         });
-
 
 
         //----------------belastning Linje----------------
         var belastningLinjeMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/5',
             where: "OverlatelseID = " + overlatelseID,
-            style: belastningMapStyleLine(this),
+            style: belastningMapStyle(this),
 
         });//.addTo(map);
 
@@ -595,8 +458,8 @@
         belastningLinjeMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = belastningLinjeMapLayer.getFeature(id);
-            //console.log(feature);
-            //console.log(feature.feature.properties.lopnummer);
+            console.log(feature);
+            console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -606,11 +469,6 @@
                 })
             }).addTo(map);
             belsatningYtaLabels[id] = label;
-
-            //---------------- skapar tabellen----------------------
-            properties = feature.feature.properties;
-            addToTabell(properties, "Belastning", "L");
-            sortTables();
         });
 
         belastningLinjeMapLayer.on('addfeature', function (e) {
@@ -618,12 +476,6 @@
             if (label) {
                 label.addTo(map);
             }
-            //---------------- skapar tabellen----------------------
-            //var id = e.feature.id;
-            //var feature = belastningYtaMapLayer.getFeature(id);
-            //properties = feature.feature.properties;
-            //addToTabell(properties, "Belastning", "L");
-            //sortTables();
         });
 
         belastningLinjeMapLayer.on('removefeature', function (e) {
@@ -631,13 +483,12 @@
             if (label) {
                 map.removeLayer(label);
             }
-            //deleteRow("Belastning_tabellrad");
         });
 
         //---------------------------------- tomt ------------------------------------
 
 
-        //---------------------------------- tomt Punkt ------------------------------------
+
         var tomtPunktMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/0',
             where: "OverlatelseID = " + overlatelseID,
@@ -656,18 +507,6 @@
             },
         });//.addTo(map);
 
-        //---------------- skapar tabellen----------------------
-        tomtPunktMapLayer.on('createfeature', function (e) {
-            var id = e.feature.id;
-            var feature = tomtPunktMapLayer.getFeature(id);
-            
-            properties = feature.feature.properties;
-            addToTabell(properties, "Tomt", "P");
-            sortTables();
-
-        });
-
-        //---------------------------------- tomt yta ------------------------------------
         var tomtYtaMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/6',
             where: "OverlatelseID = " + overlatelseID,
@@ -680,8 +519,8 @@
         tomtYtaMapLayer.on('createfeature', function (e) {
             var id = e.feature.id;
             var feature = tomtYtaMapLayer.getFeature(id);
-            //console.log(feature);
-            //console.log(feature.feature.properties.lopnummer);
+            console.log(feature);
+            console.log(feature.feature.properties.lopnummer);
             var center = feature.getBounds().getCenter();
             var label = L.marker(center, {
                 icon: L.divIcon({
@@ -691,12 +530,6 @@
                 })
             }).addTo(map);
             tomtYtaLabels[id] = label;
-
-            //---------------- skapar tabellen----------------------
-            properties = feature.feature.properties;
-            addToTabell(properties, "Tomt", "Y");
-            sortTables();
-
         });
 
         tomtYtaMapLayer.on('addfeature', function (e) {
@@ -708,52 +541,6 @@
 
         tomtYtaMapLayer.on('removefeature', function (e) {
             var label = tomtYtaLabels[e.feature.id];
-            if (label) {
-                map.removeLayer(label);
-            }
-        });
-
-        //---------------------------------- jakt yta ------------------------------------
-        var jaktYtaMapLayer = L.esri.featureLayer({
-            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/11',
-            where: "OverlatelseID = " + overlatelseID,
-            style: jaktMapStyle(this),
-            pane: 'tomt',
-        });//.addTo(map);
-
-        var jaktYtaLabels = {};
-
-        jaktYtaMapLayer.on('createfeature', function (e) {
-            var id = e.feature.id;
-            var feature = jaktYtaMapLayer.getFeature(id);
-            //console.log(feature);
-            //console.log(feature.feature.properties.lopnummer);
-            var center = feature.getBounds().getCenter();
-            var label = L.marker(center, {
-                icon: L.divIcon({
-                    iconSize: null,
-                    className: 'map-marker marker-color-tomt-yl',
-                    html: '<div>' + feature.feature.properties.lopnummer + '</div>'
-                })
-            }).addTo(map);
-            jaktYtaLabels[id] = label;
-
-            //---------------- skapar tabellen----------------------
-            properties = feature.feature.properties;
-            addToTabellUppl(properties, "Jakt", "Y");
-            sortTables();
-
-        });
-
-        jaktYtaMapLayer.on('addfeature', function (e) {
-            var label = jaktYtaLabels[e.feature.id];
-            if (label) {
-                label.addTo(map);
-            }
-        });
-
-        jaktYtaMapLayer.on('removefeature', function (e) {
-            var label = jaktYtaLabels[e.feature.id];
             if (label) {
                 map.removeLayer(label);
             }
@@ -776,20 +563,16 @@
             map.fitBounds(bounds);
         });
 
-
-
         //----------------------------------------- Skapar lagergrupper ------------------------
         var ortoLayerGroup = L.layerGroup([wmsOrtoLayer]);//.addTo(map);
 
         var avdLayerGroup = L.layerGroup([agoslagMapLayer]);//.addTo(map);
-        var fastgransLayerGroup = L.layerGroup([fastighetYtaMapLayer]);
+        var fastgransLayerGroup = L.layerGroup([wmsFstLayer, fastighetYtaMapLayer]);
         var tomtLayerGroup = L.layerGroup([tomtPunktMapLayer, tomtYtaMapLayer]);//.addTo(map);
         var belastningLayerGroup = L.layerGroup([belastningYtaMapLayer, belastingPunktMapLayer, belastningLinjeMapLayer]);//.addTo(map);
         var overlatelseLayerGroup = L.layerGroup([overlatelseMapLayer]).addTo(map);
         var rattighetLayerGroup = L.layerGroup([rattighetPunktMapLayer, ratighetLinjeMapLayer, rattighetYtaMapLayer]);//.addTo(map);
         var byggnadLayerGroup = L.layerGroup([byggnadPunktMapLayer]);//.addTo(map);
-        var jaktLayerGroup = L.layerGroup([jaktYtaMapLayer]);//.addTo(map);
-        var wmsFstLayerGroup = L.layerGroup([wmsFstLayer]);
 
         var overlayMaps = {
             "Överltelse": overlatelseLayerGroup,
@@ -797,10 +580,8 @@
             "Fastighetsgräns": fastgransLayerGroup,
             "Belastningar": belastningLayerGroup,
             "Rättighet": rattighetLayerGroup,
-            "Jaktupplåtelse": jaktLayerGroup,
             "Tomt": tomtLayerGroup,
             "Byggnad": byggnadLayerGroup,
-            "Fastighet-Metria":wmsFstLayerGroup,
 
         };
 
@@ -808,8 +589,7 @@
         var baseMaps = {
             "Open Street Map": osm,
             "Bakgrund": wmsMetriaBakgrundLayer,
-            "Orto": wmsOrtoLayer,
-            
+            "Orto": wmsOrtoLayer
         };
 
         L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -823,47 +603,16 @@
         var popup = L.popup();
         function onMapClick(e) {
             var swerefproj = "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
-            console.log(e);
             var swerefcoords = proj4(swerefproj, [e.latlng.lng, e.latlng.lat]);
-            //console.log(swerefcoords);
-            //console.log(e.latlng);
-            //console.log(swerefcoords[1]);
+            console.log(swerefcoords);
+            console.log(e.latlng);
+            console.log(swerefcoords[1]);
             popup
                 .setLatLng(e.latlng)
-                .setContent("E: " + swerefcoords[0].toString().substring(0, 6) + '<br/>' + "N: " + swerefcoords[1].toString().substring(0, 7))
+                .setContent("X: " + swerefcoords[0].toString().substring(0, 6) + '<br/>' + "Y: " + swerefcoords[1].toString().substring(0, 6))
                 .openOn(map);
         };
         map.on('click', onMapClick);
-
-        //----------------------- Bounding box koordinater ---------------------------
-        //var popup2 = L.popup();
-        function boundingBoxCoordinat(e) {
-            var swerefproj = "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
-            console.log(e);
-            var bounds = map.getBounds();
-            console.log(bounds);
-            var northEastSwerefcoords = proj4(swerefproj, [bounds._northEast.lng, bounds._northEast.lat]);
-            var southWestSwerefcoords = proj4(swerefproj, [bounds._southWest.lng, bounds._southWest.lat]);
-            console.log(northEastSwerefcoords);
-            console.log(southWestSwerefcoords);
-            document.getElementById('northWest').innerHTML = "E:" + southWestSwerefcoords[0].toString().substring(0, 6) + " N:" + northEastSwerefcoords[1].toString().substring(0, 7);
-            document.getElementById('northEast').innerHTML = "E:" + northEastSwerefcoords[0].toString().substring(0, 6) + " N:" + northEastSwerefcoords[1].toString().substring(0, 7);
-            document.getElementById('southWest').innerHTML = "E:" + southWestSwerefcoords[0].toString().substring(0, 6) + " N:" + southWestSwerefcoords[1].toString().substring(0, 7);
-            document.getElementById('southEast').innerHTML = "E:" + northEastSwerefcoords[0].toString().substring(0, 6) + " N:" + southWestSwerefcoords[1].toString().substring(0, 7);
-        //    //console.log(e.latlng);
-        //    //console.log(swerefcoords[1]);
-        //    popup2
-        //        .setLatLng(e.latlng)
-        //        .setContent("X: " + swerefcoords[0].toString().substring(0, 6) + '<br/>' + "Y: " + swerefcoords[1].toString().substring(0, 6))
-        //        .openOn(map);
-        };
-        map.on('moveend', boundingBoxCoordinat);
-
-       // map.on('moveend', function() { 
-       //                 var bounds = map.getBounds();
-       //     console.log(bounds);
-       //     alert(map.getBounds());
-       // });
 
         //------------------------------Funktioner för att sätta mapstyle för olika lager-------------------------
         function fastighetMapStyle(feature, fillcolor) {
@@ -884,8 +633,8 @@
                 fillColor: null,
                 weight: 5,
                 opacity: 1,
-                color: 'red',
-                //dashArray: 10,
+                color: 'purple',
+                dashArray: 10,
                 fillOpacity: 0.0
             }
         }
@@ -920,30 +669,11 @@
             return {
 
                 fillColor: '#e69900',
-                //fillColor: 'white',
-                weight: 3,
-                opacity: 1,
-                //color: '#e69900',
-                color: 'white',
-                dashArray: "20, 10, 10, 10",
-                //dashArray: "5, 20, 5, 10",
-                fillOpacity: 0.5
-            }
-        }
-
-        function belastningMapStyleLine(feature, fillcolor) {
-            //console.log('hej')
-            return {
-
-                //fillColor: '#e69900',
-                //fillColor: 'white',
                 weight: 3,
                 opacity: 1,
                 color: '#e69900',
-                //color: 'white',
-                dashArray: "20, 10, 10, 10",
-                //dashArray: "5, 20, 5, 10",
-                fillOpacity: 0.8
+                dashArray: 3,
+                fillOpacity: 0.5
             }
         }
 
@@ -958,18 +688,6 @@
                 fillOpacity: 0.5
             }
         }
-
-        function jaktMapStyle(feature, fillcolor) {
-            //console.log('hej')
-            return {
-                fillColor: '#990099',
-                weight: 3,
-                opacity: 1,
-                color: '#734c00',
-                dashArray: 3,
-                fillOpacity: 0.5
-            }
-        }        
 
         //-------------------- olika ikoner -------------------------------------
         var tomtIcon = L.icon({
@@ -993,134 +711,6 @@
             }
             return (false);
         }
-
-        //----- en funktion för att skapa tabell------
-        function addToTabell(properties, lager, ylp) {
-            var Data = '';
-            Data += '<tr id="' + lager + '_' + ylp +'_tabellrad">';
-            Data += '<td>' + properties.lopnummer + '</td>';
-            Data += '<td>' + lager + '</td>';
-            Data += '<td>' + properties.Benamning + '</td>';
-            Data += '<td>' + ylp + '</td>';
-            Data += '</tr>';
-            console.log(Data);
-            $('#Tabell').append(Data);
-        }
-
-        //----- en funktion för att skapa tabell upplåtelse------
-        function addToTabellUppl(properties, lager, ylp) {
-            var Data = '';
-            Data += '<tr id="' + lager + '_' + ylp +'_tabellrad">';
-            Data += '<td>' + properties.lopnummer + '</td>';
-            Data += '<td>' + lager + '</td>';
-            Data += '<td>' + properties.OBJ_NAMN + ' : ' + properties.JAKTKLASS_NAMN + ' : ' + properties.OBJEKT_STATUS_NAMN + '</td>';
-            Data += '<td>' + ylp + '</td>';
-            Data += '</tr>';
-            console.log(Data);
-            $('#Tabell').append(Data);
-        }
-
-        //-------------- tabort rader-------------------------------
-        function deleteRow(rowid)  
-            {   
-                var row = document.getElementById(rowid);
-                row.parentElement.removeChild(row);
-            }
-
-        //----------------------------- sortera tabell -----------------------------------------------------
-        function sortTables() {
-            sortTableLopnummer("Tabell");
-        }
-
-        function sortTableLopnummer(tabellNamn) {
-            var table, rows, switching, i, x, y, shouldSwitch;
-            table = document.getElementById(tabellNamn);
-            switching = true;
-            /*Make a loop that will continue until
-            no switching has been done:*/
-            while (switching) {
-                //start by saying: no switching is done:
-                switching = false;
-                rows = table.rows;
-                /*Loop through all table rows (except the
-                first, which contains table headers):*/
-                for (i = 1; i < (rows.length - 1); i++) {
-                //start by saying there should be no switching:
-                shouldSwitch = false;
-                /*Get the two elements you want to compare,
-                one from current row and one from the next:*/
-                x = rows[i].getElementsByTagName("td")[0];
-                y = rows[i + 1].getElementsByTagName("td")[0];
-                //check if the two rows should switch place:
-                if (Number(x.innerHTML) > Number(y.innerHTML)) {
-                    //if so, mark as a switch and break the loop:
-                    shouldSwitch = true;
-                    break;
-                }
-                }
-                if (shouldSwitch) {
-                /*If a switch has been marked, make the switch
-                and mark that a switch has been done:*/
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-                }
-            }
-            }
-
-            function sortTable(n, tabellNamn) {
-                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-                table = document.getElementById("Tabell");
-                switching = true;
-                // Set the sorting direction to ascending:
-                dir = "asc"; 
-                /* Make a loop that will continue until
-                no switching has been done: */
-                while (switching) {
-                    // Start by saying: no switching is done:
-                    switching = false;
-                    rows = table.rows;
-                    /* Loop through all table rows (except the
-                    first, which contains table headers): */
-                    for (i = 1; i < (rows.length - 1); i++) {
-                    // Start by saying there should be no switching:
-                    shouldSwitch = false;
-                    /* Get the two elements you want to compare,
-                    one from current row and one from the next: */
-                    x = rows[i].getElementsByTagName("TD")[n];
-                    y = rows[i + 1].getElementsByTagName("TD")[n];
-                    /* Check if the two rows should switch place,
-                    based on the direction, asc or desc: */
-                    if (dir == "asc") {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                        // If so, mark as a switch and break the loop:
-                        shouldSwitch = true;
-                        break;
-                        }
-                    } else if (dir == "desc") {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                        // If so, mark as a switch and break the loop:
-                        shouldSwitch = true;
-                        break;
-                        }
-                    }
-                    }
-                    if (shouldSwitch) {
-                    /* If a switch has been marked, make the switch
-                    and mark that a switch has been done: */
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    // Each time a switch is done, increase this count by 1:
-                    switchcount ++; 
-                    } else {
-                    /* If no switching has been done AND the direction is "asc",
-                    set the direction to "desc" and run the while loop again. */
-                    if (switchcount == 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
-                    }
-                }
-                }
     </script>
 </body>
 
