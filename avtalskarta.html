@@ -102,6 +102,15 @@
             background: white;
             color: #00c5ff;
         }
+
+        .map-marker.marker-color-fastighet {
+            background: #000000;
+        } 
+
+        .map-marker.marker-color-fastighet-yl {
+            background: white;
+            color: #000000;
+        }        
     </style>
 </head>
 
@@ -186,10 +195,13 @@
                         
                             <table class="table-striped table-bordered" id="Tabell">
                                 <tr>
-                                    <th onclick="sortTable(0, Tabell)">Löpnummer</th>
+                                    <th onclick="sortTable(0, Tabell)">Nr</th>
                                     <th onclick="sortTable(1, Tabell)">Lager</th>
                                     <th onclick="sortTable(2, Tabell)">Benämning</th>
                                     <th onclick="sortTable(3, Tabell)">YLP</th>
+                                    <th onclick="sortTable(4, Tabell)">N</th>
+                                    <th onclick="sortTable(5, Tabell)">E</th>
+                                    <th onclick="sortTable(6, Tabell)">Ant.</th>
                                 </tr>
 
                             </table>
@@ -214,7 +226,35 @@
 
         //var overlatelseID = 142401;
         var overlatelseID = getQueryVariable("id");
+        
+        //---------------- skapar lista på alla berörda objekt ------------------
+        var objlistUrl = "https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/12/query?where=OVERLATELSEID=" + overlatelseID + "&f=json&outFields=OVERLATELSEID,STATUS,BENAMNING,TYP,KATEGORI,ANDAMALKATEGORI,BESKRIVNING,LOPNUMMER,N,E,LAGER,YLP"
 
+        $(document).ready(function() {
+            $.ajax({
+                url: objlistUrl,
+            }).then(function(data) {
+               //$('.greeting-id').append(data.id);
+               //$('.greeting-content').append(data.content);
+               console.log(data.displayFieldName);
+               console.log(data.geometryType);
+               var attrObjekt =[];
+               attrObjekt = JSON.parse(data);
+               console.log(attrObjekt);
+               console.log(attrObjekt.features);
+               attrObjektList = attrObjekt.features;
+               console.log(attrObjektList);
+               var Data = '';
+                var i;
+                for (i = 0; i < attrObjektList.length; i++) { 
+                    Data = attrObjektList[i].attributes;
+                    addToTabell(Data); 
+                }
+                console.log(Data);
+            });
+        });
+
+        //------- Sätter projektion till sweref99 TM ----------------------------
         var crs = new L.Proj.CRS('EPSG:3006',
             '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
             {
@@ -231,6 +271,7 @@
 
         map.setView([62.0, 15.0], 2);
 
+        //------- ritordning i kartan så att objekten inte hamnar i fel ordning-------------------------------
         map.createPane('overlatelse');
         map.getPane('overlatelse').style.zIndex = 490;
         map.createPane('tomt');
@@ -268,7 +309,7 @@
             format: 'image/png'
         });//.addTo(map);
 
-        //----------------Fastighet från analysen----------------
+//----------------Fastighet från analysen----------------
         var fastighetYtaMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/9',
             where: "OverlatelseID = " + overlatelseID,
@@ -276,61 +317,11 @@
 
         });//.addTo(map);
 
-        var fastighetYtaLabels = {};
-
-        fastighetYtaMapLayer.on('createfeature', function (e) {
-            var id = e.feature.id;
-            var feature = fastighetYtaMapLayer.getFeature(id);
-            //console.log(feature);
-            //console.log(feature.feature.properties.lopnummer);
-            var center = feature.getBounds().getCenter();
-            var label = L.marker(center, {
-                icon: L.divIcon({
-                    iconSize: null,
-                    //position: 'relative',
-                    //left: '-50%',
-                    className: 'map-marker marker-color-fastighet-yl',
-                    html: '<div>' + feature.feature.properties.lopnummer + '</div>'
-                })
-            }).addTo(map);
-            fastighetYtaLabels[id] = label;
-        });
-
-        fastighetYtaMapLayer.on('addfeature', function (e) {
-            var label = fastighetYtaLabels[e.feature.id];
-            if (label) {
-                label.addTo(map);
-            }
-        });
-
-        fastighetYtaMapLayer.on('removefeature', function (e) {
-            var label = fastighetYtaLabels[e.feature.id];
-            if (label) {
-                map.removeLayer(label);
-            }
-        });
-
-        //---------------------------------- Överlåtelsen ------------------------------------
-        var overlatelseMapLayer = L.esri.featureLayer({
-            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/8',
-            where: "OverlatelseID = " + overlatelseID,
-            style: overlatelseMapStyle(this),
-            pane: 'overlatelse',
-        }).addTo(map);
-
-
-        // ------------------------- Avdelning -----------------------------
-        var agoslagMapLayer = L.esri.featureLayer({
-            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljningAvd/MapServer/1',
-            where: "OverlatelseID = " + overlatelseID,
-            style: agoslagMapStyle(this),
-        });//.addTo(map);
-
-        //---------------------------------- Lable lager ------------------------------------
-        //----------------Lable Punkt-------------
-        var lableMapLayer = L.esri.featureLayer({
+        //----------------Lable Fastighet-------------
+        var fastLableMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/12',
-            where: "OverlatelseID = " + overlatelseID,
+            where: "OverlatelseID = " + overlatelseID + "and Lager='Fa'",
+            //style: fastighetMapStyle(this),
             pointToLayer: function (geojson, latlng) {
                 //console.log(latlng);
                 //console.log(geojson);
@@ -339,38 +330,32 @@
                 return L.marker(latlng, {
                     icon: L.divIcon({
                         iconSize: null,
-                        className: 'map-marker marker-color-belastning',
+                        className: 'map-marker marker-color-fastighet-yl',
                         html: '<div>' + label + '</div>'
                         
                     })
                 })
             },
-            
-
-
         });//.addTo(map);
 
-        var queryAll = L.esri.query({
-            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/12'
-        });
 
-        console.log(queryAll);
+//---------------------------------- Överlåtelsen ------------------------------------
+        var overlatelseMapLayer = L.esri.featureLayer({
+            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/8',
+            where: "OverlatelseID = " + overlatelseID,
+            style: overlatelseMapStyle(this),
+            pane: 'overlatelse',
+        }).addTo(map);
 
-        //---------------- skapar tabellen----------------------
-        lableMapLayer.on('createfeature', function (e) {
-            var id = e.feature.id;
-            var feature = lableMapLayer.getFeature(id);
-            console.log(feature);
-            
-            properties = feature.feature.properties;
-            addToTabell(properties, "lable", "P");
-            sortTables();
 
-        });
+// ------------------------- Avdelning -----------------------------
+        var agoslagMapLayer = L.esri.featureLayer({
+            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljningAvd/MapServer/1',
+            where: "OverlatelseID = " + overlatelseID,
+            style: agoslagMapStyle(this),
+        });//.addTo(map);
 
-       console.log(lableMapLayer)
-
-        //---------------------------------- rättighet ------------------------------------
+//---------------------------------- rättighet ------------------------------------
         //----------------rättighet Punkt-------------
         var rattighetPunktMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/1',
@@ -407,8 +392,29 @@
 
         });//.addTo(map);
 
+        //----------------Lable rättighet-------------
+        var rattighetLableMapLayer = L.esri.featureLayer({
+            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/12',
+            where: "OverlatelseID = " + overlatelseID + "and Lager='Ra'" + "and ylp not like 'P'",
+            //style: fastighetMapStyle(this),
+            pointToLayer: function (geojson, latlng) {
+                //console.log(latlng);
+                //console.log(geojson);
+                //console.log(geojson.properties);
+                label = String(geojson.properties.lopnummer)
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        iconSize: null,
+                        className: 'map-marker marker-color-rattighet-yl',
+                        html: '<div>' + label + '</div>'
+                        
+                    })
+                })
+            },
+        });//.addTo(map);
 
-        //---------------------------------- byggnad ------------------------------------
+
+//---------------------------------- byggnad ------------------------------------
         //----------------byggnad Punkt-------------
         var byggnadPunktMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/2',
@@ -428,7 +434,7 @@
             },
         });//.addTo(map);
 
-        //---------------------------------- belastning ------------------------------------
+//---------------------------------- belastning ------------------------------------
         //----------------belastning Punkt-------------
         var belastingPunktMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/3',
@@ -466,10 +472,29 @@
 
         });//.addTo(map);
 
+        //----------------Lable belastning-------------
+        var belastningLableMapLayer = L.esri.featureLayer({
+            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/12',
+            where: "OverlatelseID = " + overlatelseID + "and Lager='Be'" + "and ylp not like 'P'",
+            //style: fastighetMapStyle(this),
+            pointToLayer: function (geojson, latlng) {
+                //console.log(latlng);
+                //console.log(geojson);
+                //console.log(geojson.properties);
+                label = String(geojson.properties.lopnummer)
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        iconSize: null,
+                        className: 'map-marker marker-color-belastning-yl',
+                        html: '<div>' + label + '</div>'
+                        
+                    })
+                })
+            },
+        });//.addTo(map);
 
-        //---------------------------------- tomt ------------------------------------
 
-
+//---------------------------------- tomt ------------------------------------
         //---------------------------------- tomt Punkt ------------------------------------
         var tomtPunktMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/0',
@@ -497,8 +522,29 @@
             pane: 'tomt',
         });//.addTo(map);
 
+        //----------------Lable tomt-------------
+        var tomtLableMapLayer = L.esri.featureLayer({
+            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/12',
+            where: "OverlatelseID = " + overlatelseID + "and Lager='To'" + "and ylp not like 'P'",
+            //style: fastighetMapStyle(this),
+            pointToLayer: function (geojson, latlng) {
+                //console.log(latlng);
+                //console.log(geojson);
+                //console.log(geojson.properties);
+                label = String(geojson.properties.lopnummer)
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        iconSize: null,
+                        className: 'map-marker marker-color-tomt-yl',
+                        html: '<div>' + label + '</div>'
+                        
+                    })
+                })
+            },
+        });//.addTo(map);
 
-        //---------------------------------- jakt yta ------------------------------------
+
+//---------------------------------- jakt yta ------------------------------------
         var jaktYtaMapLayer = L.esri.featureLayer({
             url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/11',
             where: "OverlatelseID = " + overlatelseID,
@@ -506,21 +552,28 @@
             pane: 'tomt',
         });//.addTo(map);
 
- //       //------------------Zoomar till lable----------------
-//
- //       lableMapLayer.once("load", function (evt) {
- //           // create a new empty Leaflet bounds object
- //           var bounds = L.latLngBounds([]);
- //           // loop through the features returned by the server
- //           lableMapLayer.eachFeature(function (layer) {
- //               // get the bounds of an individual feature
- //               var layerBounds = layer.getBounds();
- //               // extend the bounds of the collection to fit the bounds of the new feature
- //               bounds.extend(layerBounds);
- //           });
- //           // once we've looped through all the features, zoom the map to the extent of the collection
- //           map.fitBounds(bounds);
- //       });
+        //----------------Lable uppl-------------
+        var upplLableMapLayer = L.esri.featureLayer({
+            url: 'https://karttjanstertest.sveaskog.se/agspublic/rest/services/SFS_Demo/UnderlagForForsaljning/MapServer/12',
+            where: "OverlatelseID = " + overlatelseID + "and Lager='AD'" + "and ylp not like 'P'",
+            //style: fastighetMapStyle(this),
+            pointToLayer: function (geojson, latlng) {
+                //console.log(latlng);
+                //console.log(geojson);
+                //console.log(geojson.properties);
+                label = String(geojson.properties.lopnummer)
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        iconSize: null,
+                        className: 'map-marker marker-color-tomt-yl',
+                        html: '<div>' + label + '</div>'
+                        
+                    })
+                })
+            },
+        });//.addTo(map);
+
+
 
         //------------------Zoomar till Övarlåtelsen----------------
 
@@ -544,19 +597,17 @@
         var ortoLayerGroup = L.layerGroup([wmsOrtoLayer]);//.addTo(map);
 
         var avdLayerGroup = L.layerGroup([agoslagMapLayer]);//.addTo(map);
-        var lableLayerGroup = L.layerGroup([lableMapLayer]).addTo(map);
-        var fastgransLayerGroup = L.layerGroup([fastighetYtaMapLayer]);
-        var tomtLayerGroup = L.layerGroup([tomtPunktMapLayer, tomtYtaMapLayer]);//.addTo(map);
-        var belastningLayerGroup = L.layerGroup([belastningYtaMapLayer, belastingPunktMapLayer, belastningLinjeMapLayer]);//.addTo(map);
+        var fastgransLayerGroup = L.layerGroup([fastighetYtaMapLayer, fastLableMapLayer]);
+        var tomtLayerGroup = L.layerGroup([tomtPunktMapLayer, tomtYtaMapLayer, tomtLableMapLayer]);//.addTo(map);
+        var belastningLayerGroup = L.layerGroup([belastningYtaMapLayer, belastingPunktMapLayer, belastningLinjeMapLayer, belastningLableMapLayer]);//.addTo(map);
         var overlatelseLayerGroup = L.layerGroup([overlatelseMapLayer]).addTo(map);
-        var rattighetLayerGroup = L.layerGroup([rattighetPunktMapLayer, ratighetLinjeMapLayer, rattighetYtaMapLayer]);//.addTo(map);
+        var rattighetLayerGroup = L.layerGroup([rattighetPunktMapLayer, ratighetLinjeMapLayer, rattighetYtaMapLayer, rattighetLableMapLayer]);//.addTo(map);
         var byggnadLayerGroup = L.layerGroup([byggnadPunktMapLayer]);//.addTo(map);
-        var jaktLayerGroup = L.layerGroup([jaktYtaMapLayer]);//.addTo(map);
+        var jaktLayerGroup = L.layerGroup([jaktYtaMapLayer, upplLableMapLayer]);//.addTo(map);
         var wmsFstLayerGroup = L.layerGroup([wmsFstLayer]);
 
         var overlayMaps = {
             "Överltelse": overlatelseLayerGroup,
-            "Etiketter": lableLayerGroup,
             "Avdelningar": avdLayerGroup,
             "Fastighetsgräns": fastgransLayerGroup,
             "Belastningar": belastningLayerGroup,
@@ -600,7 +651,6 @@
         map.on('click', onMapClick);
 
         //----------------------- Bounding box koordinater ---------------------------
-        //var popup2 = L.popup();
         function boundingBoxCoordinat(e) {
             var swerefproj = "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
             console.log(e);
@@ -614,24 +664,13 @@
             document.getElementById('northEast').innerHTML = "E:" + northEastSwerefcoords[0].toString().substring(0, 6) + " N:" + northEastSwerefcoords[1].toString().substring(0, 7);
             document.getElementById('southWest').innerHTML = "E:" + southWestSwerefcoords[0].toString().substring(0, 6) + " N:" + southWestSwerefcoords[1].toString().substring(0, 7);
             document.getElementById('southEast').innerHTML = "E:" + northEastSwerefcoords[0].toString().substring(0, 6) + " N:" + southWestSwerefcoords[1].toString().substring(0, 7);
-        //    //console.log(e.latlng);
-        //    //console.log(swerefcoords[1]);
-        //    popup2
-        //        .setLatLng(e.latlng)
-        //        .setContent("X: " + swerefcoords[0].toString().substring(0, 6) + '<br/>' + "Y: " + swerefcoords[1].toString().substring(0, 6))
-        //        .openOn(map);
         };
         map.on('moveend', boundingBoxCoordinat);
 
-       // map.on('moveend', function() { 
-       //                 var bounds = map.getBounds();
-       //     console.log(bounds);
-       //     alert(map.getBounds());
-       // });
 
         //------------------------------Funktioner för att sätta mapstyle för olika lager-------------------------
         function fastighetMapStyle(feature, fillcolor) {
-            //console.log('hej')
+            
             return {
                 fillColor: null,
                 weight: 3,
@@ -643,7 +682,7 @@
         }
 
         function overlatelseMapStyle(feature, fillcolor) {
-            //console.log('hej')
+            
             return {
                 fillColor: null,
                 weight: 5,
@@ -655,7 +694,7 @@
         }
 
         function agoslagMapStyle(feature, fillcolor) {
-            //console.log('hej')
+            
             return {
                 fillColor: null,
                 weight: 1,
@@ -667,7 +706,7 @@
         }
 
         function rattighetMapStyle(feature, fillcolor) {
-            //console.log('hej')
+            
             return {
 
                 fillColor: '#00c5ff',
@@ -680,7 +719,7 @@
         }
 
         function belastningMapStyle(feature, fillcolor) {
-            //console.log('hej')
+            
             return {
 
                 fillColor: '#e69900',
@@ -696,9 +735,8 @@
         }
 
         function belastningMapStyleLine(feature, fillcolor) {
-            //console.log('hej')
+            
             return {
-
                 //fillColor: '#e69900',
                 //fillColor: 'white',
                 weight: 3,
@@ -712,7 +750,7 @@
         }
 
         function tomtMapStyle(feature, fillcolor) {
-            //console.log('hej')
+            
             return {
                 fillColor: '#734c00',
                 weight: 3,
@@ -724,7 +762,7 @@
         }
 
         function jaktMapStyle(feature, fillcolor) {
-            //console.log('hej')
+            
             return {
                 fillColor: '#990099',
                 weight: 3,
@@ -759,13 +797,29 @@
         }
 
         //----- en funktion för att skapa tabell------
-        function addToTabell(properties, lager, ylp) {
+      //  function addToTabell(properties, lager, ylp) {
+      //      var Data = '';
+      //      Data += '<tr id="' + lager + '_' + ylp +'_tabellrad">';
+      //      Data += '<td>' + properties.lopnummer + '</td>';
+      //      Data += '<td>' + lager + '</td>';
+      //      Data += '<td>' + properties.Benamning + '</td>';
+      //      Data += '<td>' + ylp + '</td>';
+      //      Data += '</tr>';
+      //      console.log(Data);
+      //      $('#Tabell').append(Data);
+      //  }
+//
+        //----- en funktion för att skapa tabell------
+        function addToTabell(properties) {
             var Data = '';
-            Data += '<tr id="' + lager + '_' + ylp +'_tabellrad">';
+            Data += '<tr id="' + properties.Lager + '_' + properties.ylp +'_tabellrad">';
             Data += '<td>' + properties.lopnummer + '</td>';
-            Data += '<td>' + lager + '</td>';
+            Data += '<td>' + properties.Lager + '</td>';
             Data += '<td>' + properties.Benamning + '</td>';
-            Data += '<td>' + ylp + '</td>';
+            Data += '<td>' + properties.ylp + '</td>';
+            Data += '<td>' + properties.N + '</td>';
+            Data += '<td>' + properties.E + '</td>';
+            Data += '<td>' + properties.Typ + " " + properties.Kategori + '</td>';
             Data += '</tr>';
             console.log(Data);
             $('#Tabell').append(Data);
