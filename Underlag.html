@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <script src="lib/FMEServer.js"></script>
+    <!--<script src="lib/FMEServer.js"></script>-->
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
@@ -452,15 +452,15 @@
 
 
         $(document).ready(function () {
-            var jsonUrl = '//sv004/R-disken/Drift/GISS-databaser/Fakta/Prod/PlanUndFastaffar/Overlatelse_142900'
-            $.getJSON(jsonUrl, function (jsondata) {
-                console.log(jsondata);
-            });
+          //  var jsonUrl = '//sv004/R-disken/Drift/GISS-databaser/Fakta/Prod/PlanUndFastaffar/Overlatelse_142900'
+          //  $.getJSON(jsonUrl, function (jsondata) {
+          //      console.log(jsondata);
+          //  });
 
 
 
 
-            $.getJSON("Data/data.json", function (data, mymap) {
+            $.getJSON("Data/data.js", function (data, mymap) {
 
 
                 //---------------Skapar tabelerna för belastning, rättighet, byggnad, tomt------------------------------------

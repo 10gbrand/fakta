@@ -191,19 +191,20 @@
                         <div class="col-12">
                             <h6 align="center">Berörda objekt</h6>
                         </div>
-                        <!--<p><button onclick="sortTables()">Sortera alla tabeller</button></p>-->
+                        <p><button onclick="sortTables()">Sortera på löpnummer</button></p>
                         
-                            <table class="table-striped table-bordered" id="Tabell">
-                                <tr>
-                                    <th onclick="sortTable(0, Tabell)">Nr</th>
-                                    <th onclick="sortTable(1, Tabell)">Lager</th>
-                                    <th onclick="sortTable(2, Tabell)">Benämning</th>
-                                    <th onclick="sortTable(3, Tabell)">YLP</th>
-                                    <th onclick="sortTable(4, Tabell)">N</th>
-                                    <th onclick="sortTable(5, Tabell)">E</th>
-                                    <th onclick="sortTable(6, Tabell)">Ant.</th>
-                                </tr>
-
+                            <table class="table table-sm table-striped table-bordered" id="Tabell" >
+                                <thead> <!--</thead>class="thead-dark">-->
+                                    <tr>
+                                        <th onclick="sortTable(0, Tabell)">Nr</th>
+                                        <th onclick="sortTable(1, Tabell)">Lager</th>
+                                        <th onclick="sortTable(2, Tabell)">Benämning</th>
+                                        <th onclick="sortTable(3, Tabell)">YLP</th>
+                                        <th onclick="sortTable(4, Tabell)">N</th>
+                                        <th onclick="sortTable(5, Tabell)">E</th>
+                                        <th onclick="sortTable(6, Tabell)">Ant.</th>
+                                    </tr>
+                                </thead>
                             </table>
                         
                     </div>
@@ -850,39 +851,74 @@
             sortTableLopnummer("Tabell");
         }
 
-        function sortTableLopnummer(tabellNamn) {
-            var table, rows, switching, i, x, y, shouldSwitch;
-            table = document.getElementById(tabellNamn);
-            switching = true;
-            /*Make a loop that will continue until
-            no switching has been done:*/
-            while (switching) {
+//        function sortTableLopnummer(tabellNamn) {
+//            var table, rows, switching, i, x, y, shouldSwitch;
+//            table = document.getElementById(tabellNamn);
+//            switching = true;
+//            /*Make a loop that will continue until
+//            no switching has been done:*/
+//            while (switching) {
+//                //start by saying: no switching is done:
+//                switching = false;
+//                rows = table.rows;
+//                /*Loop through all table rows (except the
+//                first, which contains table headers):*/
+//                for (i = 1; i < (rows.length - 1); i++) {
+//                //start by saying there should be no switching:
+//                shouldSwitch = false;
+//                /*Get the two elements you want to compare,
+//                one from current row and one from the next:*/
+//                x = rows[i].getElementsByTagName("td")[0];
+//                y = rows[i + 1].getElementsByTagName("td")[0];
+//                //check if the two rows should switch place:
+//                if (Number(x.innerHTML) > Number(y.innerHTML)) {
+//                    //if so, mark as a switch and break the loop:
+//                    shouldSwitch = true;
+//                    break;
+//                }
+//                }
+//                if (shouldSwitch) {
+//                /*If a switch has been marked, make the switch
+//                and mark that a switch has been done:*/
+//                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+//                switching = true;
+//                }
+//            }
+//            }
+
+            function sortTableLopnummer(myTable) {
+              var table, rows, switching, i, x, y, shouldSwitch;
+              table = document.getElementById(myTable);
+              switching = true;
+              /*Make a loop that will continue until
+              no switching has been done:*/
+              while (switching) {
                 //start by saying: no switching is done:
                 switching = false;
                 rows = table.rows;
                 /*Loop through all table rows (except the
                 first, which contains table headers):*/
                 for (i = 1; i < (rows.length - 1); i++) {
-                //start by saying there should be no switching:
-                shouldSwitch = false;
-                /*Get the two elements you want to compare,
-                one from current row and one from the next:*/
-                x = rows[i].getElementsByTagName("td")[0];
-                y = rows[i + 1].getElementsByTagName("td")[0];
-                //check if the two rows should switch place:
-                if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                  //start by saying there should be no switching:
+                  shouldSwitch = false;
+                  /*Get the two elements you want to compare,
+                  one from current row and one from the next:*/
+                  x = rows[i].getElementsByTagName("TD")[0];
+                  y = rows[i + 1].getElementsByTagName("TD")[0];
+                  //check if the two rows should switch place:
+                  if (Number(x.innerHTML) > Number(y.innerHTML)) {
                     //if so, mark as a switch and break the loop:
                     shouldSwitch = true;
                     break;
-                }
+                  }
                 }
                 if (shouldSwitch) {
-                /*If a switch has been marked, make the switch
-                and mark that a switch has been done:*/
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
+                  /*If a switch has been marked, make the switch
+                  and mark that a switch has been done:*/
+                  rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                  switching = true;
                 }
-            }
+              }
             }
 
             function sortTable(n, tabellNamn) {
